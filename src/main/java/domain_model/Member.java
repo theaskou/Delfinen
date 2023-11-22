@@ -62,4 +62,31 @@ public class Member {
         return isActive;
     }
 
+    public void setMemberID(int memberID) {
+        this.memberID = memberID;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setOnCompetitionTeam(boolean onCompetitionTeam) {
+        isOnCompetitionTeam = onCompetitionTeam;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
 }
