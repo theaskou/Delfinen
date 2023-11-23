@@ -1,6 +1,7 @@
 package domain_model;
 
 import java.time.LocalDate;
+import java.util.Random;
 
 public class Member {
 
@@ -14,23 +15,11 @@ public class Member {
 //TODO skrive competitor attributter
 
 
-    @Override
-    public String toString() {
-        return "Member{" +
-                "memberID=" + memberID +
-                ", name='" + name + '\'' +
-                ", birthday=" + birthday +
-                ", address='" + address + '\'' +
-                ", email='" + email + '\'' +
-                ", isOnCompetitionTeam=" + isOnCompetitionTeam +
-                ", isActive=" + isActive +
-                '}';
-    }
 
-    public Member(int memberID, String name, int year, int month, int day, String address, String email, boolean isOnCompetitionTeam, boolean isActive) {
-        this.memberID = memberID; //Random heltal
+    public Member(int memberID, String name, LocalDate birthday, String address, String email, boolean isOnCompetitionTeam, boolean isActive) {
+        this.memberID = memberID;
         this.name = name;
-        this.birthday = LocalDate.of(year, month, day);
+        this.birthday = birthday;
         this.address = address;
         this.email = email;
         this.isOnCompetitionTeam = isOnCompetitionTeam;
@@ -88,5 +77,34 @@ public class Member {
 
     public void setActive(boolean active) {
         isActive = active;
+    }
+
+    public String isOnCompetitionTeam(boolean isOnCompetitionTeam){
+        if (isOnCompetitionTeam) {
+            return "Ja";
+        } else {
+            return "Nej";
+        }
+    }
+
+    public String isActive(boolean isActive){
+        if (isActive) {
+            return "Ja";
+        } else {
+            return "Nej";
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "memberID: " + memberID +
+                ", name: " + name + '\'' +
+                ", birthday: " + birthday +
+                ", address: " + address + '\'' +
+                ", email: " + email + '\'' +
+                ", isOnCompetitionTeam: " + isOnCompetitionTeam(isOnCompetitionTeam) +
+                ", isActive: " + isActive(isActive) +
+                '}';
     }
 }
