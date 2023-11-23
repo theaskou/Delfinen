@@ -6,7 +6,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class Database {
-    private ArrayList<Member> members = new ArrayList<>();
+    private ArrayList<Member> members;
     private FileHandler fh;
     private File CSVPath;
 
