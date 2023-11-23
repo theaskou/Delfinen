@@ -8,8 +8,5 @@ public class Main {
         UserInterface ui = new UserInterface(controller);
         ui.startProgram();
 
-        Member testmember = new Member(1, "Marie Mu", 1992, 12, 17, "Mesterstien 12, 3.", "frk.langballe@gmail.com", false, true);
-        System.out.println(testmember);
-
     }
 }
