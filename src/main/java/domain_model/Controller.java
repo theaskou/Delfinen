@@ -1,14 +1,21 @@
 package domain_model;
 
+import data_source.FileHandler;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.io.File;
+
 
 public class Controller {
-
+    File CSVPath;
     private Database db;
+    private FileHandler fh;
 
     public Controller(){
-        db = new Database();
+        CSVPath = new File("memberData.csv");
+        db = new Database(CSVPath);
+        fh = new FileHandler();
     }
 
     public void createMember(int memberID, String name, LocalDate birthday, String address, String email, boolean isOnCompetitionTeam, boolean isActive){
