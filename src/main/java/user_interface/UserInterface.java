@@ -23,8 +23,9 @@ public class UserInterface {
         int userChoice;
         System.out.println("VELKOMMEN TIL DELFINEN");
         do {
-            System.out.println("Valgmuligheder: " + "/n" +
-                                "1. Opret medlem");
+            System.out.println("Valgmuligheder: " + "\n" +
+                                "1. Opret medlem" + "\n" +
+                                "2. Se liste af medlemmer" + "\n");
             while (!keyboard.hasNextInt()) {
                 String text = keyboard.next();
                 System.out.println("'" + text + "'" + " er ikke et tal. Prøv igen!");
@@ -36,7 +37,7 @@ public class UserInterface {
             case 1:
            //Skal vi lave metoder nedenunder?
                 Random random = new Random();
-                int medlemsID = random.nextInt();
+                int medlemsID = random.nextInt(9999) + 1;
 
                 System.out.println("Indtast navn: ");
                 String name = keyboard.nextLine();
@@ -74,7 +75,11 @@ public class UserInterface {
 
                 controller.createMember(medlemsID,name,birthday,address,email,isCompetitionMember,isActiveMember);
 
-                System.out.println(controller.viewMembers());
+                break;
+
+            case 2:
+                controller.printMembers();
+                break;
         }
 
         } while (userChoice != 2);
