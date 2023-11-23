@@ -1,9 +1,13 @@
 package user_interface;
 
 import domain_model.Controller;
+import domain_model.Member;
 import domain_model.Database;
 import domain_model.Member;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -19,9 +23,8 @@ public class UserInterface {
         int userChoice;
         System.out.println("VELKOMMEN TIL DELFINEN");
         do {
-            System.out.println("Valgmuligheder: " + "\n" +
-                                "1. Opret medlem" + "\n" +
-                                "2. Se liste af medlemmer");
+            System.out.println("Valgmuligheder: " + "/n" +
+                                "1. Opret medlem");
             while (!keyboard.hasNextInt()) {
                 String text = keyboard.next();
                 System.out.println("'" + text + "'" + " er ikke et tal. Prøv igen!");
@@ -31,17 +34,51 @@ public class UserInterface {
 
         switch (userChoice){
             case 1:
-            controller.createMember(1, "Marie Mu", 1992, 12, 17, "Mesterstien 12, 3.", "frk.langballe@gmail.com", false, true);
-           //Skal vi lave metoder nedenunder
-                break;
-            case 2:
-            controller.printMemberlist();
-                break;
+           //Skal vi lave metoder nedenunder?
+                Random random = new Random();
+                int medlemsID = random.nextInt();
 
+                System.out.println("Indtast navn: ");
+                String name = keyboard.nextLine();
+
+                System.out.println("Indtast fødselsdag i formatet yyyy-mm-dd: ");
+                String birthdayInput = keyboard.nextLine();
+                LocalDate birthday = LocalDate.parse(birthdayInput);
+
+                System.out.println("Indtast adresse: ");
+                String address = keyboard.nextLine();
+
+                System.out.println("Indtast email: ");
+                String email = keyboard.nextLine();
+
+                System.out.println("Er vedkommende på konkurrenceholdet? j/n: ");
+                char competetorInput = keyboard.next().charAt(0);
+                boolean isCompetitionMember = true;
+                switch (competetorInput) {
+                    case 'j' -> {
+                    }
+                    case 'n' -> isCompetitionMember = false;
+                    default -> System.out.println("Invalid input.");
+                }
+
+                System.out.println("Er vedkommende [a] aktiv eller [p] passiv medlem?: ");
+                char isActive = keyboard.next().charAt(0);
+                boolean isActiveMember = true;
+                switch (isActive) {
+                    case 'a' -> {
+                    }
+                    case 'p' -> isActiveMember = false;
+                    default -> System.out.println("Invalid input.");
+
+                }
+
+                controller.createMember(medlemsID,name,birthday,address,email,isCompetitionMember,isActiveMember);
+
+                System.out.println(controller.viewMembers());
         }
-
 
         } while (userChoice != 2);
 
     }
+
 }
