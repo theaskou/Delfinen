@@ -36,7 +36,7 @@ public class UserInterface {
             case 1:
            //Skal vi lave metoder nedenunder?
                 Random random = new Random();
-                int medlemsID = random.nextInt();
+                int medlemsID = random.nextInt(9999) + 1;
 
                 System.out.println("Indtast navn: ");
                 String name = keyboard.nextLine();

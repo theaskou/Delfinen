@@ -15,10 +15,6 @@ public class Controller {
         db.createMember(memberID,name,birthday,address,email,isOnCompetitionTeam,isActive);
     }
 
-    public ArrayList<Member> viewMembers(){
-       return db.viewMembers();
-    }
-
 
 
 }
