@@ -33,6 +33,8 @@ public class UserInterface {
         switch (userChoice){
             case 1:
            //Skal vi lave metoder nedenunder?
+                Random random = new Random();
+                int medlemsID = random.nextInt();
 
                 System.out.println("Indtast navn: ");
                 String name = keyboard.nextLine();
