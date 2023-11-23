@@ -2,6 +2,8 @@ package user_interface;
 
 import domain_model.Controller;
 import domain_model.Member;
+import domain_model.Database;
+import domain_model.Member;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
