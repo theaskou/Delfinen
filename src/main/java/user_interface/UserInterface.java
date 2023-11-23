@@ -77,7 +77,6 @@ public class UserInterface {
                 System.out.println(controller.viewMembers());
         }
 
-
         } while (userChoice != 2);
 
     }
