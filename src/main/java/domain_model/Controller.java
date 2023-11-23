@@ -15,6 +15,12 @@ public class Controller {
         db.createMember(memberID,name,birthday,address,email,isOnCompetitionTeam,isActive);
     }
 
+    public void printMembers(){
+        db.printMemberlist();
+    }
 
+    public void saveMemberData(ArrayList<Member> members) {
+        fh.saveMemberData(members, CSVPath);
+    }
 
 }
