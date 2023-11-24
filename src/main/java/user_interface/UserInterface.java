@@ -42,6 +42,7 @@ public class UserInterface {
                 System.out.println("Indtast navn: ");
                 String name = keyboard.nextLine();
 
+                
                 System.out.println("Indtast fødselsdag i formatet yyyy-mm-dd: ");
                 String birthdayInput = keyboard.nextLine();
                 LocalDate birthday = LocalDate.parse(birthdayInput);
