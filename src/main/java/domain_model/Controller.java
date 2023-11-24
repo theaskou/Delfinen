@@ -26,6 +26,18 @@ public class Controller {
         db.printMemberlist();
     }
 
+    public ArrayList<Member> printYouthTeam(){
+        return db.printYouthTeam();
+    }
+
+    public ArrayList<Member> printSeniorTeam(){
+        return db.printSeniorTeam();
+    }
+
+    public int totalSubsription(){
+        return db.totalSubscription();
+    }
+
     public void saveMemberData(ArrayList<Member> members) {
         fh.saveMemberData(members, CSVPath);
     }
