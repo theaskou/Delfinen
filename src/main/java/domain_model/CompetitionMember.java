@@ -1,6 +1,7 @@
 package domain_model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class CompetitionMember extends Member {
 
@@ -9,12 +10,20 @@ public class CompetitionMember extends Member {
     private double breaststrokeBestTrainingTime;
     private double backstrokeBestTrainingTime;
 
-    public CompetitionMember(int memberID, String name, LocalDate birthday, String address, String email, boolean isOnCompetitionTeam, boolean isActive, double crawlBestTrainingTime, double butterflyBestTrainingTime, double breaststrokeBestTrainingTime, double backstrokeBestTrainingTime){
+    private ArrayList<CompetitionMember> diciplinAndResult;
+    private ArrayList<CompetitionMember> diciplin;
+    private ArrayList<CompetitionMember> competitionAndRanking;
+
+    public CompetitionMember(int memberID, String name, LocalDate birthday, String address, String email, boolean isOnCompetitionTeam, boolean isActive, ArrayList diciplinAndResult, ArrayList diciplin, ArrayList competitionAndRanking){
         super(memberID, name, birthday, address, email, isOnCompetitionTeam, isActive);
-        this.crawlBestTrainingTime = crawlBestTrainingTime;
+        this.diciplinAndResult = diciplinAndResult;
+        this.diciplin = diciplin;
+        this.competitionAndRanking = competitionAndRanking;
+
+/*      this.crawlBestTrainingTime = crawlBestTrainingTime;
         this.butterflyBestTrainingTime = butterflyBestTrainingTime;
         this.breaststrokeBestTrainingTime = breaststrokeBestTrainingTime;
-        this.backstrokeBestTrainingTime = backstrokeBestTrainingTime;
+        this.backstrokeBestTrainingTime = backstrokeBestTrainingTime;*/
     }
 
 }

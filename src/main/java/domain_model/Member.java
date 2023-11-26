@@ -97,14 +97,13 @@ public class Member {
 
     @Override
     public String toString() {
-        return "Member{" +
-                "memberID: " + memberID +
-                ", name: " + name + '\'' +
-                ", birthday: " + birthday +
-                ", address: " + address + '\'' +
-                ", email: " + email + '\'' +
-                ", isOnCompetitionTeam: " + isOnCompetitionTeam(isOnCompetitionTeam) +
-                ", isActive: " + isActive(isActive) +
-                '}';
+        return "Medlem" +
+                "MedlemsID: " + memberID +
+                ", Navn: " + name + '\'' +
+                ", Fødselsdag: " + birthday +
+                ", Addresse: " + address + '\'' +
+                ", Email: " + email + '\'' +
+                ", Konkurrencesvømmer: " + isOnCompetitionTeam(isOnCompetitionTeam) +
+                ", Aktiv: " + isActive(isActive);
     }
 }
