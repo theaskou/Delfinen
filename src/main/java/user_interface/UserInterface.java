@@ -22,9 +22,12 @@ public class UserInterface {
                             "2. Træner" + "\n" +
                             "3. Kassér");
 
+
+        while (!keyboard.hasNextInt()){
+            wrongInputHandler();
+        }
         userChoice = keyboard.nextInt();
         keyboard.nextLine();
-       // wrongInputHandler();
 
         if (userChoice == 1) {
             //Forpersons menu
@@ -34,7 +37,9 @@ public class UserInterface {
                         "2. Se liste af medlemmer" + "\n" +
                         "3. Print ungdomshold" + "\n" +
                         "9. Afslut" + "\n");
-                //wrongInputHandler();
+                while (!keyboard.hasNextInt()){
+                    wrongInputHandler();
+                }
                 userChoice = keyboard.nextInt();
                 keyboard.nextLine();
 
@@ -58,7 +63,11 @@ public class UserInterface {
                         "1. Se top 5 lister" + "\n" +
                         "2. Registrer resultater" + "\n" +
                         "9. Afslut" + "\n");
-                //wrongInputHandler();
+                while (!keyboard.hasNextInt()){
+                    wrongInputHandler();
+                }
+                userChoice = keyboard.nextInt();
+                keyboard.nextLine();
 
                 switch (userChoice){
                     case 1:
@@ -67,7 +76,6 @@ public class UserInterface {
                     case 2:
                         // Registrer resultater. Skal det inddeles i hhv. træningsresultater og stævneresultater?
                         break;
-                    default: System.out.println("Invalid input.");
                 }
 
 
@@ -81,9 +89,11 @@ public class UserInterface {
                         "2. Medlemmer i restance" + "\n" +
                         "9. Afslut" + "\n");
 
+                while (!keyboard.hasNextInt()){
+                    wrongInputHandler();
+                }
                 userChoice = keyboard.nextInt();
                 keyboard.nextLine();
-               // wrongInputHandler();
 
                 switch (userChoice) {
                     case 1:
@@ -93,8 +103,7 @@ public class UserInterface {
                     case 2:
                         //Liste af medlemmer i restance
                         break;
-                    default:
-                        System.out.println("Invalid input.");
+
                 }
             } while (userChoice != 9);
 
@@ -174,17 +183,12 @@ public class UserInterface {
         }
 
         public void wrongInputHandler(){
-            while (!keyboard.hasNextInt()) {
                 String text = keyboard.next();
                 System.out.println("'" + text + "'" + " er ikke et tal. Prøv igen!");
-            }
-            int userChoice = keyboard.nextInt();
-            keyboard.nextLine();
         }
         //UI noter til marie :)
         //1. "9" afslut tilbage til hovedmenu (forperson osv.)
-        //2. når der trykkes 9 inde i kassér, siges invalid output.
-        //3. få wrongInputHandler til at virke....
+
 }
 
 
