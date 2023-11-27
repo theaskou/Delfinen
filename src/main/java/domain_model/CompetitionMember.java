@@ -11,10 +11,10 @@ public class CompetitionMember extends Member {
     private double backstrokeBestTrainingTime;
 
     private ArrayList<CompetitionMember> diciplinAndResult;
-    private ArrayList<CompetitionMember> diciplin;
+    private ArrayList<SvømmeDicipliner> diciplin;
     private ArrayList<CompetitionMember> competitionAndRanking;
 
-    public CompetitionMember(int memberID, String name, LocalDate birthday, String address, String email, boolean isOnCompetitionTeam, boolean isActive, ArrayList diciplinAndResult, ArrayList diciplin, ArrayList competitionAndRanking){
+    public CompetitionMember(int memberID, String name, LocalDate birthday, String address, String email, boolean isOnCompetitionTeam, boolean isActive, ArrayList diciplinAndResult, ArrayList<SvømmeDicipliner> diciplin, ArrayList competitionAndRanking){
         super(memberID, name, birthday, address, email, isOnCompetitionTeam, isActive);
         this.diciplinAndResult = diciplinAndResult;
         this.diciplin = diciplin;

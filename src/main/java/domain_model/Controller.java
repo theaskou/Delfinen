@@ -11,6 +11,7 @@ public class Controller {
     File CSVPath;
     private Database db;
     private FileHandler fh;
+    private MemberManager memberManager = new MemberManager();
 
     public Controller(){
         CSVPath = new File("memberData.csv");
@@ -40,6 +41,10 @@ public class Controller {
 
     public void saveMemberData(ArrayList<Member> members) {
         fh.saveMemberData(members, CSVPath);
+    }
+
+    public void upgradeMember(int memberID) {
+        memberManager.upgradeMembers(memberID);
     }
 
 }

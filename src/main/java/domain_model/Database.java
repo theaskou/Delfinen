@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class Database {
     private ArrayList<Member> memberlist;
+    private ArrayList<CompetitionMember> competitionMembersList;
     private FileHandler fh;
     private File CSVPath;
 

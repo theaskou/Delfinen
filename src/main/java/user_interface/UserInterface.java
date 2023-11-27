@@ -1,8 +1,12 @@
 package user_interface;
 
+import domain_model.CompetitionMember;
 import domain_model.Controller;
+import domain_model.Member;
+import domain_model.MemberManager;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -97,7 +101,7 @@ public class UserInterface {
 
                 switch (userChoice) {
                     case 1:
-                        //Forventet samlet kontingent for nuværende årc
+                        //Forventet samlet kontingent for nuværende år
                         System.out.println(controller.totalSubsription());
                         break;
                     case 2:
@@ -134,9 +138,10 @@ public class UserInterface {
                     char competetorInput = keyboard.next().charAt(0);
                     boolean isCompetitionMember = true;
                     switch (competetorInput) {
-                        case 'j' -> {
+                        case 'j' -> isCompetitionMember = true;
+                        /*{
                             resgisterDisciplin(); //TODO: Er det kun træneren der skal kunne registrere disciplin?
-                        }
+                        }*/
                         case 'n' -> isCompetitionMember = false;
                         default -> System.out.println("Invalid input.");
                     }
@@ -151,11 +156,10 @@ public class UserInterface {
                         default -> System.out.println("Invalid input.");
 
                     }
-
                     controller.createMember(medlemsID, name, birthday, address, email, isCompetitionMember, isActiveMember);
-
+                    controller.upgradeMember(medlemsID);
         }
-
+/*
         public void resgisterDisciplin() {
         //TODO: Skal kunne registrere flere discipliner
             System.out.println("Hvilken disciplin skal svømmeren registreres i?" + "\n" +
@@ -180,7 +184,7 @@ public class UserInterface {
                 default:
                     System.out.println("invalid input");
             }
-        }
+        }*/
 
         public void wrongInputHandler(){
                 String text = keyboard.next();
