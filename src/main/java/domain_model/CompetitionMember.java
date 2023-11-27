@@ -26,4 +26,36 @@ public class CompetitionMember extends Member {
         this.backstrokeBestTrainingTime = backstrokeBestTrainingTime;*/
     }
 
+    public ArrayList<CompetitionMember> getDiciplinAndResult() {
+        return diciplinAndResult;
+    }
+
+    public ArrayList<SvømmeDicipliner> getDiciplin() {
+        return diciplin;
+    }
+
+    public ArrayList<CompetitionMember> getCompetitionAndRanking() {
+        return competitionAndRanking;
+    }
+
+    @Override
+    public String toString() {
+        return "CompetitionMember{" +
+                "crawlBestTrainingTime=" + crawlBestTrainingTime +
+                ", butterflyBestTrainingTime=" + butterflyBestTrainingTime +
+                ", breaststrokeBestTrainingTime=" + breaststrokeBestTrainingTime +
+                ", backstrokeBestTrainingTime=" + backstrokeBestTrainingTime +
+                ", diciplinAndResult=" + diciplinAndResult +
+                ", diciplin=" + diciplin +
+                ", competitionAndRanking=" + competitionAndRanking +
+                '}';
+    }
+
+    /*public SvømmeDicipliner addDisciplin(int menuChoice){
+        //Butterfly
+        if (menuChoice == 1){
+            return SvømmeDicipliner.BUTTERFLY;
+        }
+    }*/
+
 }
