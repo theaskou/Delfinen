@@ -17,6 +17,7 @@ public class Controller {
         CSVPath = new File("memberData.csv");
         db = new Database(CSVPath);
         fh = new FileHandler();
+
     }
 
     public void createMember(int memberID, String name, LocalDate birthday, String address, String email, boolean isOnCompetitionTeam, boolean isActive){
