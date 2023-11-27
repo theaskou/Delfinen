@@ -12,6 +12,7 @@ public class Member {
     private String email;
     private boolean isOnCompetitionTeam;
     private boolean isActive;
+    private static int IDGenerator;
 //TODO skrive competitor attributter
 
 
@@ -85,6 +86,12 @@ public class Member {
         } else {
             return "Nej";
         }
+    }
+
+    public static int uniqueIDGenerator(){
+        int uniqueMemberID = ++IDGenerator * 1000 + new Random().nextInt(1000);
+        return uniqueMemberID;
+
     }
 
     public String isActive(boolean isActive){
