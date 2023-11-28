@@ -9,6 +9,7 @@ import java.io.PrintStream;
 import java.io.Serial;
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -19,13 +20,13 @@ public class DatabaseTest {
 
     @BeforeEach
     void setUp() {
-        testfile = new File ("src/test/java/TestMember.csv");
+        testfile = new File ("src/test/java/testMember.txt");
         ArrayList<Member> testMembers = new ArrayList<>();
 
-        Member m1 = new Member(2122,"Nikolaj", LocalDate.of(2012, Month.valueOf("September"), 13), "Aalborg", "NikoP@yahoo.com", true, true);
-        Member m2 = new Member(3132,"Marie", LocalDate.of(1877, Month.valueOf("November"), 13), "Düsseldorf", "Marie@yahoo.com", true, false);
-        Member m3 = new Member(4142,"Thea", LocalDate.of(1992, Month.valueOf("Februar"), 13), "Rio De Janiro", "Thea@yahoo.com", false, true);
-        Member m4 = new Member(5152,"Usman", LocalDate.of(2011, Month.valueOf("Juni"), 13), "Papa Ny Guinea", "Usman@yahoo.com", false, false);
+        Member m1 = new Member(2122,"Nikolaj", LocalDate.of(2012,1,24), "Aalborg", "NikoP@yahoo.com", true, true);
+        Member m2 = new Member(3132,"Marie", LocalDate.of(1965,4,30), "Düsseldorf", "Marie@yahoo.com", true, false);
+        Member m3 = new Member(4142,"Thea", LocalDate.of(1993,11,26), "Rio De Janiro", "Thea@yahoo.com", false, true);
+        Member m4 = new Member(5152,"Usman",LocalDate.of(2022,2,15), "Papa Ny Guinea", "Usman@yahoo.com", false, false);
 
         testMembers.add(m1);
         testMembers.add(m2);
@@ -46,6 +47,30 @@ public class DatabaseTest {
             throw new RuntimeException(e);
         }
         db = new Database(testfile);
+    }
+    @Test
+    void printYouthTeam(){
+        ArrayList<Member> testMembers = new ArrayList<>();
+        for (Member member: testMembers){
+            if (LocalDate.now().minusYears(18).isBefore(member.getBirthday()) && member.isOnCompetitionTeam() == true){
+                testMembers.add(member);
+            }
+        }
+    }
+
+    @Test
+    void printSeniorTeam(){
+        ArrayList<Member> testMembers = new ArrayList<>();
+        for (Member member : testMembers) {
+          if (LocalDate.now().minusYears(18).isAfter(member.getBirthday()) && member.isOnCompetitionTeam() == true);
+        }
+    }
+
+    @Test
+    void totalSubscription(){
+        ArrayList<Member> testMembers = new ArrayList<>();
+
+
     }
 
 
