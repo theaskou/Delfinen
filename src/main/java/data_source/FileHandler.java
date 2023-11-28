@@ -1,5 +1,6 @@
 package data_source;
 
+import domain_model.CompetitionMember;
 import domain_model.Member;
 
 import java.io.File;
@@ -14,7 +15,7 @@ import java.util.Scanner;
 public class FileHandler {
     private final File file = new File("memberData.csv");
 
-    public ArrayList<Member> loadMemberData(){
+    public ArrayList<Member> loadMemberData() {
         ArrayList<Member> loadData = new ArrayList<>();
         Scanner sc;
         try {
@@ -23,20 +24,36 @@ public class FileHandler {
             throw new RuntimeException(e);
         }
         Member member = null;
+        CompetitionMember competitionMember = null;
         while (sc.hasNext()) {
             String linje = sc.nextLine();
             String[] attributes = linje.split(";");
-            member = new Member(
-                    (Integer.parseInt(attributes[0])),
-                    attributes[1],
-                    (LocalDate.parse(attributes[2])),
-                    attributes[3],
-                    attributes[4],
-                    (Boolean.parseBoolean(attributes[5])),
-                    (Boolean.parseBoolean(attributes[6]))
-            );
-            loadData.add(member);
+            boolean iscompetitve = Boolean.parseBoolean(attributes[5]);
+            if (iscompetitve) {
+                competitionMember = new CompetitionMember(
+                        (Integer.parseInt(attributes[0])),
+                        attributes[1],
+                        (LocalDate.parse(attributes[2])),
+                        attributes[3],
+                        attributes[4],
+                        (Boolean.parseBoolean(attributes[5])),
+                        (Boolean.parseBoolean(attributes[6])));
+                loadData.add(competitionMember);
+            } else {
+                member = new Member(
+                        (Integer.parseInt(attributes[0])),
+                        attributes[1],
+                        (LocalDate.parse(attributes[2])),
+                        attributes[3],
+                        attributes[4],
+                        (Boolean.parseBoolean(attributes[5])),
+                        (Boolean.parseBoolean(attributes[6]))
+
+                );
+                loadData.add(member);
+            }
         }
+
         sc.close();
         return loadData;
     }
@@ -46,13 +63,13 @@ public class FileHandler {
         try (PrintStream output = new PrintStream(file)) {
             for (Member member : membersData) {
                 output.println(
-                        + member.getMemberID() + ";"
-                        + member.getName() + ";"
-                        + member.getBirthday() + ";"
-                        + member.getAddress() + ";"
-                        + member.getEmail() + ";"
-                        + member.isOnCompetitionTeam() + ";"
-                        + member.isActive()
+                        +member.getMemberID() + ";"
+                                + member.getName() + ";"
+                                + member.getBirthday() + ";"
+                                + member.getAddress() + ";"
+                                + member.getEmail() + ";"
+                                + member.isOnCompetitionTeam() + ";"
+                                + member.isActive()
                 );
             }
         } catch (FileNotFoundException e) {

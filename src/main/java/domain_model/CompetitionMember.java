@@ -5,25 +5,41 @@ import java.util.ArrayList;
 
 public class CompetitionMember extends Member {
 
-    private double crawlBestTrainingTime;
-    private double butterflyBestTrainingTime;
-    private double breaststrokeBestTrainingTime;
-    private double backstrokeBestTrainingTime;
+    private final String[] disciplines = {"Backcrawl", "Crawl", "Butterfly", "Breast Stroke"};
+    private double[] results = new double[4];
+    private LocalDate datoForResultat;
 
-    private ArrayList<CompetitionMember> diciplinAndResult;
-    private ArrayList<CompetitionMember> diciplin;
-    private ArrayList<CompetitionMember> competitionAndRanking;
 
-    public CompetitionMember(int memberID, String name, LocalDate birthday, String address, String email, boolean isOnCompetitionTeam, boolean isActive, ArrayList diciplinAndResult, ArrayList diciplin, ArrayList competitionAndRanking){
+    public CompetitionMember(int memberID, String name, LocalDate birthday,
+                             String address, String email, boolean isOnCompetitionTeam,
+                             boolean isActive) {
         super(memberID, name, birthday, address, email, isOnCompetitionTeam, isActive);
-        this.diciplinAndResult = diciplinAndResult;
-        this.diciplin = diciplin;
-        this.competitionAndRanking = competitionAndRanking;
+    }
 
-/*      this.crawlBestTrainingTime = crawlBestTrainingTime;
-        this.butterflyBestTrainingTime = butterflyBestTrainingTime;
-        this.breaststrokeBestTrainingTime = breaststrokeBestTrainingTime;
-        this.backstrokeBestTrainingTime = backstrokeBestTrainingTime;*/
+    public CompetitionMember(Member member){
+        super(member.getMemberID(), member.getName(), member.getBirthday(),
+                member.getAddress(), member.getEmail(), true,
+                member.isActive());
+    }
+
+
+
+
+    // I UI tilføj en menu med numre over discipliner
+    public void addResultToDiscipline(int discipline, double result, LocalDate dato){
+            results[discipline - 1] = result;
+            datoForResultat = dato;
+
+    }
+
+    //TODO lave dato, så den kun sætter dato på når der er tastet noget ind
+    public String showResult(){
+        String showResult = "";
+        for (int i = 0; i < results.length ; i++) {
+            showResult += disciplines[i] + " : " + results[i] + " Sekunder, " + " Dato for resultat: " + datoForResultat + "\n";
+
+        }
+        return showResult;
     }
 
 }

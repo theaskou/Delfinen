@@ -1,8 +1,10 @@
 package user_interface;
 
+import domain_model.CompetitionMember;
 import domain_model.Controller;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -74,7 +76,36 @@ public class UserInterface {
                         // Top 5 lister, først efter hold (junior/senior), og herefter i hver disciplin
                         break;
                     case 2:
+                        //TODO save til en fil
                         // Registrer resultater. Skal det inddeles i hhv. træningsresultater og stævneresultater?
+                        ArrayList<CompetitionMember> competitionMembers = controller.getCompetetionMember();
+                        int count = 1;
+                        for (CompetitionMember competitionMember : competitionMembers){
+                            System.out.println(count++ + " " + competitionMember.getName());
+                        }
+                        System.out.println("Hvilket medlem vil du give et resultat?");
+                        int memberChoice = keyboard.nextInt();
+                        keyboard.nextLine();
+                        System.out.println("""
+                                Vælg disciplin:
+                                1. Rygcrawl
+                                2. Crawl
+                                3. Butterfly
+                                4. Brystsvømning""");
+                        int disciplin = keyboard.nextInt();
+                        keyboard.nextLine();
+                        System.out.println("Indskriv resultat i sekunder");
+                        double resultat = keyboard.nextDouble();
+                        keyboard.nextLine();
+                        System.out.println("Hvilken dato blev tiden sat?");
+                        String datoInput = keyboard.nextLine();
+                        LocalDate dato = LocalDate.parse(datoInput);
+
+
+                        competitionMembers.get(memberChoice - 1).addResultToDiscipline(disciplin,resultat,dato);
+                        //controller.save();
+                        System.out.println(competitionMembers.get(memberChoice - 1).showResult());
+
                         break;
                 }
 
@@ -152,7 +183,11 @@ public class UserInterface {
 
                     }
 
-                    controller.createMember(medlemsID, name, birthday, address, email, isCompetitionMember, isActiveMember);
+                    if (isCompetitionMember == true){
+                        controller.createCompetitionMember(medlemsID, name, birthday, address, email, isCompetitionMember, isActiveMember);
+                    } else {
+                        controller.createMember(medlemsID, name, birthday, address, email, isCompetitionMember, isActiveMember);
+                    }
 
         }
 
