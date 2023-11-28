@@ -69,8 +69,24 @@ public class DatabaseTest {
     @Test
     void totalSubscription(){
         ArrayList<Member> testMembers = new ArrayList<>();
-
-
+        int subscription = 0;
+        int juniorSub = 1000;
+        int adultSub = 1600;
+        int elderSub = 1200;
+        for (Member testerMember : testMembers){
+            if (LocalDate.now().minusYears(18).isBefore(testerMember.getBirthday()) && testerMember.isActive() == true){
+                subscription += juniorSub;
+            }
+            if (LocalDate.now().minusYears(18).isAfter(testerMember.getBirthday()) && LocalDate.now().minusYears(60).isBefore(testerMember.getBirthday()) && testerMember.isActive() == true) {
+                subscription += adultSub;
+            }
+            if (LocalDate.now().minusYears(60).isAfter(testerMember.getBirthday()) && testerMember.isActive() == true){
+                subscription +=elderSub;
+            }
+            if (testerMember.isActive() == false){
+                subscription +=500;
+            }
+        }
     }
 
 
