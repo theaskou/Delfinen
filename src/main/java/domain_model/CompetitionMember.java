@@ -16,6 +16,7 @@ public class CompetitionMember extends Member {
         super(memberID, name, birthday, address, email, isOnCompetitionTeam, isActive);
     }
 
+    //TODO Kan nok godt slettes
     public CompetitionMember(Member member){
         super(member.getMemberID(), member.getName(), member.getBirthday(),
                 member.getAddress(), member.getEmail(), true,
@@ -33,12 +34,12 @@ public class CompetitionMember extends Member {
     }
 
     //TODO lave dato, så den kun sætter dato på når der er tastet noget ind
-    public String showResult(){
+    public String showResult(int i){
         String showResult = "";
-        for (int i = 0; i < results.length ; i++) {
+
             showResult += disciplines[i] + " : " + results[i] + " Sekunder, " + " Dato for resultat: " + datoForResultat + "\n";
 
-        }
+
         return showResult;
     }
 

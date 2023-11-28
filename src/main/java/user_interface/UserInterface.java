@@ -104,7 +104,7 @@ public class UserInterface {
 
                         competitionMembers.get(memberChoice - 1).addResultToDiscipline(disciplin,resultat,dato);
                         //controller.save();
-                        System.out.println(competitionMembers.get(memberChoice - 1).showResult());
+                        System.out.println(competitionMembers.get(memberChoice - 1).showResult(disciplin -1));
 
                         break;
                 }

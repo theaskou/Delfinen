@@ -10,13 +10,13 @@ import java.io.File;
 public class Controller {
     File CSVPath;
     private Database db;
-    private FileHandler fh;
+    //private FileHandler fh;
 
 
     public Controller(){
         CSVPath = new File("memberData.csv");
         db = new Database(CSVPath);
-        fh = new FileHandler();
+        //fh = new FileHandler();
 
     }
 
@@ -43,9 +43,9 @@ public class Controller {
         return db.totalSubscription();
     }
 
-    public void saveMemberData(ArrayList<Member> members) {
-        fh.saveMemberData(members, CSVPath);
-    }
+   // public void saveMemberData(ArrayList<Member> members) {
+      //  fh.saveMemberData(members, CSVPath);
+  //  }
     public void save(){
         db.save();
     }
