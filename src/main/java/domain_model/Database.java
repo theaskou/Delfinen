@@ -22,16 +22,16 @@ public class Database {
 
     }
 
-    public void createMember(int memberID, String name, LocalDate birthday, String address, String email, boolean isOnCompetitionTeam, boolean isActive) {
+    public void createMember(int memberID,String name, LocalDate birthday, String address, String email, boolean isOnCompetitionTeam, boolean isActive) {
         memberlist.add(new Member(memberID, name, birthday, address, email, isOnCompetitionTeam, isActive));
         fh.saveMemberData(memberlist, CSVPath);
 
     }
 
-    public void createCompetionMember(int memberID, String name, LocalDate birthday,
+    public void createCompetionMember(int memberID,String name, LocalDate birthday,
                                       String address, String email, boolean isOnCompetitionTeam,
                                       boolean isActive) {
-        memberlist.add(new CompetitionMember(memberID, name, birthday, address, email, isOnCompetitionTeam, isActive));
+        memberlist.add(new CompetitionMember(memberID,name, birthday, address, email, isOnCompetitionTeam, isActive));
         fh.saveMemberData(memberlist, CSVPath);
     }
 
@@ -44,6 +44,10 @@ public class Database {
 
         }
         return competitionMembers;
+    }
+
+    public ArrayList<Member> memberlist(){
+        return memberlist;
     }
 
     public ArrayList<Member> printYouthTeam() {

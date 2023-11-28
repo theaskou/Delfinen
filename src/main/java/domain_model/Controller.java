@@ -20,10 +20,10 @@ public class Controller {
 
     }
 
-    public void createMember(int memberID, String name, LocalDate birthday, String address, String email, boolean isOnCompetitionTeam, boolean isActive){
+    public void createMember(int memberID,String name, LocalDate birthday, String address, String email, boolean isOnCompetitionTeam, boolean isActive){
         db.createMember(memberID,name,birthday,address,email,isOnCompetitionTeam,isActive);
     }
-    public void createCompetitionMember(int memberID, String name, LocalDate birthday, String address, String email, boolean isOnCompetitionTeam, boolean isActive){
+    public void createCompetitionMember(int memberID,String name, LocalDate birthday, String address, String email, boolean isOnCompetitionTeam, boolean isActive){
         db.createCompetionMember(memberID,name,birthday,address,email,isOnCompetitionTeam,isActive);
     }
 
@@ -41,6 +41,10 @@ public class Controller {
 
     public int totalSubsription(){
         return db.totalSubscription();
+    }
+
+    public ArrayList<Member> membersList(){
+        return db.memberlist();
     }
 
    // public void saveMemberData(ArrayList<Member> members) {

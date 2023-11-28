@@ -5,6 +5,7 @@ import java.util.Random;
 
 public class Member {
 
+
     private int memberID; // TODO: Skal kunne tildele et random nummer selv ved oprettelse.
     private String name;
     private LocalDate birthday;
@@ -16,7 +17,7 @@ public class Member {
 
 
 
-    public Member(int memberID, String name, LocalDate birthday, String address, String email, boolean isOnCompetitionTeam, boolean isActive) {
+    public Member(int memberID , String name, LocalDate birthday, String address, String email, boolean isOnCompetitionTeam, boolean isActive) {
         this.memberID = memberID;
         this.name = name;
         this.birthday = birthday;
@@ -26,6 +27,8 @@ public class Member {
         this.isActive = isActive;
 
     }
+
+
     public int getMemberID(){
         return memberID;
     }

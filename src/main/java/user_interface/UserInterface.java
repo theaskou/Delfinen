@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class UserInterface {
     private final Controller controller;
 
-    public UserInterface(Controller controller){
+    public UserInterface(Controller controller) {
         this.controller = controller;
     }
 
@@ -19,13 +19,13 @@ public class UserInterface {
 
     public void startProgram() {
         int userChoice = 0;
-        System.out.println("VELKOMMEN TIL DELFINEN"+ "\n" +
-                            "1. Forperson" + "\n" +
-                            "2. Træner" + "\n" +
-                            "3. Kassér");
+        System.out.println("VELKOMMEN TIL DELFINEN" + "\n" +
+                "1. Forperson" + "\n" +
+                "2. Træner" + "\n" +
+                "3. Kassér");
 
 
-        while (!keyboard.hasNextInt()){
+        while (!keyboard.hasNextInt()) {
             wrongInputHandler();
         }
         userChoice = keyboard.nextInt();
@@ -39,7 +39,7 @@ public class UserInterface {
                         "2. Se liste af medlemmer" + "\n" +
                         "3. Print ungdomshold" + "\n" +
                         "9. Afslut" + "\n");
-                while (!keyboard.hasNextInt()){
+                while (!keyboard.hasNextInt()) {
                     wrongInputHandler();
                 }
                 userChoice = keyboard.nextInt();
@@ -65,13 +65,13 @@ public class UserInterface {
                         "1. Se top 5 lister" + "\n" +
                         "2. Registrer resultater" + "\n" +
                         "9. Afslut" + "\n");
-                while (!keyboard.hasNextInt()){
+                while (!keyboard.hasNextInt()) {
                     wrongInputHandler();
                 }
                 userChoice = keyboard.nextInt();
                 keyboard.nextLine();
 
-                switch (userChoice){
+                switch (userChoice) {
                     case 1:
                         // Top 5 lister, først efter hold (junior/senior), og herefter i hver disciplin
                         break;
@@ -120,7 +120,7 @@ public class UserInterface {
                         "2. Medlemmer i restance" + "\n" +
                         "9. Afslut" + "\n");
 
-                while (!keyboard.hasNextInt()){
+                while (!keyboard.hasNextInt()) {
                     wrongInputHandler();
                 }
                 userChoice = keyboard.nextInt();
@@ -141,25 +141,23 @@ public class UserInterface {
         }
     }
 
-        public void createMember(){
-            keyboard.nextLine();
+    public void createMember() {
 
-                    Random random = new Random();
-                    int medlemsID = random.nextInt(9999) + 1;
+        int medlemsID = controller.membersList().size() + 1001;
 
-                    System.out.println("Indtast navn: ");
-                    String name = keyboard.nextLine();
+        System.out.println("Indtast navn: ");
+        String name = keyboard.nextLine();
 
-                    //TODO Crash protection her
-                    System.out.println("Indtast fødselsdag i formatet yyyy-mm-dd: ");
-                    String birthdayInput = keyboard.nextLine();
-                    LocalDate birthday = LocalDate.parse(birthdayInput);
+        //TODO Crash protection her
+        System.out.println("Indtast fødselsdag i formatet yyyy-mm-dd: ");
+        String birthdayInput = keyboard.nextLine();
+        LocalDate birthday = LocalDate.parse(birthdayInput);
 
-                    System.out.println("Indtast adresse: ");
-                    String address = keyboard.nextLine();
+        System.out.println("Indtast adresse: ");
+        String address = keyboard.nextLine();
 
-                    System.out.println("Indtast email: ");
-                    String email = keyboard.nextLine();
+        System.out.println("Indtast email: ");
+        String email = keyboard.nextLine();
 
                     System.out.println("Er vedkommende på konkurrenceholdet? j/n: ");
                     char competetorInput = keyboard.next().charAt(0);
@@ -172,24 +170,24 @@ public class UserInterface {
                         default -> System.out.println("Invalid input.");
                     }
 
-                    System.out.println("Er vedkommende [a] aktiv eller [p] passiv medlem?: ");
-                    char isActive = keyboard.next().charAt(0);
-                    boolean isActiveMember = true;
-                    switch (isActive) {
-                        case 'a' -> {
-                        }
-                        case 'p' -> isActiveMember = false;
-                        default -> System.out.println("Invalid input.");
-
-                    }
-
-                    if (isCompetitionMember == true){
-                        controller.createCompetitionMember(medlemsID, name, birthday, address, email, isCompetitionMember, isActiveMember);
-                    } else {
-                        controller.createMember(medlemsID, name, birthday, address, email, isCompetitionMember, isActiveMember);
-                    }
+        System.out.println("Er vedkommende [a] aktiv eller [p] passiv medlem?: ");
+        char isActive = keyboard.next().charAt(0);
+        boolean isActiveMember = true;
+        switch (isActive) {
+            case 'a' -> {
+            }
+            case 'p' -> isActiveMember = false;
+            default -> System.out.println("Invalid input.");
 
         }
+
+        if (isCompetitionMember == true) {
+            controller.createCompetitionMember(medlemsID, name, birthday, address, email, isCompetitionMember, isActiveMember);
+        } else {
+            controller.createMember(medlemsID, name, birthday, address, email, isCompetitionMember, isActiveMember);
+        }
+
+    }
 
         public void resgisterDisciplin() {
         //TODO: Skal kunne registrere flere discipliner
@@ -217,12 +215,12 @@ public class UserInterface {
             }
         }
 
-        public void wrongInputHandler(){
-                String text = keyboard.next();
-                System.out.println("'" + text + "'" + " er ikke et tal. Prøv igen!");
-        }
-        //UI noter til marie :)
-        //1. "9" afslut tilbage til hovedmenu (forperson osv.)
+    public void wrongInputHandler() {
+        String text = keyboard.next();
+        System.out.println("'" + text + "'" + " er ikke et tal. Prøv igen!");
+    }
+    //UI noter til marie :)
+    //1. "9" afslut tilbage til hovedmenu (forperson osv.)
 
 }
 
