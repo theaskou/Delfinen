@@ -12,6 +12,7 @@ public class Database {
     private ArrayList<CompetitionMember> competitionMembersList;
     private FileHandler fh;
     private File CSVPath;
+    private Member member;
 
 
     //TODO: Save member to file
@@ -71,26 +72,6 @@ public class Database {
         return seniorTeam;
     }
 
-    public int totalSubscription() {
-        int subscription = 0;
-        for (Member member : memberlist) {
-            if (LocalDate.now().minusYears(18).isBefore(member.getBirthday()) && member.isActive() == true) {
-                subscription += 1000;
-            }
-            if (LocalDate.now().minusYears(18).isAfter(member.getBirthday()) && LocalDate.now().minusYears(60).isBefore(member.getBirthday()) && member.isActive() == true) {
-                subscription += 1600;
-            }
-            if (LocalDate.now().minusYears(60).isAfter(member.getBirthday()) && member.isActive() == true) {
-                subscription += 1600 * 0.75;
-            }
-            if (member.isActive() == false) {
-                subscription += 500;
-            }
-
-        }
-        return subscription;
-    }
-
     public void save(){
         fh.saveMemberData(memberlist, CSVPath);
     }
@@ -100,4 +81,14 @@ public class Database {
             System.out.println(member);
         }
     }
+
+    public ArrayList<CompetitionMember> competitionMembersList(){
+        return competitionMembersList;
+    }
+
+    public int totalSubscription(){
+        member.totalSubscription();
+        return totalSubscription();
+    }
+
 }

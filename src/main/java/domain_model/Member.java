@@ -1,6 +1,7 @@
 package domain_model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Member {
@@ -13,6 +14,7 @@ public class Member {
     private String email;
     private boolean isOnCompetitionTeam;
     private boolean isActive;
+    private ArrayList<Member> memberList;
 //TODO skrive competitor attributter
 
 
@@ -96,6 +98,30 @@ public class Member {
         } else {
             return "Nej";
         }
+    }
+
+        public int totalSubscription() {
+            int subscription = 0; int juniorSub = 1000;
+            int adultSub = 1600; int seniorSub = 1200;
+            int passiveSub = 500;
+
+            for (Member member : memberList) {
+                if (LocalDate.now().minusYears(18).isBefore(member.getBirthday()) && member.isActive() == true) {
+                    subscription += juniorSub;
+                }
+                if (LocalDate.now().minusYears(18).isAfter(member.getBirthday()) && LocalDate.now().minusYears(60).isBefore(member.getBirthday()) && member.isActive() == true) {
+                    subscription += adultSub;
+                }
+                if (LocalDate.now().minusYears(60).isAfter(member.getBirthday()) && member.isActive() == true) {
+                    subscription += seniorSub;
+                }
+                if (member.isActive() == false) {
+                    subscription += passiveSub;
+                }
+
+            }
+            return subscription;
+
     }
 
     @Override
