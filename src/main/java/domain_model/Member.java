@@ -90,7 +90,7 @@ public class Member {
         }
     }
 
-    public String isActive(boolean isActive){
+    public String isActive(boolean isActive) {
         if (isActive) {
             return "Ja";
         } else {

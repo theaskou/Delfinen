@@ -40,4 +40,7 @@ public class CompetitionMember extends Member {
         return showResult;
     }
 
+    public double[] getResults() {
+        return results;
+    }
 }

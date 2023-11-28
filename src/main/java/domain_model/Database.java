@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 public class Database {
     private ArrayList<Member> memberlist;
+    private ArrayList<CompetitionMember> competitionMembersList;
     private FileHandler fh;
     private File CSVPath;
 
@@ -18,7 +19,6 @@ public class Database {
         this.CSVPath = CSVPath;
         this.fh = new FileHandler();
         this.memberlist = fh.loadMemberData();
-
 
     }
 
@@ -92,7 +92,7 @@ public class Database {
     }
 
     public void save(){
-        fh.saveMemberData(memberlist,CSVPath);
+        fh.saveMemberData(memberlist, CSVPath);
     }
 
     public void printMemberlist() {

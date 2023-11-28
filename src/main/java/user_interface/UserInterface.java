@@ -1,10 +1,12 @@
 package user_interface;
 
+import domain_model.ButterflyComparator;
 import domain_model.CompetitionMember;
 import domain_model.Controller;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -74,41 +76,13 @@ public class UserInterface {
                 switch (userChoice) {
                     case 1:
                         // Top 5 lister, først efter hold (junior/senior), og herefter i hver disciplin
+                        //28/11 Har ikke taget højde for junior senior, kun lavet for butterfly
+                        printTop5Results();
                         break;
                     case 2:
-                        //TODO save til en fil
-                        // Registrer resultater. Skal det inddeles i hhv. træningsresultater og stævneresultater?
-                        ArrayList<CompetitionMember> competitionMembers = controller.getCompetetionMember();
-                        int count = 1;
-                        for (CompetitionMember competitionMember : competitionMembers){
-                            System.out.println(count++ + " " + competitionMember.getName());
-                        }
-                        System.out.println("Hvilket medlem vil du give et resultat?");
-                        int memberChoice = keyboard.nextInt();
-                        keyboard.nextLine();
-                        System.out.println("""
-                                Vælg disciplin:
-                                1. Rygcrawl
-                                2. Crawl
-                                3. Butterfly
-                                4. Brystsvømning""");
-                        int disciplin = keyboard.nextInt();
-                        keyboard.nextLine();
-                        System.out.println("Indskriv resultat i sekunder");
-                        double resultat = keyboard.nextDouble();
-                        keyboard.nextLine();
-                        System.out.println("Hvilken dato blev tiden sat?");
-                        String datoInput = keyboard.nextLine();
-                        LocalDate dato = LocalDate.parse(datoInput);
-
-
-                        competitionMembers.get(memberChoice - 1).addResultToDiscipline(disciplin,resultat,dato);
-                        //controller.save();
-                        System.out.println(competitionMembers.get(memberChoice - 1).showResult(disciplin -1));
-
+                        addResult();
                         break;
                 }
-
 
             } while (userChoice != 9);
 
@@ -159,16 +133,15 @@ public class UserInterface {
         System.out.println("Indtast email: ");
         String email = keyboard.nextLine();
 
-                    System.out.println("Er vedkommende på konkurrenceholdet? j/n: ");
-                    char competetorInput = keyboard.next().charAt(0);
-                    boolean isCompetitionMember = true;
-                    switch (competetorInput) {
-                        case 'j' -> {
-                            resgisterDisciplin(); //TODO: Er det kun træneren der skal kunne registrere disciplin?
-                        }
-                        case 'n' -> isCompetitionMember = false;
-                        default -> System.out.println("Invalid input.");
-                    }
+        System.out.println("Er vedkommende på konkurrenceholdet? j/n: ");
+        char competetorInput = keyboard.next().charAt(0);
+        boolean isCompetitionMember = true;
+        switch (competetorInput) {
+            case 'j' -> {
+            }
+            case 'n' -> isCompetitionMember = false;
+            default -> System.out.println("Invalid input.");
+        }
 
         System.out.println("Er vedkommende [a] aktiv eller [p] passiv medlem?: ");
         char isActive = keyboard.next().charAt(0);
@@ -189,31 +162,71 @@ public class UserInterface {
 
     }
 
-        public void resgisterDisciplin() {
-        //TODO: Skal kunne registrere flere discipliner
-            System.out.println("Hvilken disciplin skal svømmeren registreres i?" + "\n" +
-                    "1. Butterfly" + "\n" +
-                    "2. Crawl" + "\n" +
-                    "3. Rygcrawl" + "\n" +
-                    "4. Brystsvømning");
-            int disciplinInput = keyboard.nextInt();
-            switch (disciplinInput) {
+    public void addResult() {
+        //TODO save til en fil
+        ArrayList<CompetitionMember> competitionMembers = controller.getCompetetionMember();
+        int count = 1;
+        for (CompetitionMember competitionMember : competitionMembers) {
+            System.out.println(count++ + " " + competitionMember.getName());
+        }
+        System.out.println("Hvilket medlem vil du give et resultat?");
+        int memberChoice = keyboard.nextInt();
+        keyboard.nextLine();
+        System.out.println("""
+                Vælg disciplin:
+                1. Rygcrawl
+                2. Crawl
+                3. Butterfly
+                4. Brystsvømning""");
+        int disciplin = keyboard.nextInt();
+        keyboard.nextLine();
+        System.out.println("Indskriv resultat i sekunder");
+        double resultat = keyboard.nextDouble();
+        keyboard.nextLine();
+        System.out.println("Hvilken dato blev tiden sat?");
+        String datoInput = keyboard.nextLine();
+        LocalDate dato = LocalDate.parse(datoInput);
+
+
+        competitionMembers.get(memberChoice - 1).addResultToDiscipline(disciplin, resultat, dato);
+        System.out.println(competitionMembers.get(memberChoice - 1).showResult(disciplin - 1));
+
+    }
+
+    public void printTop5Results(){
+        int disciplin;
+        do {
+            System.out.println("""
+                    Vælg disciplin for Top 5 resultater:
+                    1. Rygcrawl
+                    2. Crawl
+                    3. Butterfly
+                    4. Brystsvømning
+                    5. Afslut""");
+            disciplin = keyboard.nextInt();
+            keyboard.nextLine();
+
+            switch (disciplin) {
                 case 1:
-                    //TODO: set disciplin til butterfly
+                    //Rygcrawl top 5
                     break;
                 case 2:
-                    //TODO: set disciplin til crawl
+                    //Crawl
                     break;
                 case 3:
-                    //TODO: set disciplin til Rygcrawl
+                    //Butterfly
+                    Collections.sort(controller.competitionMemberList(), new ButterflyComparator());
+                    for (int i = 0; i < 5; i++) {
+                        System.out.println(controller.competitionMemberList()
+                        );
+                    }
                     break;
                 case 4:
-                    //TODO: set disciplin til Brystsvømning
+                    //Brystsvømning
                     break;
-                default:
-                    System.out.println("invalid input");
             }
-        }
+        } while (disciplin != 5);
+    }
 
     public void wrongInputHandler() {
         String text = keyboard.next();

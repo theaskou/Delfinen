@@ -54,6 +54,10 @@ public class Controller {
         db.save();
     }
 
+    public ArrayList<CompetitionMember> competitionMemberList(){
+        return db.competitionMembersList();
+    }
+
     public ArrayList<CompetitionMember> getCompetetionMember(){
          return db.getCompetitionMember();
     }
