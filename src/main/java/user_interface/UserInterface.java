@@ -196,6 +196,7 @@ public class UserInterface {
         String datoInput = keyboard.nextLine();
         LocalDate dato = LocalDate.parse(datoInput);
 
+
         controller.createResult(chosenMember.getMemberID(), chosenMember.getName(), chosenDisciplin, resultat, dato);
         controller.printResults();
         //Svømmediscipliner svømmediscipliner, double bestTime, LocalDate date

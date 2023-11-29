@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 
 public class Controller {
-    File CSVPath;
+
     private Database db;
 
     public Controller(){
@@ -13,7 +13,9 @@ public class Controller {
 
     }
 
-    public void createMember(int memberID,String name, LocalDate birthday, String address, String email, boolean isOnCompetitionTeam, boolean isActive){
+    public void createMember(int memberID,String name, LocalDate birthday, String address,
+                             String email, boolean isOnCompetitionTeam, boolean isActive){
+
         db.createMember(memberID,name,birthday,address,email,isOnCompetitionTeam,isActive);
     }
 

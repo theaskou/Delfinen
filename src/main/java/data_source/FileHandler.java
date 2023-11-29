@@ -49,8 +49,8 @@ public class FileHandler {
         return loadData;
     }
 
-    public void saveMemberData(ArrayList<Member> membersData, File file) {
-
+    public void saveMemberData(ArrayList<Member> membersData, String CSVPath) {
+        File file = new File(CSVPath);
         try (PrintStream output = new PrintStream(file)) {
             for (Member member : membersData) {
                 output.println(

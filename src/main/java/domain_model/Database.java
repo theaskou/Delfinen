@@ -15,8 +15,7 @@ public class Database {
 
 
     //TODO: Save member to file
-    public Database(File CSVPath) {
-        this.CSVPath = CSVPath;
+    public Database() {
         this.fh = new FileHandler();
         this.memberlist = fh.loadMemberData(CSVPath);
 
