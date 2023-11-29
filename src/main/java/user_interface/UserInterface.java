@@ -1,13 +1,13 @@
 package user_interface;
 
-import domain_model.ButterflyComparator;
-import domain_model.CompetitionMember;
-import domain_model.Controller;
+import domain_model.*;
+import domain_model.Comparators.BackcrawlComparator;
+import domain_model.Comparators.ButterflyComparator;
+import domain_model.Comparators.CrawlComparator;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Random;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -55,7 +55,7 @@ public class UserInterface {
                         controller.printMembers();
                         break;
                     case 3:
-                        System.out.println(controller.printYouthTeam());
+                        System.out.println(controller.youthTeam());
                         break;
                 }
 
@@ -153,25 +153,22 @@ public class UserInterface {
             default -> System.out.println("Invalid input.");
 
         }
-
-        if (isCompetitionMember == true) {
-            controller.createCompetitionMember(medlemsID, name, birthday, address, email, isCompetitionMember, isActiveMember);
-        } else {
-            controller.createMember(medlemsID, name, birthday, address, email, isCompetitionMember, isActiveMember);
-        }
+        controller.createMember(medlemsID, name, birthday, address, email, isCompetitionMember, isActiveMember);
 
     }
 
     public void addResult() {
         //TODO save til en fil
-        ArrayList<CompetitionMember> competitionMembers = controller.getCompetetionMember();
+        ArrayList<Member> competitionMembers = controller.getCompetetionMember();
         int count = 1;
-        for (CompetitionMember competitionMember : competitionMembers) {
-            System.out.println(count++ + " " + competitionMember.getName());
+        for (Member competitionMember : competitionMembers) {
+            System.out.println(count++ + " , ID: " + competitionMember.getMemberID() + " ,Navn: " + competitionMember.getName());
         }
         System.out.println("Hvilket medlem vil du give et resultat?");
         int memberChoice = keyboard.nextInt();
         keyboard.nextLine();
+        Member chosenMember = competitionMembers.get(memberChoice - 1);
+        //Skal vi spørge her om det er til stævne vs. træning? Eller skal træneren have en seperat menupunkt til stævne?
         System.out.println("""
                 Vælg disciplin:
                 1. Rygcrawl
@@ -180,6 +177,21 @@ public class UserInterface {
                 4. Brystsvømning""");
         int disciplin = keyboard.nextInt();
         keyboard.nextLine();
+        Svømmediscipliner chosenDisciplin = null;
+        switch (disciplin){
+            case 1:
+                chosenDisciplin = Svømmediscipliner.RYGCRAWL;
+                break;
+            case 2:
+                chosenDisciplin = Svømmediscipliner.CRAWL;
+                break;
+            case 3:
+                chosenDisciplin = Svømmediscipliner.BUTTERFLY;
+                break;
+            case 4:
+                chosenDisciplin = Svømmediscipliner.BRYSTSVØMNING;
+                break;
+        }
         System.out.println("Indskriv resultat i sekunder");
         double resultat = keyboard.nextDouble();
         keyboard.nextLine();
@@ -188,8 +200,9 @@ public class UserInterface {
         LocalDate dato = LocalDate.parse(datoInput);
 
 
-        competitionMembers.get(memberChoice - 1).addResultToDiscipline(disciplin, resultat, dato);
-        System.out.println(competitionMembers.get(memberChoice - 1).showResult(disciplin - 1));
+        controller.createResult(chosenMember.getMemberID(), chosenMember.getName(), chosenMember.getBirthday(), chosenDisciplin, resultat, dato);
+        controller.printResults();
+
 
     }
 
@@ -212,12 +225,18 @@ public class UserInterface {
                     break;
                 case 2:
                     //Crawl
+                    ArrayList<Resultat> crawlResultater = controller.crawlResultsFilter();
+                    Collections.sort(crawlResultater, new CrawlComparator());
+                    for (int i = 0; i <= 4; i++) {
+                        System.out.println(crawlResultater.get(i));
+                    }
+
                     break;
                 case 3:
                     //Butterfly
-                    Collections.sort(controller.competitionMemberList(), new ButterflyComparator());
-                    for (int i = 0; i < 5; i++) {
-                        System.out.println(controller.competitionMemberList()
+                    Collections.sort(controller.getResultList(), new ButterflyComparator());
+                    for (int i = 0; i <= 4; i++) {
+                        System.out.println(controller.getResultList()
                         );
                     }
                     break;
