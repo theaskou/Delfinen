@@ -12,7 +12,7 @@ public class Database {
     private ArrayList<CompetitionMember> competitionMembersList;
     private FileHandler fh;
     private File CSVPath;
-    private Member member;
+
 
 
     //TODO: Save member to file
