@@ -17,13 +17,6 @@ public class CompetitionMember extends Member {
         super(memberID, name, birthday, address, email, isOnCompetitionTeam, isActive);
     }
 
-    //TODO Kan nok godt slettes
-//    public CompetitionMember(Member member){
-//        super(member.getMemberID(), member.getName(), member.getBirthday(),
-//                member.getAddress(), member.getEmail(), true,
-//                member.isActive());
-//    }
-
 
 
 

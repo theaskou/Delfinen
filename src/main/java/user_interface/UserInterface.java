@@ -5,7 +5,6 @@ import domain_model.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Random;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -53,7 +52,7 @@ public class UserInterface {
                         controller.printMembers();
                         break;
                     case 3:
-                        System.out.println(controller.printYouthTeam());
+                        System.out.println(controller.youthTeam());
                         break;
                 }
 
@@ -151,12 +150,7 @@ public class UserInterface {
             default -> System.out.println("Invalid input.");
 
         }
-
-        if (isCompetitionMember == true) {
-            controller.createCompetitionMember(medlemsID, name, birthday, address, email, isCompetitionMember, isActiveMember);
-        } else {
-            controller.createMember(medlemsID, name, birthday, address, email, isCompetitionMember, isActiveMember);
-        }
+        controller.createMember(medlemsID, name, birthday, address, email, isCompetitionMember, isActiveMember);
 
     }
 

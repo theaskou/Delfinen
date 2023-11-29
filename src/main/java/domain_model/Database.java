@@ -4,7 +4,6 @@ import java.time.LocalDate;
 
 import data_source.FileHandler;
 
-import java.io.File;
 import java.util.ArrayList;
 
 public class Database {
@@ -19,7 +18,7 @@ public class Database {
     public Database(File CSVPath) {
         this.CSVPath = CSVPath;
         this.fh = new FileHandler();
-        this.memberlist = fh.loadMemberData();
+        this.memberlist = fh.loadMemberData(CSVPath);
 
     }
 
@@ -53,11 +52,9 @@ public class Database {
         return competitionMembers;
     }
 
-    public ArrayList<Member> memberlist() {
-        return memberlist;
-    }
 
-    public ArrayList<Member> printYouthTeam() {
+    // Liste over alle Junior konkurrence medlemmer
+    public ArrayList<Member> youthTeam() {
         ArrayList<Member> youthTeam = new ArrayList<>();
         for (Member member : memberlist) {
             if (LocalDate.now().minusYears(18).isBefore(member.getBirthday()) && member.isOnCompetitionTeam() == true) {
@@ -68,7 +65,8 @@ public class Database {
         return youthTeam;
     }
 
-    public ArrayList<Member> printSeniorTeam() {
+    //Liste over alle senior konkurrence medlemmer
+    public ArrayList<Member> seniorTeam() {
         ArrayList<Member> seniorTeam = new ArrayList<>();
         for (Member member : memberlist) {
             if (LocalDate.now().minusYears(18).isAfter(member.getBirthday()) && member.isOnCompetitionTeam() == true) {
@@ -78,13 +76,23 @@ public class Database {
         return seniorTeam;
     }
 
+    //bliver ikke brugt lige nu
     public void save() {
-        fh.saveMemberData(memberlist, CSVPath);
+       fh.saveMemberData(memberlist, CSVPath);
     }
 
+
+    //Udprint af alle medlemmer
     public void printMemberlist() {
         for (Member member : memberlist) {
             System.out.println(member);
+        }
+    }
+
+    //kun til test
+    public void printResults(){
+        for (Resultat results : resultList){
+            System.out.println(results);
         }
     }
 

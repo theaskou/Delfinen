@@ -24,7 +24,6 @@ public class FileHandler {
             throw new RuntimeException(e);
         }
         Member member = null;
-        CompetitionMember competitionMember = null;
         while (sc.hasNext()) {
             String linje = sc.nextLine();
             String[] attributes = linje.split(";");
