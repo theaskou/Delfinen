@@ -40,7 +40,7 @@ public class Controller {
     }
 
     public int totalSubsription(){
-        return db.totalSubscription();
+      return  db.totalSubscription();
     }
 
     public ArrayList<Member> membersList(){

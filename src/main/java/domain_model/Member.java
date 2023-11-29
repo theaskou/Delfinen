@@ -14,7 +14,7 @@ public class Member {
     private String email;
     private boolean isOnCompetitionTeam;
     private boolean isActive;
-    private ArrayList<Member> memberList;
+
 //TODO skrive competitor attributter
 
 
@@ -100,26 +100,25 @@ public class Member {
         }
     }
 
-        public int totalSubscription() {
+        public int calculateSubscription() {
             int subscription = 0; int juniorSub = 1000;
             int adultSub = 1600; int seniorSub = 1200;
             int passiveSub = 500;
 
-            for (Member member : memberList) {
-                if (LocalDate.now().minusYears(18).isBefore(member.getBirthday()) && member.isActive() == true) {
+                if (LocalDate.now().minusYears(18).isBefore(getBirthday()) && isActive() == true) {
                     subscription += juniorSub;
                 }
-                if (LocalDate.now().minusYears(18).isAfter(member.getBirthday()) && LocalDate.now().minusYears(60).isBefore(member.getBirthday()) && member.isActive() == true) {
+                if (LocalDate.now().minusYears(18).isAfter(getBirthday()) && LocalDate.now().minusYears(60).isBefore(getBirthday()) && isActive() == true) {
                     subscription += adultSub;
                 }
-                if (LocalDate.now().minusYears(60).isAfter(member.getBirthday()) && member.isActive() == true) {
+                if (LocalDate.now().minusYears(60).isAfter(getBirthday()) && isActive() == true) {
                     subscription += seniorSub;
                 }
-                if (member.isActive() == false) {
+                if (isActive() == false) {
                     subscription += passiveSub;
                 }
 
-            }
+
             return subscription;
 
     }

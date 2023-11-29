@@ -23,23 +23,23 @@ public class Database {
 
     }
 
-    public void createMember(int memberID,String name, LocalDate birthday, String address, String email, boolean isOnCompetitionTeam, boolean isActive) {
+    public void createMember(int memberID, String name, LocalDate birthday, String address, String email, boolean isOnCompetitionTeam, boolean isActive) {
         memberlist.add(new Member(memberID, name, birthday, address, email, isOnCompetitionTeam, isActive));
         fh.saveMemberData(memberlist, CSVPath);
 
     }
 
-    public void createCompetionMember(int memberID,String name, LocalDate birthday,
+    public void createCompetionMember(int memberID, String name, LocalDate birthday,
                                       String address, String email, boolean isOnCompetitionTeam,
                                       boolean isActive) {
-        memberlist.add(new CompetitionMember(memberID,name, birthday, address, email, isOnCompetitionTeam, isActive));
+        memberlist.add(new CompetitionMember(memberID, name, birthday, address, email, isOnCompetitionTeam, isActive));
         fh.saveMemberData(memberlist, CSVPath);
     }
 
-    public ArrayList<CompetitionMember> getCompetitionMember(){
+    public ArrayList<CompetitionMember> getCompetitionMember() {
         ArrayList<CompetitionMember> competitionMembers = new ArrayList<>();
-        for (Member member : memberlist){
-            if (member instanceof CompetitionMember compMember){
+        for (Member member : memberlist) {
+            if (member instanceof CompetitionMember compMember) {
                 competitionMembers.add(compMember);
             }
 
@@ -47,7 +47,7 @@ public class Database {
         return competitionMembers;
     }
 
-    public ArrayList<Member> memberlist(){
+    public ArrayList<Member> memberlist() {
         return memberlist;
     }
 
@@ -72,7 +72,7 @@ public class Database {
         return seniorTeam;
     }
 
-    public void save(){
+    public void save() {
         fh.saveMemberData(memberlist, CSVPath);
     }
 
@@ -82,13 +82,17 @@ public class Database {
         }
     }
 
-    public ArrayList<CompetitionMember> competitionMembersList(){
+    public ArrayList<CompetitionMember> competitionMembersList() {
         return competitionMembersList;
     }
 
-    public int totalSubscription(){
-        member.totalSubscription();
-        return totalSubscription();
+    public int totalSubscription() {
+        int totalSubscription = 0;
+        for (Member member : memberlist) {
+            totalSubscription += member.calculateSubscription();
+        }
+
+        return totalSubscription;
     }
 
 }
