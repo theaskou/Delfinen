@@ -234,9 +234,9 @@ public class UserInterface {
                     break;
                 case 3:
                     //Butterfly
-                    /*Collections.sort(controller.competitionMemberList(), new ButterflyComparator());
-                    for (int i = 0; i < 5; i++) {
-                        System.out.println(controller.competitionMemberList()
+                    Collections.sort(controller.getResultList(), new ButterflyComparator());
+                    for (int i = 0; i <= 4; i++) {
+                        System.out.println(controller.getResultList()
                         );
                     }
                     break;

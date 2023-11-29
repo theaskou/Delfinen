@@ -14,7 +14,6 @@ public class Database {
     private String CSVPathResultData = "resultData.csv";
 
 
-
     //TODO: Save member to file
     public Database() {
         this.fh = new FileHandler();
@@ -54,7 +53,6 @@ public class Database {
             if (member.isOnCompetitionTeam()) {
                 competitionMembers.add(member);
             }
-
         }
         return competitionMembers;
     }

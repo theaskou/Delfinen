@@ -98,3 +98,27 @@ public class FileHandler {
         sc.close();
         return loadResultData;
 }
+
+    public void saveResultatData(ArrayList<Resultat> resultatData, String CSVPathResultData) {
+        File file = new File(CSVPathResultData);
+        try (PrintStream output = new PrintStream(file)) {
+            for (Resultat resultat : resultatData) {
+                output.println(
+                        +resultat.getMemberID() + ";"
+                                + resultat.getName() + ";"
+                                + resultat.getBirthday() + ";"
+                                + resultat.getSvømmediscipliner() + ";"
+                                + resultat.getBestTime() + ";"
+                                + resultat.getCompetition() + ";"
+                                + resultat.getRank() + ";"
+                                + resultat.getDate()
+                );
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
+}
