@@ -28,31 +28,18 @@ public class FileHandler {
         while (sc.hasNext()) {
             String linje = sc.nextLine();
             String[] attributes = linje.split(";");
-            boolean iscompetitve = Boolean.parseBoolean(attributes[5]);
-            if (iscompetitve) {
-                competitionMember = new CompetitionMember(
-                        (Integer.parseInt(attributes[0])),
-                        attributes[1],
-                        (LocalDate.parse(attributes[2])),
-                        attributes[3],
-                        attributes[4],
-                        (Boolean.parseBoolean(attributes[5])),
-                        (Boolean.parseBoolean(attributes[6])));
-                loadData.add(competitionMember);
-            } else {
-                member = new Member(
-                        (Integer.parseInt(attributes[0])),
-                        attributes[1],
-                        (LocalDate.parse(attributes[2])),
-                        attributes[3],
-                        attributes[4],
-                        (Boolean.parseBoolean(attributes[5])),
-                        (Boolean.parseBoolean(attributes[6]))
-
-                );
-                loadData.add(member);
-            }
+            member = new Member(
+                    (Integer.parseInt(attributes[0])),
+                    attributes[1],
+                    (LocalDate.parse(attributes[2])),
+                    attributes[3],
+                    attributes[4],
+                    (Boolean.parseBoolean(attributes[5])),
+                    (Boolean.parseBoolean(attributes[6]))
+            );
+            loadData.add(member);
         }
+
 
         sc.close();
         return loadData;

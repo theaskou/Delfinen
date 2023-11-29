@@ -58,9 +58,7 @@ public class Controller {
         return db.competitionMembersList();
     }
 
-    public ArrayList<CompetitionMember> getCompetetionMember(){
-         return db.getCompetitionMember();
-    }
+
 
 
 }

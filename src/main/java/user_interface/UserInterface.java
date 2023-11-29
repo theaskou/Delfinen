@@ -1,8 +1,6 @@
 package user_interface;
 
-import domain_model.ButterflyComparator;
-import domain_model.CompetitionMember;
-import domain_model.Controller;
+import domain_model.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -164,14 +162,16 @@ public class UserInterface {
 
     public void addResult() {
         //TODO save til en fil
-        ArrayList<CompetitionMember> competitionMembers = controller.getCompetetionMember();
+        ArrayList<Member> competitionMembers = controller.getCompetetionMember();
         int count = 1;
-        for (CompetitionMember competitionMember : competitionMembers) {
-            System.out.println(count++ + " " + competitionMember.getName());
+        for (Member competitionMember : competitionMembers) {
+            System.out.println(count++ + " " + competitionMember.getName() + " " + competitionMember.getMemberID());
         }
         System.out.println("Hvilket medlem vil du give et resultat?");
         int memberChoice = keyboard.nextInt();
         keyboard.nextLine();
+        Member chosenMember = competitionMembers.get(memberChoice - 1);
+        //Skal vi spørge her om det er til stævne vs. træning? Eller skal træneren have en seperat menupunkt til stævne?
         System.out.println("""
                 Vælg disciplin:
                 1. Rygcrawl
@@ -180,6 +180,21 @@ public class UserInterface {
                 4. Brystsvømning""");
         int disciplin = keyboard.nextInt();
         keyboard.nextLine();
+        Svømmediscipliner chosenDisciplin = null;
+        switch (disciplin){
+            case 1:
+                chosenDisciplin = Svømmediscipliner.RYGCRAWL;
+                break;
+            case 2:
+                chosenDisciplin = Svømmediscipliner.CRAWL;
+                break;
+            case 3:
+                chosenDisciplin = Svømmediscipliner.BUTTERFLY;
+                break;
+            case 4:
+                chosenDisciplin = Svømmediscipliner.BRYSTSVØMNING;
+                break;
+        }
         System.out.println("Indskriv resultat i sekunder");
         double resultat = keyboard.nextDouble();
         keyboard.nextLine();
@@ -187,10 +202,12 @@ public class UserInterface {
         String datoInput = keyboard.nextLine();
         LocalDate dato = LocalDate.parse(datoInput);
 
+        controller.createResult(chosenMember.getMemberID(), chosenMember.getName(), chosenDisciplin, resultat, dato);
+        controller.printResults();
+        //Svømmediscipliner svømmediscipliner, double bestTime, LocalDate date
 
-        competitionMembers.get(memberChoice - 1).addResultToDiscipline(disciplin, resultat, dato);
-        System.out.println(competitionMembers.get(memberChoice - 1).showResult(disciplin - 1));
-
+        //competitionMembers.get(memberChoice - 1).addResultToDiscipline(disciplin, resultat, dato);
+        //System.out.println(competitionMembers.get(memberChoice - 1).showResult(disciplin - 1));
     }
 
     public void printTop5Results(){
@@ -215,12 +232,12 @@ public class UserInterface {
                     break;
                 case 3:
                     //Butterfly
-                    Collections.sort(controller.competitionMemberList(), new ButterflyComparator());
+                    /*Collections.sort(controller.competitionMemberList(), new ButterflyComparator());
                     for (int i = 0; i < 5; i++) {
                         System.out.println(controller.competitionMemberList()
                         );
                     }
-                    break;
+                    break;*/
                 case 4:
                     //Brystsvømning
                     break;
