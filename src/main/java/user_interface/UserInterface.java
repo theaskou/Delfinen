@@ -162,7 +162,7 @@ public class UserInterface {
         ArrayList<Member> competitionMembers = controller.getCompetetionMember();
         int count = 1;
         for (Member competitionMember : competitionMembers) {
-            System.out.println(count++ + " " + competitionMember.getName() + " " + competitionMember.getMemberID());
+            System.out.println(count++ + " , ID: " + competitionMember.getMemberID() + " ,Navn: " + competitionMember.getName());
         }
         System.out.println("Hvilket medlem vil du give et resultat?");
         int memberChoice = keyboard.nextInt();

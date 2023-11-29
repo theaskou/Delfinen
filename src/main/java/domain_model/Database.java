@@ -8,9 +8,10 @@ import java.util.ArrayList;
 
 public class Database {
     private ArrayList<Member> memberlist;
-    private ArrayList<Resultat> resultList = new ArrayList<>();
+    private ArrayList<Resultat> resultList;
     private FileHandler fh;
     private String CSVPath = "memberData.csv";
+    private String CSVPathResultData = "resultData.csv";
 
 
 
@@ -18,7 +19,7 @@ public class Database {
     public Database() {
         this.fh = new FileHandler();
         this.memberlist = fh.loadMemberData(CSVPath);
-
+        this.resultList = fh.loadResultData(CSVPathResultData);
     }
 
     public void createMember(int memberID, String name, LocalDate birthday, String address, String email, boolean isOnCompetitionTeam, boolean isActive) {

@@ -55,12 +55,16 @@ public class Resultat {
         this.memberID = memberID;
     }
 
-    // public String getName() {
-     //   return name;
-    //}
+     public String getName() {
+       return name;
+    }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public LocalDate getBirthday(){
+        return birthday;
     }
 
     public Svømmediscipliner getSvømmediscipliner() {
