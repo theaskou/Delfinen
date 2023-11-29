@@ -19,10 +19,10 @@ public class Controller {
         db.createMember(memberID,name,birthday,address,email,isOnCompetitionTeam,isActive);
     }
 
-    public void createResult(int memberID, String name, Svømmediscipliner svømmediscipliner,
+    public void createResult(int memberID, String name, LocalDate birthday, Svømmediscipliner svømmediscipliner,
                              double bestTime, LocalDate date){
 
-        db.createResult(memberID, name, svømmediscipliner, bestTime, date);
+        db.createResult(memberID, name, birthday, svømmediscipliner, bestTime, date);
     }
 
     //Liste af alle medlemmer
@@ -70,8 +70,8 @@ public class Controller {
         db.save();
     }
 
-
-
-
+public ArrayList<Resultat> crawlResultsFilter(){
+        return db.crawlResultsFilter();
+}
 
 }

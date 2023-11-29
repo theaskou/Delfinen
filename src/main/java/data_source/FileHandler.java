@@ -2,6 +2,7 @@ package data_source;
 
 import domain_model.Member;
 import domain_model.Resultat;
+import domain_model.Svømmediscipliner;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -66,9 +67,9 @@ public class FileHandler {
             throw new RuntimeException(e);
         }
     }
-}
 
-/*    public void loadResultData(String CSVPathResultData){
+
+    public ArrayList<Resultat> loadResultData(String CSVPathResultData){
         ArrayList<Resultat> loadResultData = new ArrayList<>();
         Scanner sc;
         File file = new File(CSVPathResultData);
@@ -84,10 +85,16 @@ public class FileHandler {
             resultat = new Resultat(
                     (Integer.parseInt(attributes[0])),
                     attributes[1],
+                    LocalDate.parse(attributes[2]),
+                    Svømmediscipliner.valueOf(attributes[3]),
+                    (Double.parseDouble(attributes[4])),
+                    attributes[5],
+                    (Integer.parseInt(attributes[6])),
+                    LocalDate.parse(attributes[7])
+                    );
 
-
-                            )
-
-            );
-    }/*
+        loadResultData.add(resultat);
+        }
+        sc.close();
+        return loadResultData;
 }

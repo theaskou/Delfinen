@@ -200,7 +200,7 @@ public class UserInterface {
         LocalDate dato = LocalDate.parse(datoInput);
 
 
-        controller.createResult(chosenMember.getMemberID(), chosenMember.getName(), chosenDisciplin, resultat, dato);
+        controller.createResult(chosenMember.getMemberID(), chosenMember.getName(), chosenMember.getBirthday(), chosenDisciplin, resultat, dato);
         controller.printResults();
 
 
@@ -225,6 +225,12 @@ public class UserInterface {
                     break;
                 case 2:
                     //Crawl
+                    ArrayList<Resultat> crawlResultater = controller.crawlResultsFilter();
+                    Collections.sort(crawlResultater, new CrawlComparator());
+                    for (int i = 0; i <= 4; i++) {
+                        System.out.println(crawlResultater.get(i));
+                    }
+
                     break;
                 case 3:
                     //Butterfly

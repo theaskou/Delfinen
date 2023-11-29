@@ -25,13 +25,20 @@ public class Database {
     public void createMember(int memberID, String name, LocalDate birthday, String address, String email, boolean isOnCompetitionTeam, boolean isActive) {
         memberlist.add(new Member(memberID, name, birthday, address, email, isOnCompetitionTeam, isActive));
         fh.saveMemberData(memberlist, CSVPath);
+    }
 
+    public ArrayList<Resultat> crawlResultsFilter(){
+        ArrayList<Resultat> crawlResults = new ArrayList<>();
+        for (Resultat result : resultList) {
+            if (result.getSvømmediscipliner().equals(Svømmediscipliner.CRAWL))
+                crawlResults.add(result);
+        } return crawlResults;
     }
 
 
-    public void createResult(int memberID, String name, Svømmediscipliner svømmediscipliner, double bestTime, LocalDate date){
-        resultList.add(new Resultat(memberID, name, svømmediscipliner, bestTime, date));
-        //Save metode til resultaterne
+    public void createResult(int memberID, String name, LocalDate birthday, Svømmediscipliner svømmediscipliner, double bestTime, LocalDate date){
+        resultList.add(new Resultat(memberID, name, birthday, svømmediscipliner, bestTime, date));
+        fh.saveResultatData(resultList,CSVPathResultData);
     }
 
 
@@ -86,7 +93,6 @@ public class Database {
        fh.saveMemberData(memberlist, CSVPath);
     }
 
-
     //Udprint af alle medlemmer
     public void printMemberlist() {
         for (Member member : memberlist) {
@@ -107,7 +113,6 @@ public class Database {
         for (Member member : memberlist) {
             totalSubscription += member.calculateSubscription();
         }
-
         return totalSubscription;
     }
 

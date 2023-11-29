@@ -5,23 +5,26 @@ import java.time.LocalDate;
 public class Resultat {
     private int memberID;
     private String name;
+    private LocalDate birthday;
     private Svømmediscipliner svømmediscipliner;
     private double bestTime;
     private String competition;
     private int rank;
     private LocalDate date;
 
-    public Resultat(int memberID, String name, Svømmediscipliner svømmediscipliner, double bestTime, LocalDate date){
+    public Resultat(int memberID, String name, LocalDate birthday, Svømmediscipliner svømmediscipliner, double bestTime, LocalDate date){
         this.memberID = memberID;
         this.name = name;
+        this.birthday = birthday;
         this.svømmediscipliner = svømmediscipliner;
         this.bestTime = bestTime;
         this.date = date;
     }
 
-    public Resultat(int memberID, String name, Svømmediscipliner svømmediscipliner, double bestTime, String competition, int rank, LocalDate date){
+    public Resultat(int memberID, String name, LocalDate birthday, Svømmediscipliner svømmediscipliner, double bestTime, String competition, int rank, LocalDate date){
         this.memberID = memberID;
         this.name = name;
+        this.birthday = birthday;
         this.svømmediscipliner = svømmediscipliner;
         this.bestTime = bestTime;
         this.competition = competition;
@@ -43,7 +46,7 @@ public class Resultat {
                 ", bestTime=" + bestTime +
                 ", competition='" + competition + '\'' +
                 ", rank=" + rank +
-                ", date=" + date +
+                ", date=" + date + "\n" +
                 '}';
     }
 
