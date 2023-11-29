@@ -2,6 +2,7 @@ package data_source;
 
 import domain_model.CompetitionMember;
 import domain_model.Member;
+import domain_model.Resultat;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,11 +14,15 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FileHandler {
-    private final File file = new File("memberData.csv");
 
-    public ArrayList<Member> loadMemberData() {
+    // private final File file = new File("memberData.csv");
+    // private String CSVPath;
+    // private String CSVPathResultData;
+
+    public ArrayList<Member> loadMemberData(String CSVPath) {
         ArrayList<Member> loadData = new ArrayList<>();
         Scanner sc;
+        File file = new File(CSVPath);
         try {
             sc = new Scanner(file, StandardCharsets.ISO_8859_1);
         } catch (IOException e) {
@@ -62,4 +67,28 @@ public class FileHandler {
             throw new RuntimeException(e);
         }
     }
+}
+
+/*    public void loadResultData(String CSVPathResultData){
+        ArrayList<Resultat> loadResultData = new ArrayList<>();
+        Scanner sc;
+        File file = new File(CSVPathResultData);
+        try {
+            sc = new Scanner(file, StandardCharsets.ISO_8859_1);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Resultat resultat = null;
+        while (sc.hasNext()) {
+            String linje = sc.nextLine();
+            String[] attributes = linje.split(";");
+            resultat = new Resultat(
+                    (Integer.parseInt(attributes[0])),
+                    attributes[1],
+
+
+                            )
+
+            );
+    }/*
 }

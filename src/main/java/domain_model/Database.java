@@ -10,8 +10,8 @@ public class Database {
     private ArrayList<Member> memberlist;
     private ArrayList<Resultat> resultList = new ArrayList<>();
     private FileHandler fh;
-    private File CSVPath;
-    private Member member;
+    private String CSVPath = "memberData.csv";
+
 
 
     //TODO: Save member to file
