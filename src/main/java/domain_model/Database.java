@@ -51,6 +51,11 @@ public class Database {
         return competitionMembers;
     }
 
+    // Liste over resultater
+    public ArrayList<Resultat> getResultList(){
+        return resultList;
+    }
+
 
     // Liste over alle Junior konkurrence medlemmer
     public ArrayList<Member> youthTeam() {

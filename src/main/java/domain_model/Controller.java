@@ -30,6 +30,11 @@ public class Controller {
         return db.memberlist();
     }
 
+    //Liste af resultater
+    public ArrayList<Resultat> getResultList(){
+        return db.getResultList();
+    }
+
     //Liste af alle konkurrence medlemmer
     public ArrayList<Member> getCompetetionMember(){
         return db.getCompetitionMember();

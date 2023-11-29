@@ -1,6 +1,5 @@
 package data_source;
 
-import domain_model.CompetitionMember;
 import domain_model.Member;
 import domain_model.Resultat;
 

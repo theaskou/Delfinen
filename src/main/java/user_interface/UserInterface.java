@@ -1,6 +1,9 @@
 package user_interface;
 
 import domain_model.*;
+import domain_model.Comparators.BackcrawlComparator;
+import domain_model.Comparators.ButterflyComparator;
+import domain_model.Comparators.CrawlComparator;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -199,10 +202,8 @@ public class UserInterface {
 
         controller.createResult(chosenMember.getMemberID(), chosenMember.getName(), chosenDisciplin, resultat, dato);
         controller.printResults();
-        //Svømmediscipliner svømmediscipliner, double bestTime, LocalDate date
 
-        //competitionMembers.get(memberChoice - 1).addResultToDiscipline(disciplin, resultat, dato);
-        //System.out.println(competitionMembers.get(memberChoice - 1).showResult(disciplin - 1));
+
     }
 
     public void printTop5Results(){
@@ -232,7 +233,7 @@ public class UserInterface {
                         System.out.println(controller.competitionMemberList()
                         );
                     }
-                    break;*/
+                    break;
                 case 4:
                     //Brystsvømning
                     break;
