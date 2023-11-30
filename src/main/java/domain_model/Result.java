@@ -2,17 +2,17 @@ package domain_model;
 
 import java.time.LocalDate;
 
-public class Resultat {
+public class Result {
     private int memberID;
     private String name;
     private LocalDate birthday;
-    private Svømmediscipliner svømmediscipliner;
+    private SwimmingDiscipline svømmediscipliner;
     private double bestTime;
     private String competition;
     private int rank;
     private LocalDate date;
 
-    public Resultat(int memberID, String name, LocalDate birthday, Svømmediscipliner svømmediscipliner, double bestTime, LocalDate date){
+    public Result(int memberID, String name, LocalDate birthday, SwimmingDiscipline svømmediscipliner, double bestTime, LocalDate date){
         this.memberID = memberID;
         this.name = name;
         this.birthday = birthday;
@@ -21,7 +21,7 @@ public class Resultat {
         this.date = date;
     }
 
-    public Resultat(int memberID, String name, LocalDate birthday, Svømmediscipliner svømmediscipliner, double bestTime, String competition, int rank, LocalDate date){
+    public Result(int memberID, String name, LocalDate birthday, SwimmingDiscipline svømmediscipliner, double bestTime, String competition, int rank, LocalDate date){
         this.memberID = memberID;
         this.name = name;
         this.birthday = birthday;
@@ -32,10 +32,7 @@ public class Resultat {
         this.date = date;
     }
 
-    public String showResult(){
-        String showResult = " ";
-        return showResult;
-    }
+
 
     @Override
     public String toString() {
@@ -70,11 +67,11 @@ public class Resultat {
         return birthday;
     }
 
-    public Svømmediscipliner getSvømmediscipliner() {
+    public SwimmingDiscipline getSvømmediscipliner() {
         return svømmediscipliner;
     }
 
-    public void setSvømmediscipliner(Svømmediscipliner svømmediscipliner) {
+    public void setSvømmediscipliner(SwimmingDiscipline svømmediscipliner) {
         this.svømmediscipliner = svømmediscipliner;
     }
 

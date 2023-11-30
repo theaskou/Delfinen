@@ -1,9 +1,8 @@
 package user_interface;
 
 import domain_model.*;
-import domain_model.Comparators.BackcrawlComparator;
-import domain_model.Comparators.ButterflyComparator;
-import domain_model.Comparators.CrawlComparator;
+import domain_model.comparator.ButterflyComparator;
+import domain_model.comparator.CrawlComparator;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -177,19 +176,19 @@ public class UserInterface {
                 4. Brystsvømning""");
         int disciplin = keyboard.nextInt();
         keyboard.nextLine();
-        Svømmediscipliner chosenDisciplin = null;
+        SwimmingDiscipline chosenDisciplin = null;
         switch (disciplin){
             case 1:
-                chosenDisciplin = Svømmediscipliner.RYGCRAWL;
+                chosenDisciplin = SwimmingDiscipline.RYGCRAWL;
                 break;
             case 2:
-                chosenDisciplin = Svømmediscipliner.CRAWL;
+                chosenDisciplin = SwimmingDiscipline.CRAWL;
                 break;
             case 3:
-                chosenDisciplin = Svømmediscipliner.BUTTERFLY;
+                chosenDisciplin = SwimmingDiscipline.BUTTERFLY;
                 break;
             case 4:
-                chosenDisciplin = Svømmediscipliner.BRYSTSVØMNING;
+                chosenDisciplin = SwimmingDiscipline.BRYSTSVØMNING;
                 break;
         }
         System.out.println("Indskriv resultat i sekunder");
@@ -225,7 +224,7 @@ public class UserInterface {
                     break;
                 case 2:
                     //Crawl
-                    ArrayList<Resultat> crawlResultater = controller.crawlResultsFilter();
+                    ArrayList<Result> crawlResultater = controller.crawlResultsFilter();
                     Collections.sort(crawlResultater, new CrawlComparator());
                     for (int i = 0; i <= 4; i++) {
                         System.out.println(crawlResultater.get(i));

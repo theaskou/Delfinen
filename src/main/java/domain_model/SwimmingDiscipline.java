@@ -1,6 +1,6 @@
 package domain_model;
 
-public enum Svømmediscipliner {
+public enum SwimmingDiscipline {
     BUTTERFLY,
     CRAWL,
     RYGCRAWL,

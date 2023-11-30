@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Database {
     private ArrayList<Member> memberlist;
-    private ArrayList<Resultat> resultList;
+    private ArrayList<Result> resultList;
     private FileHandler fh;
     private String CSVPath = "memberData.csv";
     private String CSVPathResultData = "resultData.csv";
@@ -26,18 +26,19 @@ public class Database {
         fh.saveMemberData(memberlist, CSVPath);
     }
 
-    public ArrayList<Resultat> crawlResultsFilter(){
-        ArrayList<Resultat> crawlResults = new ArrayList<>();
-        for (Resultat result : resultList) {
-            if (result.getSvømmediscipliner().equals(Svømmediscipliner.CRAWL))
+    public ArrayList<Result> crawlResultsFilter() {
+        ArrayList<Result> crawlResults = new ArrayList<>();
+        for (Result result : resultList) {
+            if (result.getSvømmediscipliner().equals(SwimmingDiscipline.CRAWL))
                 crawlResults.add(result);
-        } return crawlResults;
+        }
+        return crawlResults;
     }
 
 
-    public void createResult(int memberID, String name, LocalDate birthday, Svømmediscipliner svømmediscipliner, double bestTime, LocalDate date){
-        resultList.add(new Resultat(memberID, name, birthday, svømmediscipliner, bestTime, date));
-        fh.saveResultatData(resultList,CSVPathResultData);
+    public void createResult(int memberID, String name, LocalDate birthday, SwimmingDiscipline svømmediscipliner, double bestTime, LocalDate date) {
+        resultList.add(new Result(memberID, name, birthday, svømmediscipliner, bestTime, date));
+        fh.saveResultatData(resultList, CSVPathResultData);
     }
 
 
@@ -58,7 +59,7 @@ public class Database {
     }
 
     // Liste over resultater
-    public ArrayList<Resultat> getResultList(){
+    public ArrayList<Result> getResultList() {
         return resultList;
     }
 
@@ -88,7 +89,7 @@ public class Database {
 
     //bliver ikke brugt lige nu
     public void save() {
-       fh.saveMemberData(memberlist, CSVPath);
+        fh.saveMemberData(memberlist, CSVPath);
     }
 
     //Udprint af alle medlemmer
@@ -99,8 +100,8 @@ public class Database {
     }
 
     //kun til test
-    public void printResults(){
-        for (Resultat results : resultList){
+    public void printResults() {
+        for (Result results : resultList) {
             System.out.println(results);
         }
     }
