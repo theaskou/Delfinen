@@ -1,8 +1,7 @@
 package user_interface;
 
 import domain_model.*;
-import domain_model.comparator.ButterflyComparator;
-import domain_model.comparator.CrawlComparator;
+import domain_model.comparator.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -122,9 +121,9 @@ public class UserInterface {
         String name = keyboard.nextLine();
 
         //TODO Crash protection her
-        System.out.println("Indtast fødselsdag i formatet yyyy-mm-dd: ");
+        System.out.println("Indtast fødselsdag i formatet dd-mm-yyyy: ");
         String birthdayInput = keyboard.nextLine();
-        LocalDate birthday = LocalDate.parse(birthdayInput);
+        LocalDate birthday = LocalDate.parse(flipDateFormater(birthdayInput));
 
         System.out.println("Indtast adresse: ");
         String address = keyboard.nextLine();
@@ -149,7 +148,7 @@ public class UserInterface {
             case 'a' -> {
             }
             case 'p' -> isActiveMember = false;
-            default -> System.out.println("Invalid input.");
+            default -> System.out.println("Forkert input.");
 
         }
         controller.createMember(medlemsID, name, birthday, address, email, isCompetitionMember, isActiveMember);
@@ -179,7 +178,7 @@ public class UserInterface {
         SwimmingDiscipline chosenDisciplin = null;
         switch (disciplin){
             case 1:
-                chosenDisciplin = SwimmingDiscipline.RYGCRAWL;
+                chosenDisciplin = SwimmingDiscipline.BACKSTROKE;
                 break;
             case 2:
                 chosenDisciplin = SwimmingDiscipline.CRAWL;
@@ -188,7 +187,7 @@ public class UserInterface {
                 chosenDisciplin = SwimmingDiscipline.BUTTERFLY;
                 break;
             case 4:
-                chosenDisciplin = SwimmingDiscipline.BRYSTSVØMNING;
+                chosenDisciplin = SwimmingDiscipline.BREASTSTROKE;
                 break;
         }
         System.out.println("Indskriv resultat i sekunder");
@@ -201,7 +200,6 @@ public class UserInterface {
 
         controller.createResult(chosenMember.getMemberID(), chosenMember.getName(), chosenMember.getBirthday(), chosenDisciplin, resultat, dato);
         controller.printResults();
-
 
     }
 
@@ -220,28 +218,58 @@ public class UserInterface {
 
             switch (disciplin) {
                 case 1:
-                    //Rygcrawl top 5
+                    //Rygcrawl
+                    System.out.println("Top 5 på junior-holdet:");
+
+                    ArrayList<Result> juniorList = controller.juniorTeamFilter();
+                    ArrayList<Result> backStrokeJuniorResults = controller.juniorBackStrokeResultFilter(juniorList);
+
+                    Collections.sort(backStrokeJuniorResults, new BackcrawlComparator());
+                    for (int i = 0; i < backStrokeJuniorResults.size() && i <= 4; i++){
+                        System.out.println(backStrokeJuniorResults.get(i));
+                    }
+
+                    System.out.println("Top 5 på senior-holdet:");
+                    ArrayList<Result> seniorList = controller.seniorTeamFilter();
+                    ArrayList<Result> backStrokeSeniorResults = controller.seniorBackStrokeResult(seniorList);
+                    Collections.sort(backStrokeSeniorResults, new BackcrawlComparator());
+                    for (int i = 0; i < backStrokeSeniorResults.size() && i <= 4; i++){
+                        System.out.println(backStrokeSeniorResults.get(i));
+                    }
                     break;
                 case 2:
                     //Crawl
-                    ArrayList<Result> crawlResultater = controller.crawlResultsFilter();
-                    Collections.sort(crawlResultater, new CrawlComparator());
-                    for (int i = 0; i <= 4; i++) {
-                        System.out.println(crawlResultater.get(i));
+                    System.out.println("Top 5 på junior-holdet:");
+                    ArrayList<Result> crawlJuniorResults = controller.crawlJuniorResultsFilter();
+                    Collections.sort(crawlJuniorResults, new CrawlComparator());
+                    for (int i = 0; i < crawlJuniorResults.size() && i <= 4; i++) {
+                        System.out.println(crawlJuniorResults.get(i));
                     }
-
+                    System.out.println("Top 5 på senior-holdet:");
+                    ArrayList<Result> crawlSeniorResults = controller.crawlSeniorResultsFilter();
+                    Collections.sort(crawlSeniorResults, new CrawlComparator());
+                    for (int i = 0; i < crawlSeniorResults.size() && i <= 4; i++) {
+                        System.out.println(crawlSeniorResults.get(i));
+                    }
                     break;
                 case 3:
                     //Butterfly
-                    Collections.sort(controller.getResultList(), new ButterflyComparator());
+                    ArrayList<Result> butterflyResult = controller.butterflyResultFilter();
+                    Collections.sort(butterflyResult, new ButterflyComparator());
                     for (int i = 0; i <= 4; i++) {
-                        System.out.println(controller.getResultList()
-                        );
+                        System.out.println(butterflyResult.get(i));
                     }
                     break;
                 case 4:
                     //Brystsvømning
+                    ArrayList<Result> breaststrokeResult = controller.butterflyResultFilter();
+                    Collections.sort(breaststrokeResult, new BreaststrokeComparator());
+                    for (int i = 0; i <= 4; i++){
+                        System.out.println(breaststrokeResult.get(i));
+                    }
                     break;
+                case 5:
+                    keyboard.close();
             }
         } while (disciplin != 5);
     }
@@ -249,6 +277,11 @@ public class UserInterface {
     public void wrongInputHandler() {
         String text = keyboard.next();
         System.out.println("'" + text + "'" + " er ikke et tal. Prøv igen!");
+    }
+
+    public static String flipDateFormater(String input){
+        String[] split = input.split("-");
+        return split[2] + "-" + split[1] + "-" + split[0];
     }
     //UI noter til marie :)
     //1. "9" afslut tilbage til hovedmenu (forperson osv.)

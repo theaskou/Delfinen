@@ -103,7 +103,7 @@ public class FileHandler {
                         +resultat.getMemberID() + ";"
                                 + resultat.getName() + ";"
                                 + resultat.getBirthday() + ";"
-                                + resultat.getSvømmediscipliner() + ";"
+                                + resultat.getSwimmingDiscipline() + ";"
                                 + resultat.getBestTime() + ";"
                                 + resultat.getCompetition() + ";"
                                 + resultat.getRank() + ";"

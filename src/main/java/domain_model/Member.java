@@ -1,6 +1,7 @@
 package domain_model;
 
 import java.time.LocalDate;
+import static user_interface.UserInterface.flipDateFormater;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -125,12 +126,11 @@ public class Member {
 
     @Override
     public String toString() {
-        return "Medlem" +
-                "MedlemsID: " + memberID +
-                ", Navn: " + name + '\'' +
-                ", Fødselsdag: " + birthday +
-                ", Addresse: " + address + '\'' +
-                ", Email: " + email + '\'' +
+        return    "ID: " + memberID +
+                ", Navn: " + name +
+                ", Fødselsdag: " + flipDateFormater(birthday.toString()) +
+                ", Addresse: " + address +
+                ", Email: " + email +
                 ", Konkurrencesvømmer: " + isOnCompetitionTeam(isOnCompetitionTeam) +
                 ", Aktiv: " + isActive(isActive);
     }

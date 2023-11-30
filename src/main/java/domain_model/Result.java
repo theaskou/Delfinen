@@ -1,31 +1,32 @@
 package domain_model;
 
+import static user_interface.UserInterface.flipDateFormater;
 import java.time.LocalDate;
 
 public class Result {
     private int memberID;
     private String name;
     private LocalDate birthday;
-    private SwimmingDiscipline svømmediscipliner;
+    private SwimmingDiscipline swimmingDiscipline;
     private double bestTime;
     private String competition;
     private int rank;
     private LocalDate date;
 
-    public Result(int memberID, String name, LocalDate birthday, SwimmingDiscipline svømmediscipliner, double bestTime, LocalDate date){
+    public Result(int memberID, String name, LocalDate birthday, SwimmingDiscipline swimmingDiscipline, double bestTime, LocalDate date){
         this.memberID = memberID;
         this.name = name;
         this.birthday = birthday;
-        this.svømmediscipliner = svømmediscipliner;
+        this.swimmingDiscipline = swimmingDiscipline;
         this.bestTime = bestTime;
         this.date = date;
     }
 
-    public Result(int memberID, String name, LocalDate birthday, SwimmingDiscipline svømmediscipliner, double bestTime, String competition, int rank, LocalDate date){
+    public Result(int memberID, String name, LocalDate birthday, SwimmingDiscipline swimmingDiscipline, double bestTime, String competition, int rank, LocalDate date){
         this.memberID = memberID;
         this.name = name;
         this.birthday = birthday;
-        this.svømmediscipliner = svømmediscipliner;
+        this.swimmingDiscipline = swimmingDiscipline;
         this.bestTime = bestTime;
         this.competition = competition;
         this.rank = rank;
@@ -33,19 +34,6 @@ public class Result {
     }
 
 
-
-    @Override
-    public String toString() {
-        return "Resultat{" +
-                "memberID=" + memberID +
-                ", name='" + name + '\'' +
-                ", svømmediscipliner=" + svømmediscipliner +
-                ", bestTime=" + bestTime +
-                ", competition='" + competition + '\'' +
-                ", rank=" + rank +
-                ", date=" + date + "\n" +
-                '}';
-    }
 
     public int getMemberID() {
         return memberID;
@@ -67,12 +55,12 @@ public class Result {
         return birthday;
     }
 
-    public SwimmingDiscipline getSvømmediscipliner() {
-        return svømmediscipliner;
+    public SwimmingDiscipline getSwimmingDiscipline() {
+        return swimmingDiscipline;
     }
 
-    public void setSvømmediscipliner(SwimmingDiscipline svømmediscipliner) {
-        this.svømmediscipliner = svømmediscipliner;
+    public void setSwimmingDiscipline(SwimmingDiscipline swimmingDiscipline) {
+        this.swimmingDiscipline = swimmingDiscipline;
     }
 
     public double getBestTime() {
@@ -105,6 +93,17 @@ public class Result {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    @Override
+    public String toString() {
+        return
+                "ID: " + memberID +
+                        ", Navn: " + name +
+                        ", Fødselsdato: " + flipDateFormater(birthday.toString()) +
+                        ", Disciplin: " + swimmingDiscipline +
+                        ", Bedste tid: " + bestTime +
+                        ", Dato for bedste tid: " + date;
     }
 
 

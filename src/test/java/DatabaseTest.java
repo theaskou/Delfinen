@@ -46,7 +46,7 @@ public class DatabaseTest {
         } catch (FileNotFoundException e){
             throw new RuntimeException(e);
         }
-        db = new Database(testfile);
+        //db = new Database(testfile);
     }
     @Test
     void printYouthTeam(){

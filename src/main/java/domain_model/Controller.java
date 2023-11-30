@@ -71,8 +71,35 @@ public class Controller {
         db.save();
     }
 
-    public ArrayList<Result> crawlResultsFilter() {
-        return db.crawlResultsFilter();
+    public ArrayList<Result> juniorTeamFilter() {
+        return db.junoirTeamFilter();
+    }
+
+    public ArrayList<Result> seniorTeamFilter(){
+        return db.seniorTeamFilter();
+    }
+    
+    public ArrayList<Result> crawlJuniorResultsFilter() {
+        return db.crawlJuniorResultsFilter();
+    }
+
+    public ArrayList<Result> crawlSeniorResultsFilter() {
+        return db.crawlSeniorResultsFilter();
+    }
+
+    public ArrayList<Result> juniorBackStrokeResultFilter(ArrayList<Result> juniorFilterList){
+        return db.juniorBackStrokeResultFilter(juniorFilterList);
+    }
+
+    public ArrayList<Result> seniorBackStrokeResult(ArrayList<Result> seniorFilterList){
+        return db.seniorBackStrokeResultFilter(seniorFilterList);
+    }
+
+    public ArrayList<Result> butterflyResultFilter() {
+        return db.butterFlyResultFilter();
+    }
+    public ArrayList<Result> breaststrokeResultFilter() {
+        return db.breastStrokeResultFilter();
     }
 
 }

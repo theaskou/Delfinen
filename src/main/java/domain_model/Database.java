@@ -26,13 +26,74 @@ public class Database {
         fh.saveMemberData(memberlist, CSVPath);
     }
 
-    public ArrayList<Result> crawlResultsFilter() {
+    public ArrayList<Result> junoirTeamFilter(){
+        ArrayList<Result> juniorTeam = new ArrayList<>();
+        for (Result result : resultList) {
+            if (result.getBirthday().isAfter(LocalDate.now().minusYears(18)))
+                juniorTeam.add(result);
+        } return juniorTeam;
+    }
+
+    public ArrayList<Result> seniorTeamFilter(){
+        ArrayList<Result> seniorTeam = new ArrayList<>();
+        for (Result result : resultList) {
+            if (result.getBirthday().isBefore(LocalDate.now().minusYears(18)))
+                seniorTeam.add(result);
+        } return seniorTeam;
+    }
+
+    public ArrayList<Result> crawlJuniorResultsFilter() {
         ArrayList<Result> crawlResults = new ArrayList<>();
         for (Result result : resultList) {
-            if (result.getSvømmediscipliner().equals(SwimmingDiscipline.CRAWL))
+            if (result.getSwimmingDiscipline().equals(SwimmingDiscipline.CRAWL) && result.getBirthday().isAfter(LocalDate.now().minusYears(18)))
                 crawlResults.add(result);
         }
         return crawlResults;
+    }
+
+    public ArrayList<Result> crawlSeniorResultsFilter() {
+        ArrayList<Result> crawlResults = new ArrayList<>();
+        for (Result result : resultList) {
+            if (result.getSwimmingDiscipline().equals(SwimmingDiscipline.CRAWL) && result.getBirthday().isBefore(LocalDate.now().minusYears(18)))
+            crawlResults.add(result);
+        }
+        return crawlResults;
+    }
+
+    public ArrayList<Result> juniorBackStrokeResultFilter(ArrayList<Result> juniorFilterList){
+        ArrayList<Result> backStrokeResult = new ArrayList<>();
+        for (Result result: juniorFilterList) {
+            if (result.getSwimmingDiscipline().equals(SwimmingDiscipline.BACKSTROKE))
+                backStrokeResult.add(result);
+        }
+        return backStrokeResult;
+    }
+
+    public ArrayList<Result> seniorBackStrokeResultFilter(ArrayList<Result> seniorFilterList){
+        ArrayList<Result> backCrawlResult = new ArrayList<>();
+        for (Result result: seniorFilterList) {
+            if (result.getSwimmingDiscipline().equals(SwimmingDiscipline.BACKSTROKE))
+                backCrawlResult.add(result);
+        }
+        return backCrawlResult;
+    }
+
+    public ArrayList<Result> breastStrokeResultFilter() {
+        ArrayList<Result> breastStrokeResult = new ArrayList<>();
+        for(Result result: resultList) {
+            if (result.getSwimmingDiscipline().equals(SwimmingDiscipline.BREASTSTROKE))
+                breastStrokeResult.add(result);
+        }
+        return breastStrokeResult;
+    }
+
+    public ArrayList<Result>butterFlyResultFilter() {
+        ArrayList<Result> butterFlyResult = new ArrayList<>();
+        for (Result result : resultList) {
+            if (result.getSwimmingDiscipline().equals(SwimmingDiscipline.BUTTERFLY))
+                butterFlyResult.add(result);
+        }
+        return butterFlyResult;
     }
 
 
@@ -71,7 +132,6 @@ public class Database {
             if (LocalDate.now().minusYears(18).isBefore(member.getBirthday()) && member.isOnCompetitionTeam() == true) {
                 youthTeam.add(member);
             }
-
         }
         return youthTeam;
     }
