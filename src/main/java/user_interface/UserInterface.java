@@ -4,6 +4,8 @@ import domain_model.*;
 import domain_model.comparator.*;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -35,15 +37,12 @@ public class UserInterface {
             //Forpersons menu
             do {
                 System.out.println("Forpersons valgmuligheder: " + "\n" +
-                        "1. Opret medlem" + "\n" +
-                        "2. Se liste af medlemmer" + "\n" +
-                        "3. Print ungdomshold" + "\n" +
-                        "9. Afslut" + "\n");
-                while (!keyboard.hasNextInt()) {
-                    wrongInputHandler();
-                }
-                userChoice = keyboard.nextInt();
-                keyboard.nextLine();
+                        "1. Opret medlem\n" +
+                        "2. Se liste af medlemmer\n" +
+                   //     "3. Print ungdomshold" + "\n" +
+                        "9. Afslut");
+
+                userChoice =   intInputHandler();
 
                 switch (userChoice) {
                     case 1:
@@ -55,6 +54,11 @@ public class UserInterface {
                     case 3:
                         System.out.println(controller.youthTeam());
                         break;
+                    case 9:
+                        System.out.println("Tak for nu!");
+                        break;
+
+                    default: System.out.println("Forkert input.");
                 }
 
             } while (userChoice != 9);
@@ -80,6 +84,11 @@ public class UserInterface {
                     case 2:
                         addResult();
                         break;
+
+                    case 9:
+                        System.out.println("Tak for nu!");
+                        break;
+                    default: System.out.println("Forkert input.");
                 }
 
             } while (userChoice != 9);
@@ -101,13 +110,14 @@ public class UserInterface {
                 switch (userChoice) {
                     case 1:
                         //Forventet samlet kontingent for nuværende årc
-                        System.out.println(controller.totalSubsription());
+                        System.out.println("Forventet samlet kontingentindkomst for indeværende år: " + controller.totalSubsription() + " kr.");
                         break;
-                    case 2:
+                   // case 2:
                         //Liste af medlemmer i restance
-                        break;
+                  //      break;
 
                 }
+
             } while (userChoice != 9);
 
         }
@@ -121,9 +131,20 @@ public class UserInterface {
         String name = keyboard.nextLine();
 
         //TODO Crash protection her
-        System.out.println("Indtast fødselsdag i formatet dd-mm-yyyy: ");
-        String birthdayInput = keyboard.nextLine();
-        LocalDate birthday = LocalDate.parse(flipDateFormater(birthdayInput));
+
+     // LocalDate birthday = LocalDate.parse(flipDateFormater(birthdayInput));
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate birthday = null;
+
+        while (birthday == null) {
+            System.out.println("Indtast fødselsdag i formatet dd-mm-yyyy: ");
+            String birthdayInput = keyboard.nextLine();
+            try {
+                birthday = LocalDate.parse(birthdayInput, dateFormatter);
+            } catch (DateTimeParseException e) {
+                System.out.println("Forkert indtastning, prøv igen");
+            }
+        }
 
         System.out.println("Indtast adresse: ");
         String address = keyboard.nextLine();
@@ -131,19 +152,29 @@ public class UserInterface {
         System.out.println("Indtast email: ");
         String email = keyboard.nextLine();
 
-        System.out.println("Er vedkommende på konkurrenceholdet? j/n: ");
-        char competetorInput = keyboard.next().charAt(0);
+
+        System.out.println("Er vedkommende på konkurrenceholdet? j/n: "); //TODO loop igennem ved forkert input
         boolean isCompetitionMember = true;
-        switch (competetorInput) {
-            case 'j' -> {
+        while (true) {
+            char competetorInput = keyboard.next().charAt(0);
+
+            switch (competetorInput) {
+                case 'j':
+                    break;
+                case 'n': isCompetitionMember = false;
+                break;
+                default:
+                    System.out.println("Forkert input.");
+                continue;
             }
-            case 'n' -> isCompetitionMember = false;
-            default -> System.out.println("Invalid input.");
+            break;
         }
 
         System.out.println("Er vedkommende [a] aktiv eller [p] passiv medlem?: ");
         char isActive = keyboard.next().charAt(0);
         boolean isActiveMember = true;
+        while (true){
+            char isActive = keyboard.next().charAt(0);
         switch (isActive) {
             case 'a' -> {
             }
@@ -189,6 +220,7 @@ public class UserInterface {
             case 4:
                 chosenDisciplin = SwimmingDiscipline.BREASTSTROKE;
                 break;
+            default: System.out.println("Forkert input.");
         }
         System.out.println("Indskriv resultat i sekunder");
         double resultat = keyboard.nextDouble();
@@ -199,7 +231,7 @@ public class UserInterface {
 
 
         controller.createResult(chosenMember.getMemberID(), chosenMember.getName(), chosenMember.getBirthday(), chosenDisciplin, resultat, dato);
-        controller.printResults();
+        System.out.println("Tiden er registreret!");
 
     }
 
