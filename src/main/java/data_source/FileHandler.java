@@ -20,7 +20,7 @@ public class FileHandler {
         Scanner sc;
         File file = new File(CSVPath);
         try {
-            sc = new Scanner(file, StandardCharsets.ISO_8859_1);
+            sc = new Scanner(file, StandardCharsets.UTF_8);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

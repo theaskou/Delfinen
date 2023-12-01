@@ -105,6 +105,10 @@ public class UserInterface {
                         //Liste af medlemmer i restance
                   //      break;
 
+                    case 9:
+                        System.out.println("Tak for nu!");
+                        break;
+                    default: System.out.println("Forkert input.");
                 }
 
             } while (userChoice != 9);
@@ -253,8 +257,7 @@ public class UserInterface {
             switch (disciplin) {
                 case 1:
                     //Rygcrawl
-                    System.out.println("Top 5 på junior-holdet:");
-
+                    System.out.println("Top 5 på junior-holdet rygcrawl: \n" + "\u2500".repeat(83));
                     ArrayList<Result> juniorList = controller.juniorTeamFilter();
                     ArrayList<Result> backStrokeJuniorResults = controller.backStrokeResultFilter(juniorList);
                     Collections.sort(backStrokeJuniorResults, new BackcrawlComparator());
@@ -262,7 +265,7 @@ public class UserInterface {
                         System.out.println(backStrokeJuniorResults.get(i));
                     }
 
-                    System.out.println("Top 5 på senior-holdet:");
+                    System.out.println("\nTop 5 på senior-holdet rygcrawl: \n" + "\u2500".repeat(83));
                     ArrayList<Result> seniorList = controller.seniorTeamFilter();
                     ArrayList<Result> backStrokeSeniorResults = controller.backStrokeResultFilter(seniorList);
                     Collections.sort(backStrokeSeniorResults, new BackcrawlComparator());
@@ -313,9 +316,17 @@ public class UserInterface {
                     for (int i = 0; i <= 4; i++){
                         System.out.println(breaststrokeJuniorResult.get(i));
                     }
-                    break;
+                    System.out.println("\n" + "Top 5 på senior-holdet for brystsvømning:\n" + "\u2500".repeat(83));
+                    seniorList = controller.seniorTeamFilter();
+                    ArrayList<Result> breaststrokeSeniorResult = controller.breaststrokeResultFilter(seniorList);
+                    Collections.sort(breaststrokeSeniorResult, new BreaststrokeComparator());
+                    for (int i = 0; i <= 4; i++){
+                        System.out.println(breaststrokeSeniorResult.get(i));
+                    }
+
                 case 5:
-                    keyboard.close();
+                    break;
+                default: System.out.println("Forkert input.");
             }
         } while (disciplin != 5);
     }
