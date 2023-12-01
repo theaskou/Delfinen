@@ -97,13 +97,9 @@ public class Result {
 
     @Override
     public String toString() {
-        return
-                "ID: " + memberID +
-                        ", Navn: " + name +
-                        ", Fødselsdato: " + flipDateFormater(birthday.toString()) +
-                        ", Disciplin: " + swimmingDiscipline +
-                        ", Bedste tid: " + bestTime +
-                        ", Dato for bedste tid: " + date;
+        return name +
+                ", Tid: " + bestTime + "Sekunder" +
+                ", Dato: " + flipDateFormater(date.toString());
     }
 
 

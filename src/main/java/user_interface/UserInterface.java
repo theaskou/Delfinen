@@ -91,8 +91,8 @@ public class UserInterface {
             do {
                 System.out.println("Kasserens valgmuligheder: " + "\n" +
                         "1. Forventet samlet kontingent for nuværende år" + "\n" +
-                        "2. Medlemmer i restance" + "\n" +
-                        "9. Afslut" + "\n");
+                       // "2. Medlemmer i restance" + "\n" +
+                        "9. Afslut");
 
                 userChoice =   intInputHandler();
 
@@ -221,10 +221,17 @@ public class UserInterface {
         System.out.println("Indskriv resultat i sekunder");
         double resultat = keyboard.nextDouble();
         keyboard.nextLine();
-        System.out.println("Hvilken dato blev tiden sat?");
-        String datoInput = keyboard.nextLine();
-        LocalDate dato = LocalDate.parse(datoInput);
-
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate dato = null;
+        while (dato == null) {
+            System.out.println("Indtast datoen tiden blev sat i formattet: dd-mm-yyyy: ");
+            String datoInput = keyboard.nextLine();
+            try {
+                dato = LocalDate.parse(datoInput, dateFormatter);
+            } catch (DateTimeParseException e) {
+                System.out.println("Forkert indtastning, prøv igen");
+            }
+        }
 
         controller.createResult(chosenMember.getMemberID(), chosenMember.getName(), chosenMember.getBirthday(), chosenDisciplin, resultat, dato);
         System.out.println("Tiden er registreret!");
