@@ -71,35 +71,34 @@ public class Controller {
         db.save();
     }
 
+    // Filtreret liste, kun med junior resultater
     public ArrayList<Result> juniorTeamFilter() {
         return db.junoirTeamFilter();
     }
 
+    // Filtreret liste, kun med senior resultater
     public ArrayList<Result> seniorTeamFilter(){
         return db.seniorTeamFilter();
     }
-    
-    public ArrayList<Result> crawlJuniorResultsFilter() {
-        return db.crawlJuniorResultsFilter();
+
+    // Filtreret liste, kun med crawl resultater
+    public ArrayList<Result> crawlResultsFilter(ArrayList<Result> juniorOrSeniorList) {
+        return db.crawlResultsFilter(juniorOrSeniorList);
     }
 
-    public ArrayList<Result> crawlSeniorResultsFilter() {
-        return db.crawlSeniorResultsFilter();
+    // Filtreret liste, kun med backstroke resultater
+    public ArrayList<Result> backStrokeResultFilter(ArrayList<Result> juniorOrSeniorList){
+        return db.backStrokeResultFilter(juniorOrSeniorList);
     }
 
-    public ArrayList<Result> juniorBackStrokeResultFilter(ArrayList<Result> juniorFilterList){
-        return db.juniorBackStrokeResultFilter(juniorFilterList);
+    // Filtreret liste, kun med butterfly resultater
+    public ArrayList<Result> butterflyResultFilter(ArrayList<Result> juniorOrSeniorList) {
+        return db.butterFlyResultFilter(juniorOrSeniorList);
     }
 
-    public ArrayList<Result> seniorBackStrokeResult(ArrayList<Result> seniorFilterList){
-        return db.seniorBackStrokeResultFilter(seniorFilterList);
-    }
-
-    public ArrayList<Result> butterflyResultFilter() {
-        return db.butterFlyResultFilter();
-    }
-    public ArrayList<Result> breaststrokeResultFilter() {
-        return db.breastStrokeResultFilter();
+    // Filtreret liste, kun med breaststroke resultater
+    public ArrayList<Result> breaststrokeResultFilter(ArrayList<Result> juniorOrSeniorList) {
+        return db.breastStrokeResultFilter(juniorOrSeniorList);
     }
 
 }

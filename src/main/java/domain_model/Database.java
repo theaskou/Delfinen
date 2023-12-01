@@ -26,6 +26,11 @@ public class Database {
         fh.saveMemberData(memberlist, CSVPath);
     }
 
+    public void createResult(int memberID, String name, LocalDate birthday, SwimmingDiscipline svømmediscipliner, double bestTime, LocalDate date) {
+        resultList.add(new Result(memberID, name, birthday, svømmediscipliner, bestTime, date));
+        fh.saveResultatData(resultList, CSVPathResultData);
+    }
+
     public ArrayList<Result> junoirTeamFilter(){
         ArrayList<Result> juniorTeam = new ArrayList<>();
         for (Result result : resultList) {
@@ -42,66 +47,42 @@ public class Database {
         } return seniorTeam;
     }
 
-    public ArrayList<Result> crawlJuniorResultsFilter() {
+    public ArrayList<Result> crawlResultsFilter(ArrayList<Result> juniorOrSeniorList) {
         ArrayList<Result> crawlResults = new ArrayList<>();
-        for (Result result : resultList) {
-            if (result.getSwimmingDiscipline().equals(SwimmingDiscipline.CRAWL) && result.getBirthday().isAfter(LocalDate.now().minusYears(18)))
-                crawlResults.add(result);
-        }
-        return crawlResults;
-    }
-
-    public ArrayList<Result> crawlSeniorResultsFilter() {
-        ArrayList<Result> crawlResults = new ArrayList<>();
-        for (Result result : resultList) {
+        for (Result result : juniorOrSeniorList) {
             if (result.getSwimmingDiscipline().equals(SwimmingDiscipline.CRAWL) && result.getBirthday().isBefore(LocalDate.now().minusYears(18)))
             crawlResults.add(result);
         }
         return crawlResults;
     }
 
-    public ArrayList<Result> juniorBackStrokeResultFilter(ArrayList<Result> juniorFilterList){
+    public ArrayList<Result> backStrokeResultFilter(ArrayList<Result> juniorOrSeniorList){
         ArrayList<Result> backStrokeResult = new ArrayList<>();
-        for (Result result: juniorFilterList) {
+        for (Result result: juniorOrSeniorList) {
             if (result.getSwimmingDiscipline().equals(SwimmingDiscipline.BACKSTROKE))
                 backStrokeResult.add(result);
         }
         return backStrokeResult;
     }
 
-    public ArrayList<Result> seniorBackStrokeResultFilter(ArrayList<Result> seniorFilterList){
-        ArrayList<Result> backCrawlResult = new ArrayList<>();
-        for (Result result: seniorFilterList) {
-            if (result.getSwimmingDiscipline().equals(SwimmingDiscipline.BACKSTROKE))
-                backCrawlResult.add(result);
-        }
-        return backCrawlResult;
-    }
 
-    public ArrayList<Result> breastStrokeResultFilter() {
+    public ArrayList<Result> breastStrokeResultFilter(ArrayList<Result> juniorOrSeniorList) {
         ArrayList<Result> breastStrokeResult = new ArrayList<>();
-        for(Result result: resultList) {
+        for(Result result: juniorOrSeniorList) {
             if (result.getSwimmingDiscipline().equals(SwimmingDiscipline.BREASTSTROKE))
                 breastStrokeResult.add(result);
         }
         return breastStrokeResult;
     }
 
-    public ArrayList<Result>butterFlyResultFilter() {
+    public ArrayList<Result>butterFlyResultFilter(ArrayList<Result> juniorOrSeniorList) {
         ArrayList<Result> butterFlyResult = new ArrayList<>();
-        for (Result result : resultList) {
+        for (Result result : juniorOrSeniorList) {
             if (result.getSwimmingDiscipline().equals(SwimmingDiscipline.BUTTERFLY))
                 butterFlyResult.add(result);
         }
         return butterFlyResult;
     }
-
-
-    public void createResult(int memberID, String name, LocalDate birthday, SwimmingDiscipline svømmediscipliner, double bestTime, LocalDate date) {
-        resultList.add(new Result(memberID, name, birthday, svømmediscipliner, bestTime, date));
-        fh.saveResultatData(resultList, CSVPathResultData);
-    }
-
 
     // Liste over alle medlemmer
     public ArrayList<Member> memberlist() {

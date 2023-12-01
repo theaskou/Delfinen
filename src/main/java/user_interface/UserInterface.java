@@ -20,18 +20,14 @@ public class UserInterface {
     Scanner keyboard = new Scanner(System.in);
 
     public void startProgram() {
-        int userChoice = 0;
+
         System.out.println("VELKOMMEN TIL DELFINEN" + "\n" +
                 "1. Forperson" + "\n" +
                 "2. Træner" + "\n" +
                 "3. Kassér");
 
+        int userChoice = intInputHandler();
 
-        while (!keyboard.hasNextInt()) {
-            wrongInputHandler();
-        }
-        userChoice = keyboard.nextInt();
-        keyboard.nextLine();
 
         if (userChoice == 1) {
             //Forpersons menu
@@ -62,23 +58,19 @@ public class UserInterface {
                 }
 
             } while (userChoice != 9);
+            goodbyeDolphin();
         } else if (userChoice == 2) {
             //Trænerens menu
             do {
                 System.out.println("Trænerens valgmuligheder: " + "\n" +
                         "1. Se top 5 lister" + "\n" +
                         "2. Registrer resultater" + "\n" +
-                        "9. Afslut" + "\n");
-                while (!keyboard.hasNextInt()) {
-                    wrongInputHandler();
-                }
-                userChoice = keyboard.nextInt();
-                keyboard.nextLine();
+                        "9. Afslut");
+
+                userChoice =   intInputHandler();
 
                 switch (userChoice) {
                     case 1:
-                        // Top 5 lister, først efter hold (junior/senior), og herefter i hver disciplin
-                        //28/11 Har ikke taget højde for junior senior, kun lavet for butterfly
                         printTop5Results();
                         break;
                     case 2:
@@ -92,6 +84,7 @@ public class UserInterface {
                 }
 
             } while (userChoice != 9);
+            goodbyeDolphin();
 
         } else if (userChoice == 3) {
             //Kasserens menu
@@ -101,11 +94,7 @@ public class UserInterface {
                         "2. Medlemmer i restance" + "\n" +
                         "9. Afslut" + "\n");
 
-                while (!keyboard.hasNextInt()) {
-                    wrongInputHandler();
-                }
-                userChoice = keyboard.nextInt();
-                keyboard.nextLine();
+                userChoice =   intInputHandler();
 
                 switch (userChoice) {
                     case 1:
@@ -119,7 +108,7 @@ public class UserInterface {
                 }
 
             } while (userChoice != 9);
-
+            goodbyeDolphin();
         }
     }
 
@@ -128,6 +117,7 @@ public class UserInterface {
         int medlemsID = controller.membersList().size() + 1001;
 
         System.out.println("Indtast navn: ");
+        keyboard.nextLine();
         String name = keyboard.nextLine();
 
         //TODO Crash protection her
@@ -171,15 +161,19 @@ public class UserInterface {
         }
 
         System.out.println("Er vedkommende [a] aktiv eller [p] passiv medlem?: ");
-        char isActive = keyboard.next().charAt(0);
         boolean isActiveMember = true;
         while (true){
             char isActive = keyboard.next().charAt(0);
         switch (isActive) {
-            case 'a' -> {
-            }
-            case 'p' -> isActiveMember = false;
-            default -> System.out.println("Forkert input.");
+            case 'a':
+            break;
+            case 'p': isActiveMember = false;
+            break;
+            default:
+                System.out.println("Forkert input.");
+                continue;
+        }
+            break;
 
         }
         controller.createMember(medlemsID, name, birthday, address, email, isCompetitionMember, isActiveMember);
@@ -204,9 +198,11 @@ public class UserInterface {
                 2. Crawl
                 3. Butterfly
                 4. Brystsvømning""");
-        int disciplin = keyboard.nextInt();
-        keyboard.nextLine();
+
+        int disciplin =   intInputHandler();
+
         SwimmingDiscipline chosenDisciplin = null;
+
         switch (disciplin){
             case 1:
                 chosenDisciplin = SwimmingDiscipline.BACKSTROKE;
@@ -244,9 +240,8 @@ public class UserInterface {
                     2. Crawl
                     3. Butterfly
                     4. Brystsvømning
-                    5. Afslut""");
-            disciplin = keyboard.nextInt();
-            keyboard.nextLine();
+                    5. Tilbage""");
+            disciplin =   intInputHandler();
 
             switch (disciplin) {
                 case 1:
@@ -254,8 +249,7 @@ public class UserInterface {
                     System.out.println("Top 5 på junior-holdet:");
 
                     ArrayList<Result> juniorList = controller.juniorTeamFilter();
-                    ArrayList<Result> backStrokeJuniorResults = controller.juniorBackStrokeResultFilter(juniorList);
-
+                    ArrayList<Result> backStrokeJuniorResults = controller.backStrokeResultFilter(juniorList);
                     Collections.sort(backStrokeJuniorResults, new BackcrawlComparator());
                     for (int i = 0; i < backStrokeJuniorResults.size() && i <= 4; i++){
                         System.out.println(backStrokeJuniorResults.get(i));
@@ -263,7 +257,7 @@ public class UserInterface {
 
                     System.out.println("Top 5 på senior-holdet:");
                     ArrayList<Result> seniorList = controller.seniorTeamFilter();
-                    ArrayList<Result> backStrokeSeniorResults = controller.seniorBackStrokeResult(seniorList);
+                    ArrayList<Result> backStrokeSeniorResults = controller.backStrokeResultFilter(seniorList);
                     Collections.sort(backStrokeSeniorResults, new BackcrawlComparator());
                     for (int i = 0; i < backStrokeSeniorResults.size() && i <= 4; i++){
                         System.out.println(backStrokeSeniorResults.get(i));
@@ -271,14 +265,16 @@ public class UserInterface {
                     break;
                 case 2:
                     //Crawl
-                    System.out.println("Top 5 på junior-holdet:");
-                    ArrayList<Result> crawlJuniorResults = controller.crawlJuniorResultsFilter();
+                    System.out.println("Top 5 på junior-holdet crawl:\n" + "\u2500".repeat(83));
+                    juniorList = controller.juniorTeamFilter();
+                    ArrayList<Result> crawlJuniorResults = controller.crawlResultsFilter(juniorList);
                     Collections.sort(crawlJuniorResults, new CrawlComparator());
                     for (int i = 0; i < crawlJuniorResults.size() && i <= 4; i++) {
                         System.out.println(crawlJuniorResults.get(i));
                     }
-                    System.out.println("Top 5 på senior-holdet:");
-                    ArrayList<Result> crawlSeniorResults = controller.crawlSeniorResultsFilter();
+                    System.out.println("\n 5 på senior-holdet for crawl:\n" + "\u2500".repeat(83));
+                    seniorList = controller.seniorTeamFilter();
+                    ArrayList<Result> crawlSeniorResults = controller.crawlResultsFilter(seniorList);
                     Collections.sort(crawlSeniorResults, new CrawlComparator());
                     for (int i = 0; i < crawlSeniorResults.size() && i <= 4; i++) {
                         System.out.println(crawlSeniorResults.get(i));
@@ -286,18 +282,29 @@ public class UserInterface {
                     break;
                 case 3:
                     //Butterfly
-                    ArrayList<Result> butterflyResult = controller.butterflyResultFilter();
-                    Collections.sort(butterflyResult, new ButterflyComparator());
+                    System.out.println("Top 5 på junior-holdet for butterfly:" + "\n\u2500".repeat(83));
+                    juniorList = controller.juniorTeamFilter();
+                    ArrayList<Result> butterflyJuniorResult = controller.butterflyResultFilter(juniorList);
+                    Collections.sort(butterflyJuniorResult, new ButterflyComparator());
                     for (int i = 0; i <= 4; i++) {
-                        System.out.println(butterflyResult.get(i));
+                        System.out.println(butterflyJuniorResult.get(i));
+                    }
+                    System.out.println("\nTop 5 på senior-holdet for butterfly:\n" + "\u2500".repeat(83));
+                    seniorList = controller.seniorTeamFilter();
+                    ArrayList<Result> butterflySeniorResult = controller.butterflyResultFilter(seniorList);
+                    Collections.sort(butterflySeniorResult, new ButterflyComparator());
+                    for (int i = 0; i <= 4; i++) {
+                        System.out.println(butterflySeniorResult.get(i));
                     }
                     break;
                 case 4:
                     //Brystsvømning
-                    ArrayList<Result> breaststrokeResult = controller.butterflyResultFilter();
-                    Collections.sort(breaststrokeResult, new BreaststrokeComparator());
+                    System.out.println("Top 5 på junior-holdet: brystsvømning\n" + "\u2500".repeat(83));
+                    juniorList = controller.juniorTeamFilter();
+                    ArrayList<Result> breaststrokeJuniorResult = controller.breaststrokeResultFilter(juniorList);
+                    Collections.sort(breaststrokeJuniorResult, new BreaststrokeComparator());
                     for (int i = 0; i <= 4; i++){
-                        System.out.println(breaststrokeResult.get(i));
+                        System.out.println(breaststrokeJuniorResult.get(i));
                     }
                     break;
                 case 5:
@@ -306,17 +313,44 @@ public class UserInterface {
         } while (disciplin != 5);
     }
 
-    public void wrongInputHandler() {
-        String text = keyboard.next();
-        System.out.println("'" + text + "'" + " er ikke et tal. Prøv igen!");
+    public int intInputHandler() {
+        while (!keyboard.hasNextInt()) {
+            String text = keyboard.next();
+            System.out.println("'" + text + "'" + " er ikke et tal. Prøv igen!");
+            keyboard.nextLine();
+        }
+        int userChoice = keyboard.nextInt();
+        return userChoice;
     }
 
     public static String flipDateFormater(String input){
         String[] split = input.split("-");
         return split[2] + "-" + split[1] + "-" + split[0];
     }
-    //UI noter til marie :)
-    //1. "9" afslut tilbage til hovedmenu (forperson osv.)
+
+    public void goodbyeDolphin(){
+        System.out.println(" .-*-..-*-..-*-..-*-..-*-..-*-..-*-..-*-..-*-..-*-..-*-.");
+        System.out.println("|---------------------[ PÅ GENSYN ]--------------------|");
+        System.out.println("|                                                      |");
+        System.out.println("|                                ..                    |");
+        System.out.println("|                            ,oaAY                     |");
+        System.out.println("|                         ,d8888Y                      |");
+        System.out.println("|                      ,d8888888Ao,                    |");
+        System.out.println("|                ,ad8888888888888888bao,               |");
+        System.out.println("|            ,d88888888888888888888888888b,            |");
+        System.out.println("|         ,d8888888888888888888888888888888b,          |");
+        System.out.println("|       ,888888888888888888888888888888888888b         |");
+        System.out.println("|      d88888888888888888888888888888888888888b        |");
+        System.out.println("|    ,888888888888/'                   `8888888b       |");
+        System.out.println("|    l8888888888aaaadY                   `888888       |");
+        System.out.println("|   888888V/ `98888'                      *8888p       |");
+        System.out.println("|   8888Y'                                a888888b     |");
+        System.out.println("|   d8Y''                                d8Y/' `*YA    |");
+        System.out.println("|   *'                                   9Y'     `Y    |");
+        System.out.println("|                                                      |");
+        System.out.println("|                                                      |");
+        System.out.println(" '-.-''-.-''-.-''-.-''-.-''-.-''-.-''-.-''-.-''-.-''-.-");
+    }
 
 }
 
