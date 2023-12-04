@@ -15,8 +15,8 @@ public class Controller {
 
     //Create member
     public void createMember(int memberID, String name, LocalDate birthday, String address,
-                             String email, boolean isOnCompetitionTeam, boolean isActive) {
-        db.createMember(memberID, name, birthday, address, email, isOnCompetitionTeam, isActive);
+                             String email, boolean isOnCompetitionTeam, boolean isActive, LocalDate subscriptionDate) {
+        db.createMember(memberID, name, birthday, address, email, isOnCompetitionTeam, isActive,subscriptionDate);
     }
 
     //Create result

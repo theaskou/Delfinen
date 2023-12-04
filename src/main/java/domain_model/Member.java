@@ -15,10 +15,11 @@ public class Member {
     private String email;
     private boolean isOnCompetitionTeam;
     private boolean isActive;
+    private LocalDate subscriptionDate;
 
 //TODO skrive competitor attributter
 
-    public Member(int memberID , String name, LocalDate birthday, String address, String email, boolean isOnCompetitionTeam, boolean isActive) {
+    public Member(int memberID , String name, LocalDate birthday, String address, String email, boolean isOnCompetitionTeam, boolean isActive, LocalDate subscriptionDate) {
         this.memberID = memberID;
         this.name = name;
         this.birthday = birthday;
@@ -26,6 +27,7 @@ public class Member {
         this.email = email;
         this.isOnCompetitionTeam = isOnCompetitionTeam;
         this.isActive = isActive;
+        this.subscriptionDate = subscriptionDate;
 
     }
 
@@ -52,6 +54,10 @@ public class Member {
     }
     public boolean isActive(){
         return isActive;
+    }
+
+    public LocalDate getSubscriptionDate(){
+        return subscriptionDate;
     }
 
     public void setMemberID(int memberID) {
@@ -129,6 +135,7 @@ public class Member {
                 ", Addresse: " + address +
                 ", Email: " + email +
                 ", Konkurrencesvømmer: " + isOnCompetitionTeam(isOnCompetitionTeam) +
-                ", Aktiv: " + isActive(isActive);
+                ", Aktiv: " + isActive(isActive) +
+                ", Dato for betalt kontingent: " + flipDateFormater(subscriptionDate.toString());
     }
 }

@@ -91,7 +91,7 @@ public class UserInterface {
             do {
                 System.out.println("Kasserens valgmuligheder: " + "\n" +
                         "1. Forventet samlet kontingent for nuværende år" + "\n" +
-                       // "2. Medlemmer i restance" + "\n" +
+                        "2. Medlemmer i restance" + "\n" +
                         "9. Afslut");
 
                 userChoice =   intInputHandler();
@@ -101,10 +101,9 @@ public class UserInterface {
                         //Forventet samlet kontingent for nuværende årc
                         System.out.println("Forventet samlet kontingentindkomst for indeværende år: " + controller.totalSubsription() + " kr.");
                         break;
-                   // case 2:
-                        //Liste af medlemmer i restance
-                  //      break;
-
+                    case 2:
+                        printRestanceList();
+                        break;
                     case 9:
                         System.out.println("Tak for nu!");
                         break;
@@ -166,21 +165,26 @@ public class UserInterface {
 
         System.out.println("Er vedkommende [a] aktiv eller [p] passiv medlem?: ");
         boolean isActiveMember = true;
-        while (true){
+        while (true) {
             char isActive = keyboard.next().charAt(0);
-        switch (isActive) {
-            case 'a':
-            break;
-            case 'p': isActiveMember = false;
-            break;
-            default:
-                System.out.println("Forkert input.");
-                continue;
-        }
+            switch (isActive) {
+                case 'a':
+                    break;
+                case 'p':
+                    isActiveMember = false;
+                    break;
+                default:
+                    System.out.println("Forkert input.");
+                    continue;
+            }
             break;
 
         }
-        controller.createMember(medlemsID, name, birthday, address, email, isCompetitionMember, isActiveMember);
+
+        LocalDate subscriptionDate = LocalDate.now();
+
+
+        controller.createMember(medlemsID, name, birthday, address, email, isCompetitionMember, isActiveMember,subscriptionDate);
 
     }
 
@@ -334,6 +338,13 @@ public class UserInterface {
                 default: System.out.println("Forkert input.");
             }
         } while (disciplin != 5);
+    }
+
+    public void printRestanceList(){
+        ArrayList<Member> restanceList = controller.restanceList();
+        for (Member member : restanceList){
+            System.out.println(member);
+        }
     }
 
 

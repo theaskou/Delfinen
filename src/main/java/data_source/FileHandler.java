@@ -35,7 +35,8 @@ public class FileHandler {
                     attributes[3],
                     attributes[4],
                     (Boolean.parseBoolean(attributes[5])),
-                    (Boolean.parseBoolean(attributes[6]))
+                    (Boolean.parseBoolean(attributes[6])),
+                    (LocalDate.parse(attributes[7]))
             );
             loadData.add(member);
         }
@@ -56,7 +57,8 @@ public class FileHandler {
                                 + member.getAddress() + ";"
                                 + member.getEmail() + ";"
                                 + member.isOnCompetitionTeam() + ";"
-                                + member.isActive()
+                                + member.isActive() + ";"
+                                + member.getSubscriptionDate()
                 );
             }
         } catch (FileNotFoundException e) {
