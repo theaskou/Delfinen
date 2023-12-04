@@ -237,8 +237,13 @@ public class UserInterface {
             }
         }
 
-        controller.createResult(chosenMember.getMemberID(), chosenMember.getName(), chosenMember.getBirthday(), chosenDisciplin, resultat, dato);
-        System.out.println("Tiden er registreret!");
+        ResultCompareMessage resultCompareMessage = controller.createResult(chosenMember, chosenDisciplin, resultat, dato);
+
+        switch (resultCompareMessage){
+            case NEW_BEST_RESULT -> System.out.println("Tiden er opdateret");
+            case NOT_BEST_RESULT -> System.out.println("Det er desværre ikke den bedste tid");
+            case NOT_FOUND -> System.out.println("Hvad skal vi skrive her? test test test");
+        }
 
     }
 
@@ -330,6 +335,7 @@ public class UserInterface {
             }
         } while (disciplin != 5);
     }
+
 
     public int intInputHandler() {
         while (!keyboard.hasNextInt()) {

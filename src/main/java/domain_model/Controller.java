@@ -20,10 +20,8 @@ public class Controller {
     }
 
     //Create result
-    public void createResult(int memberID, String name, LocalDate birthday, SwimmingDiscipline svømmediscipliner,
-                             double bestTime, LocalDate date) {
-
-        db.createResult(memberID, name, birthday, svømmediscipliner, bestTime, date);
+    public ResultCompareMessage createResult(Member chosenMember, SwimmingDiscipline chosenDisciplin, double resultat, LocalDate dato) {
+        return db.createResult(chosenMember, chosenDisciplin, resultat, dato);
     }
 
     //Liste af alle medlemmer
@@ -100,5 +98,12 @@ public class Controller {
     public ArrayList<Result> breaststrokeResultFilter(ArrayList<Result> juniorOrSeniorList) {
         return db.breastStrokeResultFilter(juniorOrSeniorList);
     }
+
+    public ArrayList<Member> restanceList(){
+        return db.restanceList();
+    }
+
+
+
 
 }

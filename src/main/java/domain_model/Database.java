@@ -26,11 +26,6 @@ public class Database {
         fh.saveMemberData(memberlist, CSVPath);
     }
 
-    public void createResult(int memberID, String name, LocalDate birthday, SwimmingDiscipline svømmediscipliner, double bestTime, LocalDate date) {
-        resultList.add(new Result(memberID, name, birthday, svømmediscipliner, bestTime, date));
-        fh.saveResultatData(resultList, CSVPathResultData);
-    }
-
     public ArrayList<Result> junoirTeamFilter(){
         ArrayList<Result> juniorTeam = new ArrayList<>();
         for (Result result : resultList) {
@@ -87,6 +82,15 @@ public class Database {
     // Liste over alle medlemmer
     public ArrayList<Member> memberlist() {
         return memberlist;
+    }
+
+    public ArrayList<Result> crawlJuniorResultsFilter() {
+        ArrayList<Result> crawlResults = new ArrayList<>();
+        for (Result result : resultList) {
+            if (result.getSwimmingDiscipline().equals(SwimmingDiscipline.CRAWL) && result.getBirthday().isAfter(LocalDate.now().minusYears(18)))
+                crawlResults.add(result);
+        }
+        return crawlResults;
     }
 
     // Liste over alle konkurrence medlemmer
@@ -154,6 +158,39 @@ public class Database {
             totalSubscription += member.calculateSubscription();
         }
         return totalSubscription;
+
     }
 
+        //Restance liste
+        public ArrayList<Member> restanceList(){
+            ArrayList<Member> restanceList = new ArrayList<>();
+            for (Member member : memberlist){
+                if (member.getSubscriptionDate().plusYears(1).isBefore(LocalDate.now()))
+                    restanceList.add(member);
+            }
+            return restanceList;
+        }
+
+
+    public ResultCompareMessage createResult(Member member, SwimmingDiscipline disciplin, double newTime, LocalDate dato) {
+        ResultCompareMessage resultCompareMessage = ResultCompareMessage.NOT_FOUND;
+        Result resultOnFile = null;
+        for (Result result : resultList){
+            if (member.getMemberID() == result.getMemberID() && disciplin.equals(result.getSwimmingDiscipline())) {
+                if (result.getBestTime() > newTime) {
+                    resultOnFile = result;
+                    resultCompareMessage = ResultCompareMessage.NEW_BEST_RESULT;
+                } else {
+                    resultCompareMessage = ResultCompareMessage.NOT_BEST_RESULT;
+                }
+            }
+        }
+        if (resultCompareMessage.equals(ResultCompareMessage.NEW_BEST_RESULT)){
+                resultList.add(new Result(member.getMemberID(), member.getName(), member.getBirthday(), disciplin, newTime, dato));
+                resultList.remove(resultOnFile);
+                fh.saveResultatData(resultList, CSVPathResultData);
+
+        }
+        return resultCompareMessage;
+    }
 }
