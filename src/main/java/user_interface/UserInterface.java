@@ -207,7 +207,7 @@ public class UserInterface {
                 3. Butterfly
                 4. Brystsvømning""");
 
-        int disciplin =   intInputHandler();
+        int disciplin = intInputHandler();
 
         SwimmingDiscipline chosenDisciplin = null;
 
