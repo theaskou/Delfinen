@@ -17,7 +17,7 @@ public class Member {
     private boolean isActive;
     private LocalDate subscriptionDate;
 
-//TODO skrive competitor attributter
+
 
     public Member(int memberID , String name, LocalDate birthday, String address, String email, boolean isOnCompetitionTeam, boolean isActive, LocalDate subscriptionDate) {
         this.memberID = memberID;

@@ -29,45 +29,25 @@ public class Controller {
         return db.memberlist();
     }
 
-    //Liste af resultater
-    public ArrayList<Result> getResultList() {
-        return db.getResultList();
-    }
 
     //Liste af alle konkurrence medlemmer
     public ArrayList<Member> getCompetetionMember() {
         return db.getCompetitionMember();
     }
 
-    //liste af youth konkurrencehold
-    public ArrayList<Member> youthTeam() {
-        return db.youthTeam();
-    }
 
-    //Liste af senior konkurrencehold
-    public ArrayList<Member> seniorTeam() {
-        return db.seniorTeam();
-    }
 
     //Udprint af alle medlemmer
     public void printMembers() {
         db.printMemberlist();
     }
 
-    //Kun til test - print resultater
-    public void printResults() {
-        db.printResults();
-    }
 
     //Samlet kontingent udregner
     public int totalSubsription() {
         return db.totalSubscription();
     }
 
-    //bliver ikke brugt lige nu
-    public void save() {
-        db.save();
-    }
 
     // Filtreret liste, kun med junior resultater
     public ArrayList<Result> juniorTeamFilter() {

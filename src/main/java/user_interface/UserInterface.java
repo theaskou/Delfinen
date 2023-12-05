@@ -34,7 +34,6 @@ public class UserInterface {
                 System.out.println("Forpersons valgmuligheder: " + "\n" +
                         "1. Opret medlem\n" +
                         "2. Se liste af medlemmer\n" +
-                   //     "3. Print ungdomshold" + "\n" +
                         "9. Afslut");
 
                 userChoice =   intInputHandler();
@@ -46,9 +45,7 @@ public class UserInterface {
                     case 2:
                         controller.printMembers();
                         break;
-                    case 3:
-                        System.out.println(controller.youthTeam());
-                        break;
+
                     case 9:
                         System.out.println("Tak for nu!");
                         break;
@@ -105,6 +102,7 @@ public class UserInterface {
                         System.out.println("Forventet samlet kontingentindkomst for indeværende år: " + controller.totalSubsription() + " kr.");
                         break;
                     case 2:
+                        //Restance liste
                         printRestanceList();
                         break;
                     case 9:
@@ -118,6 +116,8 @@ public class UserInterface {
         }
     }
 
+
+    //Hjælpe metoder under her
     public void createMember() {
 
         int medlemsID = controller.membersList().size() + 1001;
@@ -126,9 +126,7 @@ public class UserInterface {
         keyboard.nextLine();
         String name = keyboard.nextLine();
 
-        //TODO Crash protection her
 
-     // LocalDate birthday = LocalDate.parse(flipDateFormater(birthdayInput));
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         LocalDate birthday = null;
 
@@ -149,7 +147,7 @@ public class UserInterface {
         String email = keyboard.nextLine();
 
 
-        System.out.println("Er vedkommende på konkurrenceholdet? j/n: "); //TODO loop igennem ved forkert input
+        System.out.println("Er vedkommende på konkurrenceholdet? j/n: ");
         boolean isCompetitionMember = true;
         while (true) {
             char competetorInput = keyboard.next().charAt(0);
