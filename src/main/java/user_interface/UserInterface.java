@@ -179,7 +179,6 @@ public class UserInterface {
                     continue;
             }
             break;
-
         }
 
         LocalDate subscriptionDate = LocalDate.now();
@@ -301,7 +300,8 @@ public class UserInterface {
                     break;
                 case 3:
                     //Butterfly
-                    System.out.println("Top 5 på junior-holdet for butterfly:" + "\n\u2500".repeat(83));
+                    ArrayList<Result> bestResultForEachSwimmer = new ArrayList<>();
+                    System.out.println("Top 5 på junior-holdet for butterfly:\n" + "\u2500".repeat(83));
                     juniorList = controller.juniorTeamFilter();
                     ArrayList<Result> butterflyJuniorResult = controller.butterflyResultFilter(juniorList);
                     Collections.sort(butterflyJuniorResult, new ButterflyComparator());
@@ -319,7 +319,7 @@ public class UserInterface {
                     seniorList = controller.seniorTeamFilter();
                     ArrayList<Result> butterflySeniorResult = controller.butterflyResultFilter(seniorList);
                     Collections.sort(butterflySeniorResult, new ButterflyComparator());
-                    for (int i = 0; i <= 4; i++) {
+                    for (int i = 0; i < butterflySeniorResult.size() && i <= 4; i++) {
                         System.out.println(butterflySeniorResult.get(i));
                     }
                     break;
