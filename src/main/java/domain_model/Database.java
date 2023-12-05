@@ -142,8 +142,16 @@ public class Database {
                 resultList.add(new Result(member.getMemberID(), member.getName(), member.getBirthday(), disciplin, newTime, dato));
                 resultList.remove(resultOnFile);
                 fh.saveResultatData(resultList, CSVPathResultData);
-
         }
         return resultCompareMessage;
     }
+
+
+    // Konkurrence-resultater. Filtrering.
+    // -> Loop alle resultater igennem for junior/senior (den metode har vi)
+    // -> Filtrer efter disciplin
+    // -> Sortér deres tider - bedste først
+    // -> Lav en metode, som kun udtager det første resultat på listen
+    // -> indsæt i top 5?
+
 }
