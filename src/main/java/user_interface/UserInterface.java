@@ -28,7 +28,6 @@ public class UserInterface {
 
         int userChoice = intInputHandler();
 
-
         if (userChoice == 1) {
             //Forpersons menu
             do {
@@ -59,12 +58,14 @@ public class UserInterface {
 
             } while (userChoice != 9);
             goodbyeDolphin();
+
         } else if (userChoice == 2) {
             //Trænerens menu
             do {
                 System.out.println("Trænerens valgmuligheder: " + "\n" +
                         "1. Se top 5 lister" + "\n" +
                         "2. Registrer resultater" + "\n" +
+                        "3. Registrer stævne resultater" + "\n" +
                         "9. Afslut");
 
                 userChoice =   intInputHandler();
@@ -76,7 +77,9 @@ public class UserInterface {
                     case 2:
                         addResult();
                         break;
-
+                    case 3:
+                        // Registrer stævne resultater
+                        break;
                     case 9:
                         System.out.println("Tak for nu!");
                         break;
@@ -98,7 +101,7 @@ public class UserInterface {
 
                 switch (userChoice) {
                     case 1:
-                        //Forventet samlet kontingent for nuværende årc
+                        //Forventet samlet kontingent for nuværende år
                         System.out.println("Forventet samlet kontingentindkomst for indeværende år: " + controller.totalSubsription() + " kr.");
                         break;
                     case 2:
@@ -182,7 +185,6 @@ public class UserInterface {
         }
 
         LocalDate subscriptionDate = LocalDate.now();
-
 
         controller.createMember(medlemsID, name, birthday, address, email, isCompetitionMember, isActiveMember,subscriptionDate);
 
@@ -305,8 +307,15 @@ public class UserInterface {
                     juniorList = controller.juniorTeamFilter();
                     ArrayList<Result> butterflyJuniorResult = controller.butterflyResultFilter(juniorList);
                     Collections.sort(butterflyJuniorResult, new ButterflyComparator());
-                    for (int i = 0; i <= 4; i++) {
-                        System.out.println(butterflyJuniorResult.get(i));
+                    for (Result junior: butterflyJuniorResult) {
+                        if(!bestResultForEachSwimmer.contains(junior.getMemberID())) {
+                            bestResultForEachSwimmer.add(junior);
+                        }
+
+                    }
+
+                    for (int i = 0; i < bestResultForEachSwimmer.size() && i <= 4; i++) {
+                        System.out.println(bestResultForEachSwimmer.get(i));
                     }
                     System.out.println("\nTop 5 på senior-holdet for butterfly:\n" + "\u2500".repeat(83));
                     seniorList = controller.seniorTeamFilter();
@@ -322,14 +331,14 @@ public class UserInterface {
                     juniorList = controller.juniorTeamFilter();
                     ArrayList<Result> breaststrokeJuniorResult = controller.breaststrokeResultFilter(juniorList);
                     Collections.sort(breaststrokeJuniorResult, new BreaststrokeComparator());
-                    for (int i = 0; i <= 4; i++){
+                    for (int i = 0; i < breaststrokeJuniorResult.size() && i <= 4; i++){
                         System.out.println(breaststrokeJuniorResult.get(i));
                     }
                     System.out.println("\n" + "Top 5 på senior-holdet for brystsvømning:\n" + "\u2500".repeat(83));
                     seniorList = controller.seniorTeamFilter();
                     ArrayList<Result> breaststrokeSeniorResult = controller.breaststrokeResultFilter(seniorList);
                     Collections.sort(breaststrokeSeniorResult, new BreaststrokeComparator());
-                    for (int i = 0; i <= 4; i++){
+                    for (int i = 0; i < breaststrokeSeniorResult.size() && i <= 4; i++){
                         System.out.println(breaststrokeSeniorResult.get(i));
                     }
 
