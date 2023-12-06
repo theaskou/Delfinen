@@ -1,3 +1,4 @@
+import data_source.FileHandler;
 import domain_model.Database;
 import domain_model.Member;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,6 +13,7 @@ import java.time.Month;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.Scanner;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class DatabaseTest {
     Database db;
@@ -42,7 +44,9 @@ public class DatabaseTest {
                         member.getAddress() + ";" +
                         member.getEmail() + ";" +
                         member.isOnCompetitionTeam() + ";" +
-                        member.isActive());
+                        member.isActive() + ";" +
+                        member.getSubscriptionDate()
+                );
             }
         } catch (FileNotFoundException e){
             throw new RuntimeException(e);

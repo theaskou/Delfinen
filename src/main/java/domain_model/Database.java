@@ -21,6 +21,14 @@ public class Database {
         this.resultList = fh.loadResultData(CSVPathResultData);
     }
 
+    public int getMemberlist(){
+        return memberlist.size();
+    }
+
+    public int getResultatlist(){
+        return resultList.size();
+    }
+
     public void createMember(int memberID, String name, LocalDate birthday, String address, String email, boolean isOnCompetitionTeam, boolean isActive, LocalDate subscriptionDate) {
         memberlist.add(new Member(memberID, name, birthday, address, email, isOnCompetitionTeam, isActive,subscriptionDate));
         fh.saveMemberData(memberlist, CSVPath);
