@@ -38,9 +38,6 @@ public class Controller {
     public ArrayList<Member> membersList() {
         return db.memberlist();
     }
-    public ArrayList<Member> memberToEdit() {
-        return db.editMemberList();
-    }
 
 
     //Liste af alle konkurrence medlemmer

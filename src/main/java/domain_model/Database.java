@@ -116,26 +116,6 @@ public class Database {
         }
     }
 
-    public void editMemberList(Member memberToEdit) {
-        System.out.println("");
-
-
-
-        if (memberlist.size() > 1) {
-            System.out.println("Vælg medlem: ");
-            int count = 1;
-            for (Member memberToEdit : memberlist) {
-                System.out.println(count++ +
-                memberToEdit.getName() + " \n" +
-                memberToEdit.getAddress() + " \n" +
-                memberToEdit.getEmail() + " \n" +
-                memberToEdit.isOnCompetitionTeam() + " \n" +
-                memberToEdit.isActive());
-            }
-        }
-
-    }
-
 
     //Total kontingent beregner
     public int totalSubscription() {
