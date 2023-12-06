@@ -97,6 +97,11 @@ public class Controller {
         return db.restanceList();
     }
 
+    //Gem medlemmer
+    public void saveMemberData(){
+        db.saveMemberData();
+    }
+
 
 
 

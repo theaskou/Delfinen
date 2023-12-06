@@ -46,7 +46,7 @@ public class UserInterface {
                         controller.printMembers();
                         break;
                     case 3:
-                        //Rediger medlem
+                        editMember();
                         break;
                     case 4:
                         //Slet medlem
@@ -258,22 +258,64 @@ public class UserInterface {
 
     }
 
-    public Member findMemberEdit(){
+    public void editMember(){
         ArrayList<Member> members = controller.membersList();
+        Member memberToEdit;
         int count = 1;
-        System.out.println("Hvilket medlem ønsker du at redigere?");
-        for (Member memberToEdit: members){
-            System.out.println(count++ +
-                    memberToEdit.getName() + " \n" +
-                    memberToEdit.getAddress() + " \n" +
-                    memberToEdit.getEmail() + " \n" +
-                    memberToEdit.isOnCompetitionTeam() + " \n" +
-                    memberToEdit.isActive());
+        if (members.size() > 1) {
+            System.out.println("Hvilket medlem ønsker du at redigere?");
+            for (Member member : members) {
+                System.out.println(count++ + " " +
+                        member.getName());
+            }
+            int memberNumberOnList = keyboard.nextInt();
+            keyboard.nextLine();
+                memberToEdit = members.get(memberNumberOnList - 1);
+        } else {
+            memberToEdit = members.get(0);
         }
-        int memberNumberOnList = keyboard.nextInt();
-        keyboard.nextLine();
-        Member memberEditChoice = members.get(memberNumberOnList - 1);
-        return memberEditChoice;
+        if (!members.isEmpty()){
+            System.out.println("Rediger information. Tryk enter for at fortsætte");
+            String newValue;
+            System.out.println("Navn: " + memberToEdit.getName());
+            newValue = keyboard.nextLine();
+            if (!newValue.isEmpty()){
+                memberToEdit.setName(newValue);
+            }
+
+            System.out.println("Adresse: " + memberToEdit.getAddress());
+            newValue = keyboard.nextLine();
+            if (!newValue.isEmpty()){
+                memberToEdit.setAddress(newValue);
+            }
+
+            System.out.println("Email: " + memberToEdit.getEmail());
+            newValue = keyboard.nextLine();
+            if (!newValue.isEmpty()){
+                memberToEdit.setEmail(newValue);
+            }
+
+            System.out.println("Konkurrencesvømmer [j/n]: " + memberToEdit.isOnCompetitionTeam(memberToEdit.isOnCompetitionTeam()));
+            newValue = keyboard.nextLine();
+            if (newValue.equals("j")){
+                memberToEdit.setOnCompetitionTeam(true);
+            } else if (newValue.equals("n")) {
+                memberToEdit.setOnCompetitionTeam(false);
+            }
+
+            System.out.println("Er aktiv [j/n]: " + memberToEdit.isActive(memberToEdit.isActive()));
+            newValue = keyboard.nextLine();
+            if (newValue.equals("j")){
+                memberToEdit.setActive(true);
+
+            } else if (newValue.equals("n")) {
+                memberToEdit.setActive(false);
+            }
+
+            controller.saveMemberData();
+            System.out.println(memberToEdit.getName() + " er opdateret");
+
+        }
     }
 
     public void addCompetition(){

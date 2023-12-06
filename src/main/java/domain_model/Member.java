@@ -81,11 +81,11 @@ public class Member {
     }
 
     public void setOnCompetitionTeam(boolean onCompetitionTeam) {
-        isOnCompetitionTeam = onCompetitionTeam;
+        this.isOnCompetitionTeam = onCompetitionTeam;
     }
 
     public void setActive(boolean active) {
-        isActive = active;
+        this.isActive = active;
     }
 
     public String isOnCompetitionTeam(boolean isOnCompetitionTeam){

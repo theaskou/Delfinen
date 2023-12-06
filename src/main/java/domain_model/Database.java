@@ -33,6 +33,10 @@ public class Database {
         fh.saveMemberData(memberlist, CSVPath);
     }
 
+    public void saveMemberData(){
+        fh.saveMemberData(memberlist, CSVPath);
+    }
+
     public ArrayList<Result> junoirTeamFilter() {
         ArrayList<Result> juniorTeam = new ArrayList<>();
         for (Result result : resultList) {
@@ -183,10 +187,29 @@ public class Database {
     public void printCompetitions() {
         for (Result resultsFromList : resultList) {
             if (resultsFromList.getRank() != 0) {
-                System.out.println("Navn: " + resultsFromList.getName() + " Disciplin: " + resultsFromList.getSwimmingDiscipline() + " Placering: " + resultsFromList.getRank() +
-                        " Tid: " + resultsFromList.getBestTime() + " Stævne: " + resultsFromList.getCompetition() + "\n");
+                System.out.println("Navn: " + resultsFromList.getName() + " Disciplin: " + swimmingdisciplinFormatter(resultsFromList.getSwimmingDiscipline()) + " Placering: " + resultsFromList.getRank() +
+                        " Tid: " + resultsFromList.getBestTime() + " Sekunder" + " Stævne: " + resultsFromList.getCompetition() + "\n");
             }
         }
+    }
+
+    public String swimmingdisciplinFormatter(SwimmingDiscipline discipline){
+        String disciplinReturn = null;
+        switch (discipline) {
+            case BUTTERFLY -> {
+                disciplinReturn = "Butterfly";
+            }
+            case CRAWL -> {
+                disciplinReturn = "Crawl";
+            }
+            case BACKSTROKE -> {
+                disciplinReturn ="Rygsvømning";
+            }
+            case BREASTSTROKE -> {
+                disciplinReturn = "Brystsvømning";
+            }
+        } 
+        return disciplinReturn;
     }
 
     public boolean deleteMember(String medlemsID) {
