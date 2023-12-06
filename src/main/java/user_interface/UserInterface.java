@@ -349,7 +349,7 @@ public class UserInterface {
                     3. Butterfly
                     4. Brystsvømning
                     5. Tilbage""");
-            disciplin =   intInputHandler();
+            disciplin = intInputHandler();
 
             switch (disciplin) {
                 case 1:
@@ -358,17 +358,13 @@ public class UserInterface {
                     ArrayList<Result> juniorList = controller.juniorTeamFilter();
                     ArrayList<Result> backStrokeJuniorResults = controller.backStrokeResultFilter(juniorList);
                     Collections.sort(backStrokeJuniorResults, new BackcrawlComparator());
-                    for (int i = 0; i < backStrokeJuniorResults.size() && i <= 4; i++){
-                        System.out.println(backStrokeJuniorResults.get(i));
-                    }
+                    uniqueMemberID(backStrokeJuniorResults);
 
                     System.out.println("\nTop 5 på senior-holdet rygcrawl: \n" + "\u2500".repeat(83));
                     ArrayList<Result> seniorList = controller.seniorTeamFilter();
                     ArrayList<Result> backStrokeSeniorResults = controller.backStrokeResultFilter(seniorList);
                     Collections.sort(backStrokeSeniorResults, new BackcrawlComparator());
-                    for (int i = 0; i < backStrokeSeniorResults.size() && i <= 4; i++){
-                        System.out.println(backStrokeSeniorResults.get(i));
-                    }
+                    uniqueMemberID(backStrokeSeniorResults);
                     break;
                 case 2:
                     //Crawl
@@ -376,16 +372,13 @@ public class UserInterface {
                     juniorList = controller.juniorTeamFilter();
                     ArrayList<Result> crawlJuniorResults = controller.crawlResultsFilter(juniorList);
                     Collections.sort(crawlJuniorResults, new CrawlComparator());
-                    for (int i = 0; i < crawlJuniorResults.size() && i <= 4; i++) {
-                        System.out.println(crawlJuniorResults.get(i));
-                    }
+                    uniqueMemberID(crawlJuniorResults);
+
                     System.out.println("\n 5 på senior-holdet for crawl:\n" + "\u2500".repeat(83));
                     seniorList = controller.seniorTeamFilter();
                     ArrayList<Result> crawlSeniorResults = controller.crawlResultsFilter(seniorList);
                     Collections.sort(crawlSeniorResults, new CrawlComparator());
-                    for (int i = 0; i < crawlSeniorResults.size() && i <= 4; i++) {
-                        System.out.println(crawlSeniorResults.get(i));
-                    }
+                    uniqueMemberID(crawlSeniorResults);
                     break;
                 case 3:
                     //Butterfly
@@ -400,9 +393,7 @@ public class UserInterface {
                     seniorList = controller.seniorTeamFilter();
                     ArrayList<Result> butterflySeniorResult = controller.butterflyResultFilter(seniorList);
                     Collections.sort(butterflySeniorResult, new ButterflyComparator());
-                    for (int i = 0; i < butterflySeniorResult.size() && i <= 4; i++) {
-                        System.out.println(butterflySeniorResult.get(i));
-                    }
+                    uniqueMemberID(butterflySeniorResult);
                     break;
                 case 4:
                     //Brystsvømning
@@ -410,9 +401,8 @@ public class UserInterface {
                     juniorList = controller.juniorTeamFilter();
                     ArrayList<Result> breaststrokeJuniorResult = controller.breaststrokeResultFilter(juniorList);
                     Collections.sort(breaststrokeJuniorResult, new BreaststrokeComparator());
-                    for (int i = 0; i < breaststrokeJuniorResult.size() && i <= 4; i++){
-                        System.out.println(breaststrokeJuniorResult.get(i));
-                    }
+                    uniqueMemberID(breaststrokeJuniorResult);
+
                     System.out.println("\n" + "Top 5 på senior-holdet for brystsvømning:\n" + "\u2500".repeat(83));
                     seniorList = controller.seniorTeamFilter();
                     ArrayList<Result> breaststrokeSeniorResult = controller.breaststrokeResultFilter(seniorList);
@@ -429,6 +419,23 @@ public class UserInterface {
         for (Member member : restanceList){
             System.out.println(member);
         }
+    }
+    public void uniqueMemberID(ArrayList<Result> filteredResultList){
+        Set<Integer> uniqueMemberIDS = new HashSet<>();
+        int count = 0;
+
+        for (Result result : filteredResultList) {
+            int memberID = result.getMemberID();
+            if (uniqueMemberIDS.add(memberID)) {
+                System.out.println(result);
+                count++;
+            }
+            if (count == 5){
+                break;
+            }
+
+        }
+
     }
 
 
