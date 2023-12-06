@@ -6,9 +6,7 @@ import domain_model.comparator.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Scanner;
+import java.util.*;
 
 public class UserInterface {
     private final Controller controller;
@@ -34,6 +32,8 @@ public class UserInterface {
                 System.out.println("Forpersons valgmuligheder: " + "\n" +
                         "1. Opret medlem\n" +
                         "2. Se liste af medlemmer\n" +
+                        "3. Rediger medlem\n" +
+                        "4. Slet medlem\n" +
                         "9. Afslut");
 
                 userChoice =   intInputHandler();
@@ -45,11 +45,15 @@ public class UserInterface {
                     case 2:
                         controller.printMembers();
                         break;
-
+                    case 3:
+                        //Rediger medlem
+                        break;
+                    case 4:
+                        //Slet medlem
+                        break;
                     case 9:
                         System.out.println("Tak for nu!");
                         break;
-
                     default: System.out.println("Forkert input.");
                 }
 
@@ -62,7 +66,8 @@ public class UserInterface {
                 System.out.println("Trænerens valgmuligheder: " + "\n" +
                         "1. Se top 5 lister" + "\n" +
                         "2. Registrer resultater" + "\n" +
-                        "3. Registrer stævne resultater" + "\n" +
+                        "3. Registrer stævne" + "\n" +
+                        "4. Print stævneresultater" + "\n" +
                         "9. Afslut");
 
                 userChoice =   intInputHandler();
@@ -75,7 +80,10 @@ public class UserInterface {
                         addResult();
                         break;
                     case 3:
-                        // Registrer stævne resultater
+                        addCompetition();
+                        break;
+                    case 4:
+                        controller.printCompetitions();
                         break;
                     case 9:
                         System.out.println("Tak for nu!");
@@ -188,17 +196,17 @@ public class UserInterface {
     }
 
     public void addResult() {
-        //TODO save til en fil
         ArrayList<Member> competitionMembers = controller.getCompetetionMember();
         int count = 1;
+        System.out.println("Hvilket medlem vil du give et resultat?");
         for (Member competitionMember : competitionMembers) {
             System.out.println(count++ + " , ID: " + competitionMember.getMemberID() + " ,Navn: " + competitionMember.getName());
         }
-        System.out.println("Hvilket medlem vil du give et resultat?");
+
         int memberChoice = keyboard.nextInt();
         keyboard.nextLine();
         Member chosenMember = competitionMembers.get(memberChoice - 1);
-        //Skal vi spørge her om det er til stævne vs. træning? Eller skal træneren have en seperat menupunkt til stævne?
+
         System.out.println("""
                 Vælg disciplin:
                 1. Rygcrawl
@@ -247,6 +255,87 @@ public class UserInterface {
             case NOT_BEST_RESULT -> System.out.println("Det er desværre ikke den bedste tid");
             case NOT_FOUND -> System.out.println("Hvad skal vi skrive her? test test test");
         }
+
+    }
+
+    public Member findMemberEdit(){
+        ArrayList<Member> members = controller.membersList();
+        int count = 1;
+        System.out.println("Hvilket medlem ønsker du at redigere?");
+        for (Member memberToEdit: members){
+            System.out.println(count++ +
+                    memberToEdit.getName() + " \n" +
+                    memberToEdit.getAddress() + " \n" +
+                    memberToEdit.getEmail() + " \n" +
+                    memberToEdit.isOnCompetitionTeam() + " \n" +
+                    memberToEdit.isActive());
+        }
+        int memberNumberOnList = keyboard.nextInt();
+        keyboard.nextLine();
+        Member memberEditChoice = members.get(memberNumberOnList - 1);
+        return memberEditChoice;
+    }
+
+    public void addCompetition(){
+        ArrayList<Member> competitionMembers = controller.getCompetetionMember();
+        int count = 1;
+        System.out.println("Hvilket medlem vil du registrere et stævne på?");
+        for (Member competitionMember : competitionMembers) {
+            System.out.println(count++ + " , ID: " + competitionMember.getMemberID() + " ,Navn: " + competitionMember.getName());
+        }
+        int memberChoice = keyboard.nextInt();
+        keyboard.nextLine();
+        Member chosenMember = competitionMembers.get(memberChoice - 1);
+
+        System.out.println("""
+                Vælg disciplin:
+                1. Rygcrawl
+                2. Crawl
+                3. Butterfly
+                4. Brystsvømning""");
+
+        int disciplin = intInputHandler();
+
+        SwimmingDiscipline chosenDisciplin = null;
+
+        switch (disciplin){
+            case 1:
+                chosenDisciplin = SwimmingDiscipline.BACKSTROKE;
+                break;
+            case 2:
+                chosenDisciplin = SwimmingDiscipline.CRAWL;
+                break;
+            case 3:
+                chosenDisciplin = SwimmingDiscipline.BUTTERFLY;
+                break;
+            case 4:
+                chosenDisciplin = SwimmingDiscipline.BREASTSTROKE;
+                break;
+            default: System.out.println("Forkert input.");
+        }
+        System.out.println("Indskriv resultat i sekunder");
+        double resultat = keyboard.nextDouble();
+        keyboard.nextLine();
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate dato = null;
+        while (dato == null) {
+            System.out.println("Indtast datoen tiden blev sat i formattet: dd-mm-yyyy: ");
+            String datoInput = keyboard.nextLine();
+            try {
+                dato = LocalDate.parse(datoInput, dateFormatter);
+            } catch (DateTimeParseException e) {
+                System.out.println("Forkert indtastning, prøv igen");
+            }
+        }
+        System.out.println("Indtast navnet på stævnet: ");
+        String competitionName = keyboard.nextLine();
+
+        System.out.println("Indtast placering til stævnet: ");
+        int rank = keyboard.nextInt();
+        keyboard.nextLine();
+
+        controller.createCompetitionResult(chosenMember, chosenDisciplin, resultat, competitionName, rank, dato);
+        System.out.println("Stævnet er registreret!");
 
     }
 
@@ -305,16 +394,8 @@ public class UserInterface {
                     juniorList = controller.juniorTeamFilter();
                     ArrayList<Result> butterflyJuniorResult = controller.butterflyResultFilter(juniorList);
                     Collections.sort(butterflyJuniorResult, new ButterflyComparator());
-                    for (Result junior: butterflyJuniorResult) {
-                        if(!bestResultForEachSwimmer.contains(junior.getMemberID())) {
-                            bestResultForEachSwimmer.add(junior);
-                        }
+                    uniqueMemberID(butterflyJuniorResult);
 
-                    }
-
-                    for (int i = 0; i < bestResultForEachSwimmer.size() && i <= 4; i++) {
-                        System.out.println(bestResultForEachSwimmer.get(i));
-                    }
                     System.out.println("\nTop 5 på senior-holdet for butterfly:\n" + "\u2500".repeat(83));
                     seniorList = controller.seniorTeamFilter();
                     ArrayList<Result> butterflySeniorResult = controller.butterflyResultFilter(seniorList);
@@ -336,11 +417,7 @@ public class UserInterface {
                     seniorList = controller.seniorTeamFilter();
                     ArrayList<Result> breaststrokeSeniorResult = controller.breaststrokeResultFilter(seniorList);
                     Collections.sort(breaststrokeSeniorResult, new BreaststrokeComparator());
-                    for (int i = 0; i < breaststrokeSeniorResult.size() && i <= 4; i++){
-                        System.out.println(breaststrokeSeniorResult.get(i));
-                    }
-
-                case 5:
+                    uniqueMemberID(breaststrokeSeniorResult);
                     break;
                 default: System.out.println("Forkert input.");
             }

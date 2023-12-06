@@ -146,6 +146,20 @@ public class Database {
         return resultCompareMessage;
     }
 
+    public void createCompetitionResult(Member member, SwimmingDiscipline discipline, double newTime, String competitionName, int rank, LocalDate date){
+        resultList.add(new Result(member.getMemberID(), member.getName(), member.getBirthday(), discipline, newTime, competitionName, rank, date));
+        fh.saveResultatData(resultList, CSVPathResultData);
+    }
+
+    public void printCompetitions() {
+        for (Result resultsFromList : resultList) {
+            if (resultsFromList.getRank() != 0) {
+                System.out.println("Navn: " + resultsFromList.getName() + " Disciplin: " + resultsFromList.getSwimmingDiscipline() + " Placering: " + resultsFromList.getRank() +
+                        " Tid: " + resultsFromList.getBestTime() + " Stævne: " + resultsFromList.getCompetition() + "\n");
+            }
+        }
+    }
+
 
     // Konkurrence-resultater. Filtrering.
     // -> Loop alle resultater igennem for junior/senior (den metode har vi)
@@ -154,4 +168,3 @@ public class Database {
     // -> Lav en metode, som kun udtager det første resultat på listen
     // -> indsæt i top 5?
 
-}

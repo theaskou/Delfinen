@@ -20,13 +20,14 @@ public class DatabaseTest {
 
     @BeforeEach
     void setUp() {
-        testfile = new File ("src/test/java/testMember.txt");
-        ArrayList<Member> testMembers = new ArrayList<>();
 
-        Member m1 = new Member(2122,"Nikolaj", LocalDate.of(2012,1,24), "Aalborg", "NikoP@yahoo.com", true, true);
-        Member m2 = new Member(3132,"Marie", LocalDate.of(1965,4,30), "Düsseldorf", "Marie@yahoo.com", true, false);
-        Member m3 = new Member(4142,"Thea", LocalDate.of(1993,11,26), "Rio De Janiro", "Thea@yahoo.com", false, true);
-        Member m4 = new Member(5152,"Usman",LocalDate.of(2022,2,15), "Papa Ny Guinea", "Usman@yahoo.com", false, false);
+        String basePath = System.getProperty("user.dir") + "/src/test/java/";
+        memberTestFile = new File (basePath + "testMember.csv");
+
+        Member m1 = new Member(2122,"Nikolaj", LocalDate.of(2012,1,24), "Aalborg", "NikoP@yahoo.com", true, true,LocalDate.of(2023,12,4));
+        Member m2 = new Member(3132,"Marie", LocalDate.of(1965,4,30), "Düsseldorf", "Marie@yahoo.com", true, false,LocalDate.of(2023,12,4));
+        Member m3 = new Member(4142,"Thea", LocalDate.of(1993,11,26), "Rio De Janiro", "Thea@yahoo.com", false, true,LocalDate.of(2023,12,4));
+        Member m4 = new Member(5152,"Usman",LocalDate.of(2022,2,15), "Papa Ny Guinea", "Usman@yahoo.com", false, false,LocalDate.of(2023,12,4));
 
         testMembers.add(m1);
         testMembers.add(m2);

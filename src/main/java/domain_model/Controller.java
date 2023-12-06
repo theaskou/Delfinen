@@ -24,6 +24,16 @@ public class Controller {
         return db.createResult(chosenMember, chosenDisciplin, resultat, dato);
     }
 
+    //Create competition Result
+    public void createCompetitionResult(Member chosenMember, SwimmingDiscipline chosenDiscipline, double newTime, String competitionName, int rank, LocalDate date){
+        db.createCompetitionResult(chosenMember, chosenDiscipline, newTime, competitionName, rank, date);
+    }
+
+    //Print af stævner og resultater derfra
+    public void printCompetitions(){
+        db.printCompetitions();
+    }
+
     //Liste af alle medlemmer
     public ArrayList<Member> membersList() {
         return db.memberlist();
@@ -79,6 +89,7 @@ public class Controller {
         return db.breastStrokeResultFilter(juniorOrSeniorList);
     }
 
+    //Print af medlemmer i restance
     public ArrayList<Member> restanceList(){
         return db.restanceList();
     }
