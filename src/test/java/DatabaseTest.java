@@ -116,10 +116,15 @@ void loadMembers(){
 
     @Test
     void addMember(){
-        int startSize = testMembers.size();
+        ArrayList<Member> memberlist = new ArrayList<>();
+        Member m1 = new Member(2122,"Nikolaj", LocalDate.of(2012,1,24), "Aalborg", "NikoP@yahoo.com", true, true,LocalDate.of(2023,12,4));
+        Member m2 = new Member(3132,"Marie", LocalDate.of(1965,4,30), "Düsseldorf", "Marie@yahoo.com", true, false,LocalDate.of(2023,12,4));
+        memberlist.add(m1);
+        memberlist.add(m2);
+        int startSize = memberlist.size();
         db.createMember(9987,"Jens", LocalDate.of(2012,1,24), "Aalborg", "NikoP@yahoo.com", true, true,LocalDate.of(2023,12,4));
         int expectedSize = startSize + 1;
-        int actualSize = testMembers.size();
+        int actualSize = memberlist.size();
         assertEquals(expectedSize,actualSize);
     }
 
