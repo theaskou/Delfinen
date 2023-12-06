@@ -168,6 +168,25 @@ public class Database {
         }
     }
 
+    public boolean deleteMember(String medlemsID) {
+        for (Member member : memberlist) {
+            if (medlemsID.equals(member.getMemberID())) {
+                memberlist.remove(member);
+                fh.saveMemberData(memberlist, CSVPath);
+                return true;
+            }
+
+//            for (Result result : resultList) {
+//                if (medlemsID == result.getMemberID()){
+//                    resultList.remove(result);
+//                    fh.saveResultatData(resultList, CSVPathResultData);
+//                    return true;
+//                }
+//            }
+        }
+        return false;
+    }
+}
 
     // Konkurrence-resultater. Filtrering.
     // -> Loop alle resultater igennem for junior/senior (den metode har vi)
