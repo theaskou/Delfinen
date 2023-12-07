@@ -20,6 +20,15 @@ public class Database {
         this.resultList = fh.loadResultData(CSVPathResultData);
     }
 
+    //Konstruktør til test
+    public Database(String CSVPath, String CSVPathResultData) {
+        this.fh = new FileHandler();
+        this.CSVPath = CSVPath;
+        this.CSVPathResultData = CSVPathResultData;
+        this.memberlist = fh.loadMemberData(CSVPath);
+        this.resultList = fh.loadResultData(CSVPathResultData);
+    }
+
     public int getMemberlist(){
         return memberlist.size();
     }
@@ -151,6 +160,11 @@ public class Database {
                 }
             }
         }
+        if(resultOnFile == null){
+            resultList.add(new Result(member.getMemberID(), member.getName(), member.getBirthday(), disciplin, newTime, dato));
+            resultCompareMessage = ResultCompareMessage.FIRST_TIME_RESULT;
+            fh.saveResultatData(resultList, CSVPathResultData);
+        }
         if (resultCompareMessage.equals(ResultCompareMessage.NEW_BEST_RESULT)) {
             resultList.add(new Result(member.getMemberID(), member.getName(), member.getBirthday(), disciplin, newTime, dato));
             resultList.remove(resultOnFile);
@@ -192,30 +206,22 @@ public class Database {
         return disciplinReturn;
     }
 
-    public boolean deleteMember(String medlemsID) {
+    public boolean deleteMember(int medlemsID) {
+        boolean isdeleted = false;
+
+        resultList.removeIf(result -> medlemsID == result.getMemberID());
+        fh.saveResultatData(resultList, CSVPathResultData);
+
         for (Member member : memberlist) {
-            if (medlemsID.equals(member.getMemberID())) {
+            if (medlemsID == member.getMemberID()) {
                 memberlist.remove(member);
                 fh.saveMemberData(memberlist, CSVPath);
-                return true;
+                isdeleted = true;
+                break;
             }
-
-//            for (Result result : resultList) {
-//                if (medlemsID == result.getMemberID()){
-//                    resultList.remove(result);
-//                    fh.saveResultatData(resultList, CSVPathResultData);
-//                    return true;
-//                }
-//            }
-        }
-        return false;
+        } return isdeleted;
     }
 }
 
-    // Konkurrence-resultater. Filtrering.
-    // -> Loop alle resultater igennem for junior/senior (den metode har vi)
-    // -> Filtrer efter disciplin
-    // -> Sortér deres tider - bedste først
-    // -> Lav en metode, som kun udtager det første resultat på listen
-    // -> indsæt i top 5?
+
 

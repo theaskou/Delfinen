@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -17,115 +18,81 @@ import static org.junit.jupiter.api.Assertions.*;
 public class DatabaseTest {
     Database db;
     FileHandler fh = new FileHandler();
-    File memberTestFile;
-    File resultTestFile;
-    ArrayList<Member> testMembers = new ArrayList<>();
-    ArrayList<Result> testResults = new ArrayList<>();
+    String memberTestFile;
+    String resultTestFile;
+    String basePath;
 
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws IOException {
 
-        String basePath = System.getProperty("user.dir") + "/src/test/java/";
-        memberTestFile = new File (basePath + "testMember.csv");
+        basePath = System.getProperty("user.dir") + "/src/test/java/";
+        memberTestFile = basePath + "testMember.csv";
+        //Sletter den gamle member test fil.
+        new File(memberTestFile).delete();
+        //Laver en ny member test fil
+        new File(memberTestFile).createNewFile();
 
-        Member m1 = new Member(2122,"Nikolaj", LocalDate.of(2012,1,24), "Aalborg", "NikoP@yahoo.com", true, true,LocalDate.of(2023,12,4));
-        Member m2 = new Member(3132,"Marie", LocalDate.of(1965,4,30), "Düsseldorf", "Marie@yahoo.com", true, false,LocalDate.of(2023,12,4));
-        Member m3 = new Member(4142,"Thea", LocalDate.of(1993,11,26), "Rio De Janiro", "Thea@yahoo.com", false, true,LocalDate.of(2023,12,4));
-        Member m4 = new Member(5152,"Usman",LocalDate.of(2022,2,15), "Papa Ny Guinea", "Usman@yahoo.com", false, false,LocalDate.of(2023,12,4));
+        resultTestFile = basePath + "resultTestFile.csv";
+        //Sletter den game test fil.
+        new File(resultTestFile).delete();
+        //Laver en ny testfil.
+        new File(resultTestFile).createNewFile();
+        db = new Database(memberTestFile, resultTestFile);
 
-        testMembers.add(m1);
-        testMembers.add(m2);
-        testMembers.add(m3);
-        testMembers.add(m4);
 
-        try (PrintStream out = new PrintStream(memberTestFile)){
-            for (Member member: testMembers) {
-                out.println(member.getMemberID() + ";" +
-                        member.getName() + ";" +
-                        member.getBirthday() + ";" +
-                        member.getAddress() + ";" +
-                        member.getEmail() + ";" +
-                        member.isOnCompetitionTeam() + ";" +
-                        member.isActive() + ";" +
-                        member.getSubscriptionDate()
-                );
-            }
-        } catch (FileNotFoundException e){
-            throw new RuntimeException(e);
-        }
+        //Creater test medlemmer vha create metoden i databasen, den metode gemmer automatisk til member fil
+        db.createMember(2122,"Nikolaj", LocalDate.of(2012,1,24), "Aalborg", "NikoP@yahoo.com", true, true,LocalDate.of(2023,12,4));
+        db.createMember(3132,"Marie", LocalDate.of(1965,4,30), "Düsseldorf", "Marie@yahoo.com", true, false,LocalDate.of(2023,12,4));
+        db.createMember(4142,"Thea", LocalDate.of(1993,11,26), "Rio De Janiro", "Thea@yahoo.com", false, true,LocalDate.of(2023,12,4));
+        db.createMember(5152,"Usman",LocalDate.of(2022,2,15), "Papa Ny Guinea", "Usman@yahoo.com", false, false,LocalDate.of(2023,12,4));
 
-        resultTestFile = new File (basePath + "resultTestFile.csv");
+        //Creater test resultater vha af create result metoden i databasen, den metode gemmer automatisk til result fil.
+        db.createResult(new Member(2122,"Nikolaj", LocalDate.of(2012,1,24), "Aalborg", "NikoP@yahoo.com", true, true,LocalDate.of(2023,12,4)), SwimmingDiscipline.BACKSTROKE,25.8,LocalDate.of(2021,7,10));
+        db.createResult(new Member(3132,"Marie", LocalDate.of(1965,4,30), "Düsseldorf", "Marie@yahoo.com", true, false,LocalDate.of(2023,12,4)), SwimmingDiscipline.CRAWL,24.2,LocalDate.of(2022,5,12));
+        db.createResult(new Member(4142,"Thea", LocalDate.of(1993,11,26), "Rio De Janiro", "Thea@yahoo.com", false, true,LocalDate.of(2023,12,4)), SwimmingDiscipline.BUTTERFLY,26.7,LocalDate.of(2023,8,1));
+        db.createResult(new Member(5152,"Usman",LocalDate.of(2022,2,15), "Papa Ny Guinea", "Usman@yahoo.com", false, false,LocalDate.of(2023,12,4)), SwimmingDiscipline.BREASTSTROKE,21.2,LocalDate.of(2023,4,5));
 
-        Result r1 = new Result(2122,"Nikolaj", LocalDate.of(2012,1,24), SwimmingDiscipline.BACKSTROKE,25.8,null,0,LocalDate.of(2021,7,10));
-        Result r2 = new Result(3132,"Marie", LocalDate.of(1965,4,30), SwimmingDiscipline.CRAWL,24.2,null,0,LocalDate.of(2022,5,12));
-        Result r3 = new Result(4142,"Thea", LocalDate.of(1993,11,26), SwimmingDiscipline.BUTTERFLY,26.7,null,0,LocalDate.of(2023,8,1));
-        Result r4 = new Result(5152,"Usman",LocalDate.of(2022,2,15), SwimmingDiscipline.BREASTSTROKE,21.2,null,0,LocalDate.of(2023,4,5));
+    }
 
-        testResults.add(r1);
-        testResults.add(r2);
-        testResults.add(r3);
-        testResults.add(r4);
 
-        try (PrintStream output = new PrintStream(resultTestFile)) {
-            for (Result resultat : testResults) {
-                output.println(
-                        +resultat.getMemberID() + ";"
-                                + resultat.getName() + ";"
-                                + resultat.getBirthday() + ";"
-                                + resultat.getSwimmingDiscipline() + ";"
-                                + resultat.getBestTime() + ";"
-                                + resultat.getCompetition() + ";"
-                                + resultat.getRank() + ";"
-                                + resultat.getDate()
-                );
-            }
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        db = new Database();
+    @Test
+    void loadMembers(){
+        int expectedSize = 4;
+        int actualSize = fh.loadMemberData(basePath + "testMember.csv").size();
+        assertEquals(expectedSize,actualSize);
     }
 
     @Test
-    void printYouthTeam(){
-        ArrayList<Member> testMembers = new ArrayList<>();
-        for (Member member: testMembers){
-            if (LocalDate.now().minusYears(18).isBefore(member.getBirthday()) && member.isOnCompetitionTeam() == true){
-                testMembers.add(member);
-            }
-        }
-    }
-
-@Test
-void loadMembers(){
+    void loadResults(){
         int expectedSize = 4;
-        int actualSize = fh.loadMemberData("testMember.csv").size();
+        int actualSize = fh.loadResultData(basePath + "resultTestFile.csv").size();
         assertEquals(expectedSize,actualSize);
-}
+    }
 
     @Test
     void deleteMember(){
-        db.deleteMember("2122");
+        db.deleteMember(2122);
         int expectedSizeTestMembers = 3;
-        int actualSizeTestMembers = testMembers.size();
+        int actualSizeTestMembers = db.getMemberlist();
         int expectedSizeTestResults = 3;
-        int actualSizeTestResults = testResults.size();
+        int actualSizeTestResults = db.getResultatlist();
         assertEquals(expectedSizeTestMembers, actualSizeTestMembers);
         assertEquals(expectedSizeTestResults, actualSizeTestResults);
     }
 
     @Test
     void addMember(){
-        ArrayList<Member> memberlist = new ArrayList<>();
-        Member m1 = new Member(2122,"Nikolaj", LocalDate.of(2012,1,24), "Aalborg", "NikoP@yahoo.com", true, true,LocalDate.of(2023,12,4));
-        Member m2 = new Member(3132,"Marie", LocalDate.of(1965,4,30), "Düsseldorf", "Marie@yahoo.com", true, false,LocalDate.of(2023,12,4));
-        memberlist.add(m1);
-        memberlist.add(m2);
-        int startSize = memberlist.size();
+        int startSize = db.getMemberlist();
         db.createMember(9987,"Jens", LocalDate.of(2012,1,24), "Aalborg", "NikoP@yahoo.com", true, true,LocalDate.of(2023,12,4));
         int expectedSize = startSize + 1;
-        int actualSize = memberlist.size();
+        int actualSize = db.getMemberlist();
         assertEquals(expectedSize,actualSize);
+    }
+
+    @Test
+    void calculateSubscription(){
+        
     }
 
 
