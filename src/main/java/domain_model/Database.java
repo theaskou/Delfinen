@@ -42,6 +42,39 @@ public class Database {
         fh.saveMemberData(memberlist, CSVPath);
     }
 
+    //Laver et resultat
+    public ResultCompareMessage createResult(Member member, SwimmingDiscipline disciplin, double newTime, LocalDate dato) {
+        ResultCompareMessage resultCompareMessage = ResultCompareMessage.NOT_FOUND;
+        Result resultOnFile = null;
+        for (Result result : resultList) {
+            if (member.getMemberID() == result.getMemberID() && disciplin.equals(result.getSwimmingDiscipline())) {
+                if (result.getBestTime() > newTime) {
+                    resultOnFile = result;
+                    resultCompareMessage = ResultCompareMessage.NEW_BEST_RESULT;
+                } else {
+                    resultCompareMessage = ResultCompareMessage.NOT_BEST_RESULT;
+                }
+            }
+        }
+        if(resultOnFile == null){
+            resultList.add(new Result(member.getMemberID(), member.getName(), member.getBirthday(), disciplin, newTime, dato));
+            resultCompareMessage = ResultCompareMessage.FIRST_TIME_RESULT;
+            fh.saveResultatData(resultList, CSVPathResultData);
+        }
+        if (resultCompareMessage.equals(ResultCompareMessage.NEW_BEST_RESULT)) {
+            resultList.add(new Result(member.getMemberID(), member.getName(), member.getBirthday(), disciplin, newTime, dato));
+            resultList.remove(resultOnFile);
+            fh.saveResultatData(resultList, CSVPathResultData);
+        }
+        return resultCompareMessage;
+    }
+
+    //Laver stævneresultat og saver til resultlist
+    public void createCompetitionResult(Member member, SwimmingDiscipline discipline, double newTime, String competitionName, int rank, LocalDate date){
+        resultList.add(new Result(member.getMemberID(), member.getName(), member.getBirthday(), discipline, newTime, competitionName, rank, date));
+        fh.saveResultatData(resultList, CSVPathResultData);
+    }
+
     public void saveMemberData(){
         fh.saveMemberData(memberlist, CSVPath);
     }

@@ -92,7 +92,9 @@ public class DatabaseTest {
 
     @Test
     void calculateSubscription(){
-        
+        int expectedSubscription = 3600;
+        int actualSubscription = db.totalSubscription();
+        assertEquals(expectedSubscription,actualSubscription);
     }
 
 @Test

@@ -123,5 +123,18 @@ public class Member {
         }
     }
 
+    //toString for Member
+    @Override
+    public String toString() {
+        return    "ID: " + memberID +
+                ", Navn: " + name +
+                ", Fødselsdag: " + flipDateFormater(birthday.toString()) +
+                ", Addresse: " + address +
+                ", Email: " + email +
+                ", Konkurrencesvømmer: " + isOnCompetitionTeam(isOnCompetitionTeam) +
+                ", Aktiv: " + isActive(isActive) +
+                ", Dato for betalt kontingent: " + flipDateFormater(subscriptionDate.toString());
+    }
+
 
 }

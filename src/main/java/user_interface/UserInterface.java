@@ -36,7 +36,7 @@ public class UserInterface {
                         "4. Slet medlem\n" +
                         "9. Afslut");
 
-                userChoice =   intInputHandler();
+                userChoice = intInputHandler();
 
                 switch (userChoice) {
                     case 1:
