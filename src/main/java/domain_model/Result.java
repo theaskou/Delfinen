@@ -13,6 +13,7 @@ public class Result {
     private int rank;
     private LocalDate date;
 
+    //Konstruktør for trænings resultat
     public Result(int memberID, String name, LocalDate birthday, SwimmingDiscipline swimmingDiscipline, double bestTime, LocalDate date){
         this.memberID = memberID;
         this.name = name;
@@ -22,6 +23,7 @@ public class Result {
         this.date = date;
     }
 
+    //Konstruktør for stævne resultat
     public Result(int memberID, String name, LocalDate birthday, SwimmingDiscipline swimmingDiscipline, double bestTime, String competition, int rank, LocalDate date){
         this.memberID = memberID;
         this.name = name;
@@ -33,22 +35,13 @@ public class Result {
         this.date = date;
     }
 
-
-
+    //Getters and setters for Result
     public int getMemberID() {
         return memberID;
     }
 
-    public void setMemberID(int memberID) {
-        this.memberID = memberID;
-    }
-
      public String getName() {
        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public LocalDate getBirthday(){
@@ -59,42 +52,23 @@ public class Result {
         return swimmingDiscipline;
     }
 
-    public void setSwimmingDiscipline(SwimmingDiscipline swimmingDiscipline) {
-        this.swimmingDiscipline = swimmingDiscipline;
-    }
-
     public double getBestTime() {
         return bestTime;
-    }
-
-    public void setBestTime(double bestTime) {
-        this.bestTime = bestTime;
     }
 
     public String getCompetition() {
         return competition;
     }
 
-    public void setCompetition(String competition) {
-        this.competition = competition;
-    }
-
     public int getRank() {
         return rank;
-    }
-
-    public void setRank(int rank) {
-        this.rank = rank;
     }
 
     public LocalDate getDate() {
         return date;
     }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
+    
+    //toString for Result
     @Override
     public String toString() {
         return name +

@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class Member {
 
-    private int memberID; // TODO: Skal kunne tildele et random nummer selv ved oprettelse.
+    private int memberID;
     private String name;
     private LocalDate birthday;
     private String address;
@@ -31,6 +31,7 @@ public class Member {
 
     }
 
+    // Getters and setters for attributes:
     public int getMemberID(){
         return memberID;
     }
@@ -60,16 +61,8 @@ public class Member {
         return subscriptionDate;
     }
 
-    public void setMemberID(int memberID) {
-        this.memberID = memberID;
-    }
-
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void setBirthday(LocalDate birthday) {
-        this.birthday = birthday;
     }
 
     public void setAddress(String address) {
@@ -88,6 +81,32 @@ public class Member {
         this.isActive = active;
     }
 
+
+    //Kontingent beregner
+    public int calculateSubscription() {
+        int subscription = 0; int juniorSub = 1000;
+        int adultSub = 1600; int seniorSub = 1200;
+        int passiveSub = 500;
+
+        if (LocalDate.now().minusYears(18).isBefore(getBirthday()) && isActive() == true) {
+            subscription += juniorSub;
+        }
+        if (LocalDate.now().minusYears(18).isAfter(getBirthday()) && LocalDate.now().minusYears(60).isBefore(getBirthday()) && isActive() == true) {
+            subscription += adultSub;
+        }
+        if (LocalDate.now().minusYears(60).isAfter(getBirthday()) && isActive() == true) {
+            subscription += seniorSub;
+        }
+        if (isActive() == false) {
+            subscription += passiveSub;
+        }
+
+        return subscription;
+
+    }
+
+
+    //Formatters to return a String from boolean attribute:
     public String isOnCompetitionTeam(boolean isOnCompetitionTeam){
         if (isOnCompetitionTeam) {
             return "Ja";
@@ -104,38 +123,5 @@ public class Member {
         }
     }
 
-        public int calculateSubscription() {
-            int subscription = 0; int juniorSub = 1000;
-            int adultSub = 1600; int seniorSub = 1200;
-            int passiveSub = 500;
 
-                if (LocalDate.now().minusYears(18).isBefore(getBirthday()) && isActive() == true) {
-                    subscription += juniorSub;
-                }
-                if (LocalDate.now().minusYears(18).isAfter(getBirthday()) && LocalDate.now().minusYears(60).isBefore(getBirthday()) && isActive() == true) {
-                    subscription += adultSub;
-                }
-                if (LocalDate.now().minusYears(60).isAfter(getBirthday()) && isActive() == true) {
-                    subscription += seniorSub;
-                }
-                if (isActive() == false) {
-                    subscription += passiveSub;
-                }
-
-
-            return subscription;
-
-    }
-
-    @Override
-    public String toString() {
-        return    "ID: " + memberID +
-                ", Navn: " + name +
-                ", Fødselsdag: " + flipDateFormater(birthday.toString()) +
-                ", Addresse: " + address +
-                ", Email: " + email +
-                ", Konkurrencesvømmer: " + isOnCompetitionTeam(isOnCompetitionTeam) +
-                ", Aktiv: " + isActive(isActive) +
-                ", Dato for betalt kontingent: " + flipDateFormater(subscriptionDate.toString());
-    }
 }

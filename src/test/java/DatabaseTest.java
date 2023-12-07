@@ -95,10 +95,28 @@ public class DatabaseTest {
         
     }
 
+@Test
+    void juniorlistFilter(){
+        ArrayList<Result> juniorTeam = db.juniorTeamFilter();
+        int expectedSize = 2;
+        int actualSize = juniorTeam.size();
+        assertEquals(expectedSize, actualSize);
+}
 
+@Test
+void seniorlistFilter(){
+        ArrayList<Result> seniorTeam = db.seniorTeamFilter();
+        int expectedSize = 2;
+        int actualSize = seniorTeam.size();
+        assertEquals(expectedSize, actualSize);
+}
 
-
-
-
+@Test
+    void crawlResultsFilter(){
+        ArrayList<Result> crawlResults = db.crawlResultsFilter(db.seniorTeamFilter());
+        int expectedSize = 1;
+        int actualSize = crawlResults.size();
+        assertEquals(expectedSize, actualSize);
+}
 
 }

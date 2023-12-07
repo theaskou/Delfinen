@@ -134,7 +134,6 @@ public class UserInterface {
         keyboard.nextLine();
         String name = keyboard.nextLine();
 
-
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         LocalDate birthday = null;
 
@@ -474,9 +473,13 @@ public class UserInterface {
 
     public void printRestanceList(){
         ArrayList<Member> restanceList = controller.restanceList();
-        for (Member member : restanceList){
-            System.out.println(member);
-        }
+        if (!restanceList.isEmpty()) {
+            for (Member member : restanceList) {
+                System.out.println(member);
+            }
+            } else {
+                System.out.println("Ingen medlemmer i restance");
+            }
     }
     public void uniqueMemberID(ArrayList<Result> filteredResultList){
         Set<Integer> uniqueMemberIDS = new HashSet<>();
