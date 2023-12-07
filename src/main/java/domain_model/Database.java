@@ -37,6 +37,7 @@ public class Database {
         return resultList.size();
     }
 
+    //Laver et medlem
     public void createMember(int memberID, String name, LocalDate birthday, String address, String email, boolean isOnCompetitionTeam, boolean isActive, LocalDate subscriptionDate) {
         memberlist.add(new Member(memberID, name, birthday, address, email, isOnCompetitionTeam, isActive, subscriptionDate));
         fh.saveMemberData(memberlist, CSVPath);
@@ -75,6 +76,7 @@ public class Database {
         fh.saveResultatData(resultList, CSVPathResultData);
     }
 
+    //Gemmer medlemmer til memberlist
     public void saveMemberData(){
         fh.saveMemberData(memberlist, CSVPath);
     }
@@ -88,7 +90,7 @@ public class Database {
         }
         return juniorTeam;
     }
-
+    //Filtrere for om du er senior
     public ArrayList<Result> seniorTeamFilter() {
         ArrayList<Result> seniorTeam = new ArrayList<>();
         for (Result result : resultList) {
@@ -97,7 +99,7 @@ public class Database {
         }
         return seniorTeam;
     }
-
+    //Laver en liste med crawlresultater for junior og senior
     public ArrayList<Result> crawlResultsFilter(ArrayList<Result> juniorOrSeniorList) {
         ArrayList<Result> crawlResults = new ArrayList<>();
         for (Result result : juniorOrSeniorList) {
@@ -107,6 +109,7 @@ public class Database {
         return crawlResults;
     }
 
+    //Laver en liste med backstroke for junior og senior
     public ArrayList<Result> backStrokeResultFilter(ArrayList<Result> juniorOrSeniorList) {
         ArrayList<Result> backStrokeResult = new ArrayList<>();
         for (Result result : juniorOrSeniorList) {
@@ -116,7 +119,7 @@ public class Database {
         return backStrokeResult;
     }
 
-
+    //Laver en liste med breakstroke for junior og senior
     public ArrayList<Result> breastStrokeResultFilter(ArrayList<Result> juniorOrSeniorList) {
         ArrayList<Result> breastStrokeResult = new ArrayList<>();
         for (Result result : juniorOrSeniorList) {
@@ -126,6 +129,7 @@ public class Database {
         return breastStrokeResult;
     }
 
+    //Laver en liste med butterflyresultater for junior og senior
     public ArrayList<Result> butterFlyResultFilter(ArrayList<Result> juniorOrSeniorList) {
         ArrayList<Result> butterFlyResult = new ArrayList<>();
         for (Result result : juniorOrSeniorList) {
@@ -151,7 +155,6 @@ public class Database {
         return competitionMembers;
     }
 
-
     //Udprint af alle medlemmer
     public void printMemberlist() {
         for (Member member : memberlist) {
@@ -167,7 +170,6 @@ public class Database {
             totalSubscription += member.calculateSubscription();
         }
         return totalSubscription;
-
     }
 
     //Restance liste
@@ -180,38 +182,7 @@ public class Database {
         return restanceList;
     }
 
-
-    public ResultCompareMessage createResult(Member member, SwimmingDiscipline disciplin, double newTime, LocalDate dato) {
-        ResultCompareMessage resultCompareMessage = ResultCompareMessage.NOT_FOUND;
-        Result resultOnFile = null;
-        for (Result result : resultList) {
-            if (member.getMemberID() == result.getMemberID() && disciplin.equals(result.getSwimmingDiscipline())) {
-                if (result.getBestTime() > newTime) {
-                    resultOnFile = result;
-                    resultCompareMessage = ResultCompareMessage.NEW_BEST_RESULT;
-                } else {
-                    resultCompareMessage = ResultCompareMessage.NOT_BEST_RESULT;
-                }
-            }
-        }
-        if(resultOnFile == null){
-            resultList.add(new Result(member.getMemberID(), member.getName(), member.getBirthday(), disciplin, newTime, dato));
-            resultCompareMessage = ResultCompareMessage.FIRST_TIME_RESULT;
-            fh.saveResultatData(resultList, CSVPathResultData);
-        }
-        if (resultCompareMessage.equals(ResultCompareMessage.NEW_BEST_RESULT)) {
-            resultList.add(new Result(member.getMemberID(), member.getName(), member.getBirthday(), disciplin, newTime, dato));
-            resultList.remove(resultOnFile);
-            fh.saveResultatData(resultList, CSVPathResultData);
-        }
-        return resultCompareMessage;
-    }
-
-    public void createCompetitionResult(Member member, SwimmingDiscipline discipline, double newTime, String competitionName, int rank, LocalDate date){
-        resultList.add(new Result(member.getMemberID(), member.getName(), member.getBirthday(), discipline, newTime, competitionName, rank, date));
-        fh.saveResultatData(resultList, CSVPathResultData);
-    }
-
+    //Printer stævneresultat
     public void printCompetitions() {
         for (Result resultsFromList : resultList) {
             if (resultsFromList.getRank() != 0) {
@@ -221,6 +192,7 @@ public class Database {
         }
     }
 
+    //Ændre svømmedisciplin enums fra engelsk til dansk
     public String swimmingdisciplinFormatter(SwimmingDiscipline discipline){
         String disciplinReturn = null;
         switch (discipline) {

@@ -333,7 +333,7 @@ public class UserInterface {
         int count = 1;
         System.out.println("Hvilket medlem vil du registrere et stævne på?");
         for (Member competitionMember : competitionMembers) {
-            System.out.println(count++ + " , ID: " + competitionMember.getMemberID() + " ,Navn: " + competitionMember.getName());
+            System.out.println(count++ + ", ID: " + competitionMember.getMemberID() + ", Navn: " + competitionMember.getName());
         }
         int memberChoice = keyboard.nextInt();
         keyboard.nextLine();
