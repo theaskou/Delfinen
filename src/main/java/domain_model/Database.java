@@ -79,7 +79,8 @@ public class Database {
         fh.saveMemberData(memberlist, CSVPath);
     }
 
-    public ArrayList<Result> junoirTeamFilter() {
+    //Filtrere for om du er junior
+    public ArrayList<Result> juniorTeamFilter() {
         ArrayList<Result> juniorTeam = new ArrayList<>();
         for (Result result : resultList) {
             if (result.getBirthday().isAfter(LocalDate.now().minusYears(18)))

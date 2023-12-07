@@ -61,7 +61,7 @@ public class Controller {
 
     // Filtreret liste, kun med junior resultater
     public ArrayList<Result> juniorTeamFilter() {
-        return db.junoirTeamFilter();
+        return db.juniorTeamFilter();
     }
 
     // Filtreret liste, kun med senior resultater

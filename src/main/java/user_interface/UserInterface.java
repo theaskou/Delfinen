@@ -90,7 +90,6 @@ public class UserInterface {
                         break;
                     default: System.out.println("Forkert input.");
                 }
-
             } while (userChoice != 9);
             goodbyeDolphin();
 
@@ -190,7 +189,6 @@ public class UserInterface {
         LocalDate subscriptionDate = LocalDate.now();
 
         controller.createMember(medlemsID, name, birthday, address, email, isCompetitionMember, isActiveMember,subscriptionDate);
-
     }
 
     public void deleteMember() {
@@ -269,8 +267,6 @@ public class UserInterface {
             case NOT_FOUND -> System.out.println("Hvad skal vi skrive her? test test test");
             case FIRST_TIME_RESULT -> System.out.println("Tiden er indtastet");
         }
-
-
     }
 
     public void editMember(){
@@ -329,7 +325,6 @@ public class UserInterface {
 
             controller.saveMemberData();
             System.out.println(memberToEdit.getName() + " er opdateret");
-
         }
     }
 
@@ -393,7 +388,6 @@ public class UserInterface {
 
         controller.createCompetitionResult(chosenMember, chosenDisciplin, resultat, competitionName, rank, dato);
         System.out.println("Stævnet er registreret!");
-
     }
 
     public void printTop5Results(){
@@ -466,6 +460,9 @@ public class UserInterface {
                     Collections.sort(breaststrokeSeniorResult, new BreaststrokeComparator());
                     uniqueMemberID(breaststrokeSeniorResult);
                     break;
+
+                case 5:
+                    break;
                 default: System.out.println("Forkert input.");
             }
         } while (disciplin != 5);
@@ -494,9 +491,7 @@ public class UserInterface {
             if (count == 5){
                 break;
             }
-
         }
-
     }
 
 
