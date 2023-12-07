@@ -99,7 +99,10 @@ public class Controller {
         db.saveMemberData();
     }
 
-
+// Slet medlemmer
+    public boolean deleteMember(int memberID){
+       return db.deleteMember(memberID);
+    }
 
 
 }

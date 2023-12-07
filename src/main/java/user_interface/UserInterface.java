@@ -49,7 +49,7 @@ public class UserInterface {
                         editMember();
                         break;
                     case 4:
-                        //Slet medlem
+                        deleteMember();
                         break;
                     case 9:
                         System.out.println("Tak for nu!");
@@ -192,6 +192,20 @@ public class UserInterface {
 
         controller.createMember(medlemsID, name, birthday, address, email, isCompetitionMember, isActiveMember,subscriptionDate);
 
+    }
+
+    public void deleteMember() {
+        for (Member member : controller.membersList()) {
+            System.out.println(member.getMemberID() + " " + member.getName());
+        }
+        System.out.println("Hvilket medlem vil du slette? Indtast medlemmets ID (4 cifre): ");
+        int userChoice = intInputHandler();
+        boolean isDeleted = controller.deleteMember(userChoice);
+        if (isDeleted) {
+            System.out.println("Medlem " + userChoice + " er slettet.");
+        } else {
+            System.out.println("Medlemsnummer eksisterer ikke.");
+        }
     }
 
     public void addResult() {
