@@ -98,7 +98,7 @@ public class Result {
     @Override
     public String toString() {
         return name +
-                ", Tid: " + bestTime + "Sekunder" +
+                ", Tid: " + bestTime + " Sekunder" +
                 ", Dato: " + flipDateFormater(date.toString());
     }
 

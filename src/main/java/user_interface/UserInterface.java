@@ -154,7 +154,6 @@ public class UserInterface {
         System.out.println("Indtast email: ");
         String email = keyboard.nextLine();
 
-
         System.out.println("Er vedkommende på konkurrenceholdet? j/n: ");
         boolean isCompetitionMember = true;
         while (true) {
@@ -233,6 +232,7 @@ public class UserInterface {
                 break;
             default: System.out.println("Forkert input.");
         }
+
         System.out.println("Indskriv resultat i sekunder");
         double resultat = keyboard.nextDouble();
         keyboard.nextLine();
