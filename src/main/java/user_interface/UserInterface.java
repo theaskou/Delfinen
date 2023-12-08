@@ -127,11 +127,11 @@ public class UserInterface {
     //Hjælpe metoder under her
     public void createMember() {
 
-        int medlemsID = controller.membersList().size() + 1001;
+        int medlemsID = giveUniqueID(controller.membersList());
 
         System.out.println("Indtast navn: ");
         keyboard.nextLine();
-        String name = keyboard.nextLine();
+        String name = keyboard.nextLine().trim();
 
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         LocalDate birthday = null;
@@ -147,10 +147,18 @@ public class UserInterface {
         }
 
         System.out.println("Indtast adresse: ");
-        String address = keyboard.nextLine();
+        String address = keyboard.nextLine().trim();
 
-        System.out.println("Indtast email: ");
-        String email = keyboard.nextLine();
+        String email;
+        while(true){
+            System.out.println("Indtast email: ");
+            email = keyboard.nextLine();
+            if (email.contains("@")){
+                break;
+            } else {
+                System.out.println("Ugyldig email, indtast igen");
+            }
+        }
 
         System.out.println("Er vedkommende på konkurrenceholdet? j/n: ");
         boolean isCompetitionMember = true;
@@ -492,6 +500,18 @@ public class UserInterface {
                 break;
             }
         }
+    }
+
+    public int giveUniqueID (ArrayList <Member> members) {
+        int uniqueID = 1000;
+        Set<Integer> uniqueIDs = new HashSet<>();
+        for (Member member : members) {
+            uniqueID = member.getMemberID();
+            if (uniqueIDs.add(uniqueID++)) {
+                //uniqueID++;
+            }
+        }
+        return uniqueID;
     }
 
 
